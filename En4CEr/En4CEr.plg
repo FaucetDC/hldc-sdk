@@ -1,0 +1,44 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: En4CEr - Win32 (WCE SH4) Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP55AB.tmp" with contents
+[
+/nologo /MC /W3 /Zi /Od /D _WIN32_WCE=212 /D "Dreamcast" /D "DEBUG" /D "SHx" /D "SH4" /D "_SH4_" /D UNDER_CE=212 /D "UNICODE" /D "_MBCS" /D "_UNICODE" /Fp"WCESH4Dbg/En4CEr.pch" /YX /Fo"WCESH4Dbg/" /Fd"WCESH4Dbg/" /Qsh4r7 /Qs /Qfast /c 
+"C:\hldc-sdk\En4CEr\CeApiSpy.cpp"
+]
+Creating command line "shcl.exe @C:\Users\Dan\AppData\Local\Temp\RSP55AB.tmp" 
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP55BC.tmp" with contents
+[
+coredll.lib /nologo /entry:"WinMainCRTStartup" /base:"0x00010000" /align:"4096" /incremental:yes /pdb:"WCESH4Dbg/En4CEr.pdb" /debug /machine:SH4 /nodefaultlib:"libc.lib /nodefaultlib:libcd.lib /nodefaultlib:libcmt.lib /nodefaultlib:libcmtd.lib /nodefaultlib:msvcrt.lib /nodefaultlib:msvcrtd.lib" /out:"WCESH4Dbg/En4CEr.exe" /subsystem:windowsce,2.12 /STACK:65536,4096 
+".\WCESH4Dbg\CeApiSpy.obj"
+".\WCESH4Dbg\HTrace.obj"
+".\WCESH4Dbg\Interceptors.obj"
+".\WCESH4Dbg\SpyEngine.obj"
+".\WCESH4Dbg\TrcView.obj"
+]
+Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP55BC.tmp"
+<h3>Output Window</h3>
+Compiling...
+CeApiSpy.cpp
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(160) : error C2065: 'GetSaveFileName' : undeclared identifier
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(230) : error C2065: 'GetSubMenu' : undeclared identifier
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(230) : error C2440: '=' : cannot convert from 'int' to 'void *'
+        Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(244) : error C2065: 'CheckMenuItem' : undeclared identifier
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(244) : error C2065: 'MF_BYCOMMAND' : undeclared identifier
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(246) : error C2065: 'MF_CHECKED' : undeclared identifier
+C:\hldc-sdk\En4CEr\CeApiSpy.cpp(246) : error C2065: 'MF_UNCHECKED' : undeclared identifier
+Error executing shcl.exe.
+
+
+
+<h3>Results</h3>
+En4CEr.exe - 7 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

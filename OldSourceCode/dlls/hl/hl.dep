@@ -1,0 +1,2179 @@
+# Microsoft Developer Studio Generated Dependency File, included by hl.mak
+
+..\aflock.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	
+
+..\agrunt.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\hornet.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\airtank.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\animating.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\animation.cpp : \
+	"..\..\engine\studio.h"\
+	"..\..\utils\common\mathlib.h"\
+	"..\activity.h"\
+	"..\activitymap.h"\
+	"..\animation.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\enginecallback.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\scriptevent.h"\
+	
+
+..\apache.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\barnacle.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\barney.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\defaultai.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\talkmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\bigmomma.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\bloater.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\bmodels.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\doors.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\bullsquid.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\buttons.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\doors.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\cbase.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\client.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\game.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\client.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\client.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\soundent.h"\
+	"..\spectator.h"\
+	"..\vector.h"\
+	
+
+..\combat.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\func_break.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\controller.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\crossbow.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\crowbar.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\defaultai.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\defaultai.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\doors.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\doors.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\effects.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\customentity.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\func_break.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\shake.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\egon.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\customentity.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\explode.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\explode.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\flyingmonster.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\flyingmonster.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\func_break.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\explode.h"\
+	"..\extdll.h"\
+	"..\func_break.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\func_tank.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\explode.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\game.cpp : \
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\game.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\vector.h"\
+	
+
+..\gamerules.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\teamplay_gamerules.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\gargantua.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\customentity.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\explode.h"\
+	"..\extdll.h"\
+	"..\func_break.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\gauss.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\shake.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\genericmonster.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\ggrenade.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\globals.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\glock.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\gman.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\h_ai.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\h_battery.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\h_cine.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\h_cycler.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\h_export.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\handgrenade.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\hassassin.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\headcrab.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\healthkit.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\items.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\hgrunt.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\customentity.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\plane.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\squadmonster.h"\
+	"..\talkmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\hornet.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\hornet.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\hornetgun.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\hornet.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\houndeye.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	
+
+..\ichthyosaur.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\flyingmonster.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\islave.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\items.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\items.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\leech.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\lights.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\maprules.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\maprules.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\monstermaker.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\monsters.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\monsterstate.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\mortar.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\mp5.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\multiplay_gamerules.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\game.h"\
+	"..\gamerules.h"\
+	"..\items.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\nihilanth.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\nodes.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\doors.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\osprey.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\customentity.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\pathcorner.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\trains.h"\
+	"..\vector.h"\
+	
+
+..\plane.cpp : \
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\plane.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\vector.h"\
+	
+
+..\plats.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\trains.h"\
+	"..\vector.h"\
+	
+
+..\player.cpp : \
+	"..\..\engine\shake.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\trains.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\python.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\rat.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\roach.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\rpg.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\satchel.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\schedule.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\defaultai.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\scientist.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\defaultai.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\talkmonster.h"\
+	"..\vector.h"\
+	
+
+..\scripted.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\defaultai.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\shotgun.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\singleplay_gamerules.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\items.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\skill.cpp : \
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\sound.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\talkmonster.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\soundent.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	
+
+..\spectator.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\spectator.h"\
+	"..\vector.h"\
+	
+
+..\squadmonster.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\plane.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\squadmonster.h"\
+	"..\vector.h"\
+	
+
+..\squeakgrenade.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\subs.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\doors.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\nodes.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\talkmonster.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\defaultai.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\scripted.h"\
+	"..\scriptevent.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\talkmonster.h"\
+	"..\vector.h"\
+	
+
+..\teamplay_gamerules.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\game.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\teamplay_gamerules.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\tempmonster.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	
+
+..\tentacle.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\triggers.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\trains.h"\
+	"..\vector.h"\
+	
+
+..\tripmine.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\turret.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\util.cpp : \
+	"..\..\engine\shake.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\weapons.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\world.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\client.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\decals.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\gamerules.h"\
+	"..\monsterevent.h"\
+	"..\nodes.h"\
+	"..\player.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\soundent.h"\
+	"..\teamplay_gamerules.h"\
+	"..\vector.h"\
+	"..\weapons.h"\
+	
+
+..\xen.cpp : \
+	"..\animation.h"\
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\effects.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\vector.h"\
+	
+
+..\zombie.cpp : \
+	"..\basemonster.h"\
+	"..\cbase.h"\
+	"..\cdll_dll.h"\
+	"..\const.h"\
+	"..\crc.h"\
+	"..\custom.h"\
+	"..\cvardef.h"\
+	"..\eiface.h"\
+	"..\extdll.h"\
+	"..\monsterevent.h"\
+	"..\monsters.h"\
+	"..\progdefs.h"\
+	"..\progs.h"\
+	"..\saverestore.h"\
+	"..\schedule.h"\
+	"..\skill.h"\
+	"..\vector.h"\
+	

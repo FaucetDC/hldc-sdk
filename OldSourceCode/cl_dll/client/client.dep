@@ -1,0 +1,253 @@
+# Microsoft Developer Studio Generated Dependency File, included by client.mak
+
+..\ammo.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\ammohistory.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\ammo_secondary.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\ammohistory.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\ammohistory.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\battery.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\cdll_int.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\util_vector.h"\
+	
+
+..\death.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\flashlight.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\geiger.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\health.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\hud.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\hud_msg.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\hud_redraw.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\util_vector.h"\
+	
+
+..\hud_update.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\util_vector.h"\
+	
+
+..\menu.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\message.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\MOTD.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\saytext.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\scoreboard.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\stricmp_ce.h"\
+	"..\util_vector.h"\
+	
+
+..\status_icons.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\statusbar.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\text_message.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\train.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\parsemsg.h"\
+	"..\util_vector.h"\
+	
+
+..\util.cpp : \
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\util_vector.h"\
+	

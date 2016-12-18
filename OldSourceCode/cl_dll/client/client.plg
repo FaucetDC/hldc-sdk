@@ -1,0 +1,48 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: client - Win32 (WCE SH4) Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP5A91.tmp" with contents
+[
+coredll.lib /nologo /entry:"_DllMainCRTStartup" /base:"0x10000000" /align:"4096" /dll /incremental:no /pdb:"WCESH4Rel/client.pdb" /machine:SH4 /nodefaultlib:"libc.lib /nodefaultlib:libcd.lib /nodefaultlib:libcmt.lib /nodefaultlib:libcmtd.lib /nodefaultlib:msvcrt.lib /nodefaultlib:msvcrtd.lib" /out:"WCESH4Rel/client.dll" /implib:"WCESH4Rel/client.lib" /subsystem:windowsce,2.12 /STACK:65536,4096 
+".\WCESH4Rel\ammo.obj"
+".\WCESH4Rel\ammo_secondary.obj"
+".\WCESH4Rel\ammohistory.obj"
+".\WCESH4Rel\battery.obj"
+".\WCESH4Rel\cdll_int.obj"
+".\WCESH4Rel\death.obj"
+".\WCESH4Rel\flashlight.obj"
+".\WCESH4Rel\geiger.obj"
+".\WCESH4Rel\health.obj"
+".\WCESH4Rel\hud.obj"
+".\WCESH4Rel\hud_msg.obj"
+".\WCESH4Rel\hud_redraw.obj"
+".\WCESH4Rel\hud_update.obj"
+".\WCESH4Rel\menu.obj"
+".\WCESH4Rel\message.obj"
+".\WCESH4Rel\MOTD.obj"
+".\WCESH4Rel\parsemsg.obj"
+".\WCESH4Rel\saytext.obj"
+".\WCESH4Rel\scoreboard.obj"
+".\WCESH4Rel\status_icons.obj"
+".\WCESH4Rel\statusbar.obj"
+".\WCESH4Rel\text_message.obj"
+".\WCESH4Rel\train.obj"
+".\WCESH4Rel\util.obj"
+]
+Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP5A91.tmp"
+<h3>Output Window</h3>
+Linking...
+   Creating library WCESH4Rel/client.lib and object WCESH4Rel/client.exp
+
+
+
+<h3>Results</h3>
+client.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

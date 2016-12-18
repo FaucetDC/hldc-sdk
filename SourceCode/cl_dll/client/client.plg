@@ -1,0 +1,106 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: client - Win32 (WCE SH4) Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP8570.tmp" with contents
+[
+/nologo /MC /W3 /Zi /Od /D _WIN32_WCE=212 /D "Dreamcast" /D "DEBUG" /D "SHx" /D "SH4" /D "_SH4_" /D UNDER_CE=212 /D "UNICODE" /D "_MBCS" /D "_USRDLL" /D "_UNICODE" /Fp"WCESH4Dbg/client.pch" /YX /Fo"WCESH4Dbg/" /Fd"WCESH4Dbg/" /Qsh4r7 /Qs /Qfast /c 
+"C:\hldc-sdk\SourceCode\cl_dll\geiger.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hud_servers.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp"
+"C:\hldc-sdk\SourceCode\pm_shared\pm_math.c"
+]
+Creating command line "shcl.exe @C:\Users\Dan\AppData\Local\Temp\RSP8570.tmp" 
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP8581.tmp" with contents
+[
+coredll.lib /nologo /entry:"_DllMainCRTStartup" /base:"0x10000000" /align:"4096" /dll /incremental:yes /pdb:"WCESH4Dbg/client.pdb" /debug /machine:SH4 /nodefaultlib:"libc.lib /nodefaultlib:libcd.lib /nodefaultlib:libcmt.lib /nodefaultlib:libcmtd.lib /nodefaultlib:msvcrt.lib /nodefaultlib:msvcrtd.lib" /out:"WCESH4Dbg/client.dll" /implib:"WCESH4Dbg/client.lib" /subsystem:windowsce,2.12 /STACK:65536,4096 
+".\WCESH4Dbg\ammo.obj"
+".\WCESH4Dbg\ammo_secondary.obj"
+".\WCESH4Dbg\ammohistory.obj"
+".\WCESH4Dbg\battery.obj"
+".\WCESH4Dbg\cdll_int.obj"
+".\WCESH4Dbg\com_weapons.obj"
+".\WCESH4Dbg\death.obj"
+".\WCESH4Dbg\demo.obj"
+".\WCESH4Dbg\entity.obj"
+".\WCESH4Dbg\ev_common.obj"
+".\WCESH4Dbg\ev_hldm.obj"
+".\WCESH4Dbg\events.obj"
+".\WCESH4Dbg\flashlight.obj"
+".\WCESH4Dbg\geiger.obj"
+".\WCESH4Dbg\health.obj"
+".\WCESH4Dbg\hud.obj"
+".\WCESH4Dbg\hud_msg.obj"
+".\WCESH4Dbg\hud_redraw.obj"
+".\WCESH4Dbg\hud_servers.obj"
+".\WCESH4Dbg\hud_update.obj"
+".\WCESH4Dbg\in_camera.obj"
+".\WCESH4Dbg\input.obj"
+".\WCESH4Dbg\inputw32.obj"
+".\WCESH4Dbg\menu.obj"
+".\WCESH4Dbg\message.obj"
+".\WCESH4Dbg\parsemsg.obj"
+".\WCESH4Dbg\pm_debug.obj"
+".\WCESH4Dbg\pm_math.obj"
+".\WCESH4Dbg\pm_shared.obj"
+".\WCESH4Dbg\saytext.obj"
+".\WCESH4Dbg\status_icons.obj"
+".\WCESH4Dbg\statusbar.obj"
+".\WCESH4Dbg\text_message.obj"
+".\WCESH4Dbg\train.obj"
+".\WCESH4Dbg\tri.obj"
+".\WCESH4Dbg\util.obj"
+".\WCESH4Dbg\vgui_ClassMenu.obj"
+".\WCESH4Dbg\vgui_ConsolePanel.obj"
+".\WCESH4Dbg\vgui_ControlConfigPanel.obj"
+".\WCESH4Dbg\vgui_CustomObjects.obj"
+".\WCESH4Dbg\vgui_int.obj"
+".\WCESH4Dbg\vgui_MOTDWindow.obj"
+".\WCESH4Dbg\vgui_SchemeManager.obj"
+".\WCESH4Dbg\vgui_ScorePanel.obj"
+".\WCESH4Dbg\vgui_ServerBrowser.obj"
+".\WCESH4Dbg\vgui_TeamFortressViewport.obj"
+".\WCESH4Dbg\vgui_teammenu.obj"
+".\WCESH4Dbg\view.obj"
+]
+Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP8581.tmp"
+<h3>Output Window</h3>
+Compiling...
+geiger.cpp
+C:\hldc-sdk\SourceCode\cl_dll\geiger.cpp(239) : error C2065: 'Lsz' : undeclared identifier
+hud_servers.cpp
+C:\WCEDreamcast\inc\winsock.h(786) : error C2061: syntax error : identifier 'LPVOID'
+inputw32.cpp
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(94) : error C2065: 'JOY_RETURNX' : undeclared identifier
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(95) : error C2065: 'JOY_RETURNY' : undeclared identifier
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(96) : error C2065: 'JOY_RETURNZ' : undeclared identifier
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(97) : error C2065: 'JOY_RETURNR' : undeclared identifier
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(98) : error C2065: 'JOY_RETURNU' : undeclared identifier
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(100) : error C2065: 'JOY_RETURNV' : undeclared identifier
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(138) : error C2146: syntax error : missing ';' before identifier 'ji'
+C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(138) : fatal error C1004: unexpected end of file found
+pm_math.c
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(175) : warning C4028: formal parameter 2 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(183) : warning C4028: formal parameter 1 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(183) : warning C4028: formal parameter 2 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(194) : warning C4028: formal parameter 1 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(194) : warning C4028: formal parameter 2 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(194) : warning C4028: formal parameter 3 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(228) : warning C4028: formal parameter 1 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(228) : warning C4028: formal parameter 2 different from declaration
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(275) : error C2059: syntax error : 'string'
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(276) : error C2449: found '{' at file scope (missing function header?)
+C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(280) : error C2059: syntax error : '}'
+Error executing shcl.exe.
+
+
+
+<h3>Results</h3>
+client.dll - 13 error(s), 8 warning(s)
+</pre>
+</body>
+</html>
