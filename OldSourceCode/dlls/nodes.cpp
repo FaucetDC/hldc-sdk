@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1999, 2000 Valve LLC. All rights reserved.
+*	Copyright (c) 1999, Valve LLC. All rights reserved.
 *	
 *	This product contains software technology licensed from Id 
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -23,7 +23,7 @@
 #include	"nodes.h"
 #include	"animation.h"
 #include	"doors.h"
-#include	"helper.h"
+#include	 "helper.h"
 
 #define	HULL_STEP_SIZE 16// how far the test hull moves on each step
 #define	NODE_HEIGHT	8	// how high to lift nodes off the ground after we drop them all (make stair/ramp mapping easier)
@@ -1849,169 +1849,7 @@ void CQueuePriority::Heap_SiftUp(void)
 //=========================================================
 int CGraph :: FLoadGraph ( char *szMapName )
 {
-	char	szFilename[MAX_PATH];
-	int		iVersion;
-	int     length;
-	byte    *aMemFile;
-	byte    *pMemFile;
-
-	// make sure the directories have been made
-	char	szDirName[MAX_PATH];
-	GET_GAME_DIR( szDirName );
-	strcat( szDirName, "/maps" );
-	strcat( szDirName, "/graphs" );
-
-	strcpy ( szFilename, "maps/graphs/" );
-	strcat ( szFilename, szMapName );
-	strcat( szFilename, ".nod" );
-
-	pMemFile = aMemFile = LOAD_FILE_FOR_ME(szFilename, &length);
-
-	if ( !aMemFile )
-	{
-		return FALSE;
-	}
-	else
-	{
-		// Read the graph version number
-		//
-		length -= sizeof(int);
-		if (length < 0) goto ShortFile;
-		memcpy(&iVersion, pMemFile, sizeof(int));
-		pMemFile += sizeof(int);
-
-		if ( iVersion != GRAPH_VERSION )
-		{
-			// This file was written by a different build of the dll!
-			//
-			ALERT ( at_aiconsole, "**ERROR** Graph version is %d, expected %d\n",iVersion, GRAPH_VERSION );
-			goto ShortFile;
-		}
-
-		// Read the graph class
-		//
-		length -= sizeof(CGraph);
-		if (length < 0) goto ShortFile;
-		memcpy(this, pMemFile, sizeof(CGraph));
-		pMemFile += sizeof(CGraph);
-
-		// Set the pointers to zero, just in case we run out of memory.
-		//
-		m_pNodes     = NULL;
-		m_pLinkPool  = NULL;
-		m_di         = NULL;
-		m_pRouteInfo = NULL;
-		m_pHashLinks = NULL;
-
-
-		// Malloc for the nodes
-		//
-		m_pNodes = ( CNode * )calloc ( sizeof ( CNode ), m_cNodes );
-
-		if ( !m_pNodes )
-		{
-			ALERT ( at_aiconsole, "**ERROR**\nCouldn't malloc %d nodes!\n", m_cNodes );
-			goto NoMemory;
-		}
-
-		// Read in all the nodes
-		//
-		length -= sizeof(CNode) * m_cNodes;
-		if (length < 0) goto ShortFile;
-		memcpy(m_pNodes, pMemFile, sizeof(CNode)*m_cNodes);
-		pMemFile += sizeof(CNode) * m_cNodes;
-
-		
-		// Malloc for the link pool
-		//
-		m_pLinkPool = ( CLink * )calloc ( sizeof ( CLink ), m_cLinks );
-
-		if ( !m_pLinkPool )
-		{
-			ALERT ( at_aiconsole, "**ERROR**\nCouldn't malloc %d link!\n", m_cLinks );
-			goto NoMemory;
-		}
-
-		// Read in all the links
-		//
-		length -= sizeof(CLink)*m_cLinks;
-		if (length < 0) goto ShortFile;
-		memcpy(m_pLinkPool, pMemFile, sizeof(CLink)*m_cLinks);
-		pMemFile += sizeof(CLink)*m_cLinks;
-
-		// Malloc for the sorting info.
-		//
-		m_di = (DIST_INFO *)calloc( sizeof(DIST_INFO), m_cNodes );
-		if ( !m_di )
-		{
-			ALERT ( at_aiconsole, "***ERROR**\nCouldn't malloc %d entries sorting nodes!\n", m_cNodes );
-			goto NoMemory;
-		}
-
-		// Read it in.
-		//
-		length -= sizeof(DIST_INFO)*m_cNodes;
-		if (length < 0) goto ShortFile;
-		memcpy(m_di, pMemFile, sizeof(DIST_INFO)*m_cNodes);
-		pMemFile += sizeof(DIST_INFO)*m_cNodes;
-
-		// Malloc for the routing info.
-		//
-		m_fRoutingComplete = FALSE;
-		m_pRouteInfo = (char *)calloc( sizeof(char), m_nRouteInfo );
-		if ( !m_pRouteInfo )
-		{
-			ALERT ( at_aiconsole, "***ERROR**\nCounldn't malloc %d route bytes!\n", m_nRouteInfo );
-			goto NoMemory;
-		}
-		m_CheckedCounter = 0;
-		for (int i = 0; i < m_cNodes; i++)
-		{
-			m_di[i].m_CheckedEvent = 0;
-		}
-		
-		// Read in the route information.
-		//
-		length -= sizeof(char)*m_nRouteInfo;
-		if (length < 0) goto ShortFile;
-		memcpy(m_pRouteInfo, pMemFile, sizeof(char)*m_nRouteInfo);
-		pMemFile += sizeof(char)*m_nRouteInfo;
-		m_fRoutingComplete = TRUE;;
-
-		// malloc for the hash links
-		//
-		m_pHashLinks = (short *)calloc(sizeof(short), m_nHashLinks);
-		if (!m_pHashLinks)
-		{
-			ALERT ( at_aiconsole, "***ERROR**\nCounldn't malloc %d hash link bytes!\n", m_nHashLinks );
-			goto NoMemory;
-		}
-
-		// Read in the hash link information
-		//
-		length -= sizeof(short)*m_nHashLinks;
-		if (length < 0) goto ShortFile;
-		memcpy(m_pHashLinks, pMemFile, sizeof(short)*m_nHashLinks);
-		pMemFile += sizeof(short)*m_nHashLinks;
-
-		// Set the graph present flag, clear the pointers set flag
-		//
-		m_fGraphPresent = TRUE;
-		m_fGraphPointersSet = FALSE;
-		
-		FREE_FILE(aMemFile);
-
-		if (length != 0)
-		{
-			ALERT ( at_aiconsole, "***WARNING***:Node graph was longer than expected by %d bytes.!\n", length);
-		}
-
-		return TRUE;
-	}
-
-ShortFile:
-NoMemory:
-	FREE_FILE(aMemFile);
+	(void *) szMapName;
 	return FALSE;
 }
 

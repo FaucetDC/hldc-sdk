@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1999, 2000 Valve LLC. All rights reserved.
+*	Copyright (c) 1999, Valve LLC. All rights reserved.
 *	
 *	This product contains software technology licensed from Id 
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -187,48 +187,6 @@ int gmsgSayText = 0;
 int gmsgTextMsg = 0;
 int gmsgSetFOV = 0;
 int gmsgShowMenu = 0;
-int gmsgGeigerRange = 0;
-
-void LinkUserMessages( void )
-{
-	// Already taken care of?
-	if ( gmsgSelAmmo )
-	{
-		return;
-	}
-
-	gmsgSelAmmo = REG_USER_MSG("SelAmmo", sizeof(SelAmmo));
-	gmsgCurWeapon = REG_USER_MSG("CurWeapon", 3);
-	gmsgGeigerRange = REG_USER_MSG("Geiger", 1);
-	gmsgFlashlight = REG_USER_MSG("Flashlight", 2);
-	gmsgFlashBattery = REG_USER_MSG("FlashBat", 1);
-	gmsgHealth = REG_USER_MSG( "Health", 1 );
-	gmsgDamage = REG_USER_MSG( "Damage", 12 );
-	gmsgBattery = REG_USER_MSG( "Battery", 2);
-	gmsgTrain = REG_USER_MSG( "Train", 1);
-	gmsgHudText = REG_USER_MSG( "HudText", -1 );
-	gmsgSayText = REG_USER_MSG( "SayText", -1 );
-	gmsgTextMsg = REG_USER_MSG( "TextMsg", -1 );
-	gmsgWeaponList = REG_USER_MSG("WeaponList", -1);
-	gmsgResetHUD = REG_USER_MSG("ResetHUD", 1);		// called every respawn
-	gmsgInitHUD = REG_USER_MSG("InitHUD", 0 );		// called every time a new player joins the server
-	gmsgShowGameTitle = REG_USER_MSG("GameTitle", 1);
-	gmsgDeathMsg = REG_USER_MSG( "DeathMsg", -1 );
-	gmsgScoreInfo = REG_USER_MSG( "ScoreInfo", 5 );
-	gmsgTeamInfo = REG_USER_MSG( "TeamInfo", -1 );  // sets the name of a player's team
-	gmsgTeamScore = REG_USER_MSG( "TeamScore", -1 );  // sets the score of a team on the scoreboard
-	gmsgGameMode = REG_USER_MSG( "GameMode", 1 );
-	gmsgMOTD = REG_USER_MSG( "MOTD", -1 );
-	gmsgAmmoPickup = REG_USER_MSG( "AmmoPickup", 2 );
-	gmsgWeapPickup = REG_USER_MSG( "WeapPickup", 1 );
-	gmsgItemPickup = REG_USER_MSG( "ItemPickup", -1 );
-	gmsgHideWeapon = REG_USER_MSG( "HideWeapon", 1 );
-	gmsgSetFOV = REG_USER_MSG( "SetFOV", 1 );
-	gmsgShowMenu = REG_USER_MSG( "ShowMenu", -1 );
-	gmsgShake = REG_USER_MSG("ScreenShake", sizeof(ScreenShake));
-	gmsgFade = REG_USER_MSG("ScreenFade", sizeof(ScreenFade));
-	gmsgAmmoX = REG_USER_MSG("AmmoX", 2);
-}
 
 LINK_ENTITY_TO_CLASS( player, CBasePlayer );
 
@@ -375,10 +333,7 @@ Vector CBasePlayer :: GetGunPosition( )
 {
 //	UTIL_MakeVectors(pev->v_angle);
 //	m_HackedGunPos = pev->view_ofs;
-	Vector origin;
-	
-	origin = pev->origin + pev->view_ofs;
-	return origin;
+	return pev->origin + pev->view_ofs;
 }
 
 //=========================================================
@@ -865,7 +820,11 @@ void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
 	
 	pev->modelindex = g_ulModelIndexPlayer;    // don't use eyes
 
+#if !defined(DUCKFIX)
+	pev->view_ofs		= Vector(0,0,-8);
+#endif
 	pev->deadflag		= DEAD_DYING;
+	pev->solid			= SOLID_NOT;
 	pev->movetype		= MOVETYPE_TOSS;
 	ClearBits(pev->flags, FL_ONGROUND);
 	if (pev->velocity.z < 10)
@@ -900,8 +859,6 @@ void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
 
 	if ( ( pev->health < -40 && iGib != GIB_NEVER ) || iGib == GIB_ALWAYS )
 	{
-		pev->solid			= SOLID_NOT;
-
 		GibMonster();	// This clears pev->model
 		pev->effects |= EF_NODRAW;
 		return;
@@ -1173,7 +1130,6 @@ void CBasePlayer::WaterMove()
 	{
 		if (FBitSet(pev->flags, FL_INWATER))
 		{       
-#if 0
 			// play leave water sound
 			switch (RANDOM_LONG(0,3))
 			{
@@ -1182,7 +1138,6 @@ void CBasePlayer::WaterMove()
 			case 2: EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade3.wav", 1, ATTN_NORM); break;
 			case 3: EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade4.wav", 1, ATTN_NORM); break;
 			}
-#endif
 
 			ClearBits(pev->flags, FL_INWATER);
 		}
@@ -1216,7 +1171,6 @@ void CBasePlayer::WaterMove()
 	
 	if (!FBitSet(pev->flags, FL_INWATER))
 	{
-#if 0
 		// player enter water sound
 		if (pev->watertype == CONTENT_WATER)
 		{
@@ -1228,7 +1182,6 @@ void CBasePlayer::WaterMove()
 			case 3:	EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade4.wav", 1, ATTN_NORM); break;
 			}
 		}
-#endif
 	
 		SetBits(pev->flags, FL_INWATER);
 		pev->dmgtime = 0;
@@ -1244,6 +1197,42 @@ BOOL CBasePlayer::IsOnLadder( void )
 { 
 	return (pev->movetype == MOVETYPE_FLY);
 }
+
+
+//
+// check for a jump-out-of-water
+//
+void CBasePlayer::CheckWaterJump( )
+{
+	if ( IsOnLadder() )  // Don't water jump if on a ladders?  (This prevents the bug where 
+		return;              //  you bounce off water when you are facing it on a ladder).
+
+	Vector vecStart = pev->origin;
+	vecStart.z += 8; 
+
+	UTIL_MakeVectors(pev->angles);
+	gpGlobals->v_forward.z = 0;
+	gpGlobals->v_forward = gpGlobals->v_forward.Normalize();
+	
+	Vector vecEnd = vecStart + gpGlobals->v_forward * 24;
+	
+	TraceResult tr;
+	UTIL_TraceLine(vecStart, vecEnd, ignore_monsters, ENT(pev)/*pentIgnore*/, &tr);
+	if (tr.flFraction < 1)		// solid at waist
+	{
+		vecStart.z += pev->maxs.z - 8;
+		vecEnd = vecStart + gpGlobals->v_forward * 24;
+		pev->movedir = tr.vecPlaneNormal * -50;
+		UTIL_TraceLine(vecStart, vecEnd, ignore_monsters, ENT(pev)/*pentIgnore*/, &tr);
+		if (tr.flFraction == 1)		// open at eye level
+		{
+			SetBits(pev->flags, FL_WATERJUMP);
+			pev->velocity.z = 225;
+			pev->teleport_time = gpGlobals->time + 2;  // safety net
+		}
+	}
+}
+
 
 void CBasePlayer::PlayerDeathThink(void)
 {
@@ -1272,8 +1261,8 @@ void CBasePlayer::PlayerDeathThink(void)
 	{
 		StudioFrameAdvance( );
 
-		m_iRespawnFrames++;		// Note, these aren't necessarily real "frames", so behavior is dependent on # of client movement commands
-		if ( m_iRespawnFrames < 120 )   // Animations should be no longer than this
+		m_iRespawnFrames++;
+		if ( m_iRespawnFrames < 60 )  // animations should be no longer than this
 			return;
 	}
 
@@ -1285,7 +1274,7 @@ void CBasePlayer::PlayerDeathThink(void)
 	pev->effects |= EF_NOINTERP;
 	pev->framerate = 0.0;
 
-	BOOL fAnyButtonDown = (pev->button & ~IN_SCORE );
+	BOOL fAnyButtonDown = (pev->button);
 	
 	// wait for all buttons released
 	if (pev->deadflag == DEAD_DEAD)
@@ -1501,6 +1490,7 @@ void CBasePlayer::PlayerUse ( void )
 
 void CBasePlayer::Jump()
 {
+	float		flScale;
 	Vector		vecWallCheckDir;// direction we're tracing a line to find a wall when walljumping
 	Vector		vecAdjustedVelocity;
 	Vector		vecSpot;
@@ -1511,6 +1501,27 @@ void CBasePlayer::Jump()
 	
 	if (pev->waterlevel >= 2)
 	{
+		switch ((int)pev->watertype)
+		{
+		case CONTENT_WATER:	flScale = 100;	break;
+		case CONTENT_SLIME:	flScale =  80;	break;
+		default:			flScale =  50;	break;
+		}
+
+		pev->velocity.z = flScale;
+
+		// play swiming sound
+		if (m_flSwimTime < gpGlobals->time)
+		{
+			m_flSwimTime = gpGlobals->time + 1;
+			switch (RANDOM_LONG(0,3))
+			{ 
+			case 0: EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade1.wav", 1, ATTN_NORM); break;
+			case 1: EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade2.wav", 1, ATTN_NORM); break;
+			case 2: EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade3.wav", 1, ATTN_NORM); break;
+			case 3: EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade4.wav", 1, ATTN_NORM); break;
+			}
+		}
 		return;
 	}
 
@@ -1528,22 +1539,49 @@ void CBasePlayer::Jump()
 // many features in this function use v_forward, so makevectors now.
 	UTIL_MakeVectors (pev->angles);
 
+	ClearBits(pev->flags, FL_ONGROUND);		// don't stairwalk
+	
 	SetAnimation( PLAYER_JUMP );
 
+	// play step sound for current texture at full volume
+
+	PlayStepSound(MapTextureTypeStepType(m_chTextureType), 1.0);
+	
 	if ( FBitSet(pev->flags, FL_DUCKING ) || FBitSet(m_afPhysicsFlags, PFLAG_DUCKING) )
 	{
 		if ( m_fLongJump && (pev->button & IN_DUCK) && gpGlobals->time - m_flDuckTime < 1 && pev->velocity.Length() > 50 )
 		{// If jump pressed within a second of duck while moving, long jump!
+//			ALERT ( at_console, "LongJump!" );
+			
+			// play longjump 'servo' sound
+			if ( RANDOM_LONG(0,1) )
+			{
+				; // UNDONE: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/pl_pain2.wav", 1, ATTN_NORM);
+			}
+			else
+			{
+				; // UNDONE: EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/pl_pain4.wav", 1, ATTN_NORM);
+			}
+
+			pev->punchangle.x = -5;
+			pev->velocity = gpGlobals->v_forward * (PLAYER_LONGJUMP_SPEED * 1.6);
+			pev->velocity.z = sqrt( 2 * 800 * 56.0 ); // jump 56 units
 			SetAnimation( PLAYER_SUPERJUMP );
 		}
+		else
+		{// ducking jump
+			pev->velocity.z = sqrt( 2 * 800 * 45.0 ); // jump 45 units
+		}
+	}
+	else
+	{
+		pev->velocity.z = sqrt( 2 * 800 * 45.0 ); // jump 45 units
 	}
 	
 	// If you're standing on a conveyor, add it's velocity to yours (for momentum)
 	entvars_t *pevGround = VARS(pev->groundentity);
 	if ( pevGround && (pevGround->flags & FL_CONVEYOR) )
-	{
 		pev->velocity = pev->velocity + pev->basevelocity;
-	}
 }
 
 
@@ -1566,11 +1604,86 @@ void FixPlayerCrouchStuck( edict_t *pPlayer )
 	}
 }
 
+// It takes 0.4 seconds to duck
+#define TIME_TO_DUCK	0.4
+
+// This is a little more complicated now than it used to be, but I think for the better -
+// The player's origin no longer moves when ducking.  If you start ducking while standing on ground,
+// your view offset is non-linearly blended to the ducking position and then your hull is changed.
+// In air, duck works just like it used to - you pick up your feet (more like tucking).
+// PFLAG_DUCKING was added to track the state where the player is in the process of ducking, but hasn't
+// reached the crouched position yet.
+//
+// A few of nice side effects of this are:
+//	a) On ground status does not change when ducking (good on trains, etc)
+//	b) origin stays constant
+//	c) Superjump can begin while still in run animation (nice when looking at others in multiplayer)
+//
 void CBasePlayer::Duck( )
 {
+	float time, duckFraction;
+
 	if (pev->button & IN_DUCK) 
 	{
+#if !defined(DUCKFIX)
+		if ( (m_afButtonPressed & IN_DUCK) && !(pev->flags & FL_DUCKING) )
+		{
+			m_flDuckTime = gpGlobals->time;
+			SetBits(m_afPhysicsFlags,PFLAG_DUCKING);		// We are in the process of ducking
+		}
+		time = (gpGlobals->time - m_flDuckTime);
+
+		// if we're not already done ducking
+		if ( FBitSet( m_afPhysicsFlags, PFLAG_DUCKING ) )
+		{
+			// Finish ducking immediately if duck time is over or not on ground
+			if ( time >= TIME_TO_DUCK || !(pev->flags & FL_ONGROUND) )
+			{
+				// HACKHACK - Fudge for collision bug - no time to fix this properly
+				if ( pev->flags & FL_ONGROUND )
+				{
+					pev->origin = pev->origin - (VEC_DUCK_HULL_MIN - VEC_HULL_MIN);
+					FixPlayerCrouchStuck( edict() );
+				}
+
+
+				UTIL_SetOrigin( pev, pev->origin );
+
+				UTIL_SetSize(pev, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX);
+				pev->view_ofs = VEC_DUCK_VIEW;
+				SetBits(pev->flags,FL_DUCKING);				// Hull is duck hull
+				ClearBits(m_afPhysicsFlags,PFLAG_DUCKING);	// Done ducking (don't ease-in when the player hits the ground)
+			}
+			else
+			{
+				// Calc parametric time
+				duckFraction = UTIL_SplineFraction( time, (1.0/TIME_TO_DUCK) );
+				pev->view_ofs = ((VEC_DUCK_VIEW - (VEC_DUCK_HULL_MIN - VEC_HULL_MIN)) * duckFraction) + (VEC_VIEW * (1-duckFraction));
+			}
+		}
+#endif
 		SetAnimation( PLAYER_WALK );
+	}
+	else 
+	{
+#if !defined(DUCKFIX)
+		TraceResult trace;
+		Vector newOrigin = pev->origin;
+
+		if ( pev->flags & FL_ONGROUND )
+			newOrigin = newOrigin + (VEC_DUCK_HULL_MIN - VEC_HULL_MIN);
+		
+		UTIL_TraceHull( newOrigin, newOrigin, dont_ignore_monsters, human_hull, ENT(pev), &trace );
+
+		if ( !trace.fStartSolid )
+		{
+			ClearBits(pev->flags,FL_DUCKING);
+			ClearBits(m_afPhysicsFlags,PFLAG_DUCKING);
+			pev->view_ofs = VEC_VIEW;
+			UTIL_SetSize(pev, VEC_HULL_MIN, VEC_HULL_MAX);
+			pev->origin = newOrigin;
+		}
+#endif
 	}
 }
 
@@ -1974,6 +2087,8 @@ void CBasePlayer :: UpdateStepSound( void )
 		// 35% volume if ducking
 		if ( pev->flags & FL_DUCKING )
 			fvol *= 0.35;
+
+		PlayStepSound(step, fvol);
 	}
 }
 
@@ -2015,6 +2130,13 @@ void CBasePlayer::PreThink(void)
 	CheckTimeBasedDamage();
 
 	CheckSuitUpdate();
+
+	if (pev->waterlevel == 2)
+		CheckWaterJump();
+	else if ( pev->waterlevel == 0 )
+	{
+		pev->flags &= ~FL_WATERJUMP;	// Clear this if out of water
+	}
 
 	if (pev->deadflag >= DEAD_DYING)
 	{
@@ -2358,6 +2480,8 @@ Things powered by the battery
 */
 
 // if in range of radiation source, ping geiger counter
+int gmsgGeigerRange;
+
 #define GEIGERDELAY 0.25
 
 void CBasePlayer :: UpdateGeigerCounter( void )
@@ -2697,10 +2821,10 @@ void CBasePlayer :: UpdatePlayerSound ( void )
 void CBasePlayer::PostThink()
 {
 	if ( g_fGameOver )
-		goto pt_end;         // intermission or finale
+		return;         // intermission or finale
 
 	if (!IsAlive())
-		goto pt_end;
+		return;
 
 	// Handle Tank controlling
 	if ( m_pTank != NULL )
@@ -2741,6 +2865,13 @@ void CBasePlayer::PostThink()
 		}
 		else if ( m_flFallVelocity > PLAYER_MAX_SAFE_FALL_SPEED )
 		{// after this point, we start doing damage
+			
+			switch ( RANDOM_LONG(0,1) )
+			{
+			case 0:	EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/pl_fallpain2.wav", 1, ATTN_NORM);
+			case 1:	EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/pl_fallpain3.wav", 1, ATTN_NORM);
+			}
+
 			float flFallDamage = g_pGameRules->FlPlayerFallDamage( this );
 
 			if ( flFallDamage > pev->health )
@@ -2752,7 +2883,6 @@ void CBasePlayer::PostThink()
 			if ( flFallDamage > 0 )
 			{
 				TakeDamage(VARS(eoNullEntity), VARS(eoNullEntity), flFallDamage, DMG_FALL ); 
-				pev->punchangle.x = 0;
 			}
 
 			fvol = 1.0;
@@ -2772,6 +2902,23 @@ void CBasePlayer::PostThink()
 			// get current texture under player right away
 			m_flTimeStepSound = 0;
 			UpdateStepSound();
+			
+			// play step sound for current texture
+			PlayStepSound(MapTextureTypeStepType(m_chTextureType), fvol);
+
+		// knock the screen around a little bit, temporary effect
+			pev->punchangle.x = m_flFallVelocity * 0.018;	// punch x axis
+
+			if ( pev->punchangle.x > 8 )
+			{
+				pev->punchangle.x = 8;
+			}
+
+			if ( RANDOM_LONG(0,1) )
+			{
+				pev->punchangle.z = m_flFallVelocity * 0.009;
+			}
+		
 		}
 
 		if ( IsAlive() )
@@ -2808,45 +2955,6 @@ void CBasePlayer::PostThink()
 
 	// Track button info so we can detect 'pressed' and 'released' buttons next frame
 	m_afButtonLast = pev->button;
-
-pt_end:
-#if defined( CLIENT_WEAPONS )
-		// Decay timers on weapons
-	// go through all of the weapons and make a list of the ones to pack
-	for ( int i = 0 ; i < MAX_ITEM_TYPES ; i++ )
-	{
-		if ( m_rgpPlayerItems[ i ] )
-		{
-			CBasePlayerItem *pPlayerItem = m_rgpPlayerItems[ i ];
-
-			while ( pPlayerItem )
-			{
-				CBasePlayerWeapon *gun;
-
-				gun = (CBasePlayerWeapon *)pPlayerItem->GetWeaponPtr();
-				
-				if ( gun && gun->UseDecrement() )
-				{
-					gun->m_flNextPrimaryAttack		= max( gun->m_flNextPrimaryAttack - gpGlobals->frametime, -1.0 );
-					gun->m_flNextSecondaryAttack	= max( gun->m_flNextSecondaryAttack - gpGlobals->frametime, -0.001 );
-
-					if ( gun->m_flTimeWeaponIdle != 1000 )
-					{
-						gun->m_flTimeWeaponIdle		= max( gun->m_flTimeWeaponIdle - gpGlobals->frametime, -0.001 );
-					}
-				}
-
-				pPlayerItem = pPlayerItem->m_pNext;
-			}
-		}
-	}
-
-	m_flNextAttack -= gpGlobals->frametime;
-	if ( m_flNextAttack < -0.001 )
-		m_flNextAttack = -0.001;
-#else
-	return;
-#endif
 }
 
 
@@ -2988,16 +3096,10 @@ void CBasePlayer::Spawn( void )
 	pev->deadflag		= DEAD_NO;
 	pev->dmg_take		= 0;
 	pev->dmg_save		= 0;
-	pev->friction		= 1.0;
-	pev->gravity		= 1.0;
 	m_bitsHUDDamage		= -1;
 	m_bitsDamageType	= 0;
 	m_afPhysicsFlags	= 0;
 	m_fLongJump			= FALSE;// no longjump module. 
-
-	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
-	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "hl", "1" );
-
 	m_iFOV				= 0;// init field of view.
 	m_iClientFOV		= -1; // make sure fov reset is sent
 
@@ -3011,7 +3113,7 @@ void CBasePlayer::Spawn( void )
 	m_flFieldOfView		= 0.5;// some monsters use this to determine whether or not the player is looking at them.
 
 	m_bloodColor	= BLOOD_COLOR_RED;
-	m_flNextAttack	= UTIL_WeaponTimeBase();
+	m_flNextAttack	= gpGlobals->time;
 	StartSneaking();
 
 	m_iFlashBattery = 99;
@@ -3097,8 +3199,37 @@ void CBasePlayer :: Precache( void )
 
 	m_iTrain = TRAIN_NEW;
 
-	// Make sure any necessary user messages have been registered
-	LinkUserMessages();
+	gmsgSelAmmo = REG_USER_MSG("SelAmmo", sizeof(SelAmmo));
+	gmsgCurWeapon = REG_USER_MSG("CurWeapon", 3);
+	gmsgGeigerRange = REG_USER_MSG("Geiger", 1);
+	gmsgFlashlight = REG_USER_MSG("Flashlight", 2);
+	gmsgFlashBattery = REG_USER_MSG("FlashBat", 1);
+	gmsgHealth = REG_USER_MSG( "Health", 1 );
+	gmsgDamage = REG_USER_MSG( "Damage", 12 );
+	gmsgBattery = REG_USER_MSG( "Battery", 2);
+	gmsgTrain = REG_USER_MSG( "Train", 1);
+	gmsgHudText = REG_USER_MSG( "HudText", -1 );
+	gmsgSayText = REG_USER_MSG( "SayText", -1 );
+	gmsgTextMsg = REG_USER_MSG( "TextMsg", -1 );
+	gmsgWeaponList = REG_USER_MSG("WeaponList", -1);
+	gmsgResetHUD = REG_USER_MSG("ResetHUD", 1);		// called every respawn
+	gmsgInitHUD = REG_USER_MSG("InitHUD", 0 );		// called every time a new player joins the server
+	gmsgShowGameTitle = REG_USER_MSG("GameTitle", 1);
+	gmsgDeathMsg = REG_USER_MSG( "DeathMsg", -1 );
+	gmsgScoreInfo = REG_USER_MSG( "ScoreInfo", 5 );
+	gmsgTeamInfo = REG_USER_MSG( "TeamInfo", -1 );  // sets the name of a player's team
+	gmsgTeamScore = REG_USER_MSG( "TeamScore", -1 );  // sets the score of a team on the scoreboard
+	gmsgGameMode = REG_USER_MSG( "GameMode", 1 );
+	gmsgMOTD = REG_USER_MSG( "MOTD", -1 );
+	gmsgAmmoPickup = REG_USER_MSG( "AmmoPickup", 2 );
+	gmsgWeapPickup = REG_USER_MSG( "WeapPickup", 1 );
+	gmsgItemPickup = REG_USER_MSG( "ItemPickup", -1 );
+	gmsgHideWeapon = REG_USER_MSG( "HideWeapon", 1 );
+	gmsgSetFOV = REG_USER_MSG( "SetFOV", 1 );
+	gmsgShowMenu = REG_USER_MSG( "ShowMenu", -1 );
+	gmsgShake = REG_USER_MSG("ScreenShake", sizeof(ScreenShake));
+	gmsgFade = REG_USER_MSG("ScreenFade", sizeof(ScreenFade));
+	gmsgAmmoX = REG_USER_MSG("AmmoX", 2);
 
 	m_iUpdateTime = 5;  // won't update for 1/2 a second
 
@@ -3156,7 +3287,7 @@ int CBasePlayer::Restore( CRestore &restore )
 	if ( FBitSet(pev->flags, FL_DUCKING) ) 
 	{
 		// Use the crouch HACK
-		// FixPlayerCrouchStuck( edict() );
+		FixPlayerCrouchStuck( edict() );
 		UTIL_SetSize(pev, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX);
 	}
 	else
@@ -3938,11 +4069,7 @@ Called every frame by the player PreThink
 */
 void CBasePlayer::ItemPreFrame()
 {
-#if defined( CLIENT_WEAPONS )
-    if ( m_flNextAttack > 0 )
-#else
     if ( gpGlobals->time < m_flNextAttack )
-#endif
 	{
 		return;
 	}
@@ -3969,14 +4096,8 @@ void CBasePlayer::ItemPostFrame()
 	if ( m_pTank != NULL )
 		return;
 
-#if defined( CLIENT_WEAPONS )
-    if ( m_flNextAttack > 0 )
-#else
     if ( gpGlobals->time < m_flNextAttack )
-#endif
-	{
 		return;
-	}
 
 	ImpulseCommands();
 

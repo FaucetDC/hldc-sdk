@@ -1,6 +1,6 @@
 /***
 *
-*	Copyright (c) 1999, 2000 Valve LLC. All rights reserved.
+*	Copyright (c) 1999, Valve LLC. All rights reserved.
 *	
 *	This product contains software technology licensed from Id 
 *	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
@@ -45,14 +45,12 @@ public:
 	void PrimaryAttack( void );
 	void SecondaryAttack( void );
 	BOOL Deploy( void );
-	void Holster( int skiplocal = 0 );
+	void Holster( void );
 	void Reload( void );
 	void WeaponIdle( void );
 	float m_flSoundDelay;
 
 	BOOL m_fInZoom;// don't save this. 
-private:
-	unsigned short m_usFirePython;
 };
 LINK_ENTITY_TO_CLASS( weapon_python, CPython );
 LINK_ENTITY_TO_CLASS( weapon_357, CPython );
@@ -112,8 +110,6 @@ void CPython::Precache( void )
 	PRECACHE_SOUND ("weapons/357_cock1.wav");
 	PRECACHE_SOUND ("weapons/357_shot1.wav");
 	PRECACHE_SOUND ("weapons/357_shot2.wav");
-
-	m_usFirePython = PRECACHE_EVENT( 1, "events/python.sc" );
 }
 
 BOOL CPython::Deploy( )
@@ -132,7 +128,7 @@ BOOL CPython::Deploy( )
 }
 
 
-void CPython::Holster( int skiplocal /* = 0 */ )
+void CPython::Holster( )
 {
 	m_fInReload = FALSE;// cancel any reload in progress.
 
@@ -141,7 +137,7 @@ void CPython::Holster( int skiplocal /* = 0 */ )
 		SecondaryAttack();
 	}
 
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
+	m_pPlayer->m_flNextAttack = gpGlobals->time + 1.0;
 	m_flTimeWeaponIdle = gpGlobals->time + 10 + RANDOM_FLOAT ( 0, 5 );
 	SendWeaponAnim( PYTHON_HOLSTER );
 }
@@ -183,23 +179,51 @@ void CPython::PrimaryAttack()
 			Reload( );
 		else
 		{
+	//		if (m_iClip == 0)
+			//PlayEmptySound( );
+
 			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
 			m_flNextPrimaryAttack = gpGlobals->time + 0.15;
 		}
 
 		return;
 	}
-
-	PLAYBACK_EVENT( 0, m_pPlayer->edict(), m_usFirePython );
-
+/*
+	if (m_iClip <= 0)
+	{
+		Reload( );
+		if (m_iClip == 0)
+			PlayEmptySound( );
+		return;
+	}
+*/
 	m_pPlayer->m_iWeaponVolume = LOUD_GUN_VOLUME;
 	m_pPlayer->m_iWeaponFlash = BRIGHT_GUN_FLASH;
 
 	m_iClip--;
 
-	// player "shoot" animation
-	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
+/*
+	if (m_iClip || m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] == 0)
+*/
+		SendWeaponAnim( PYTHON_FIRE1 );
+
+		// player "shoot" animation
+		m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
+/*
+	else
+		Reload( );
+*/
 	m_pPlayer->pev->effects = (int)(m_pPlayer->pev->effects) | EF_MUZZLEFLASH;
+
+	switch(RANDOM_LONG(0,1))
+	{
+	case 0:
+		EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_shot1.wav", RANDOM_FLOAT(0.8, 0.9), ATTN_NORM);
+		break;
+	case 1:
+		EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_shot2.wav", RANDOM_FLOAT(0.8, 0.9), ATTN_NORM);
+		break;
+	}
 
 	UTIL_MakeVectors( m_pPlayer->pev->v_angle + m_pPlayer->pev->punchangle );
 
@@ -213,6 +237,8 @@ void CPython::PrimaryAttack()
 
 	m_flNextPrimaryAttack = gpGlobals->time + 0.75;
 	m_flTimeWeaponIdle = gpGlobals->time + RANDOM_FLOAT ( 10, 15 );
+
+	m_pPlayer->pev->punchangle.x -= 10;
 }
 
 
@@ -242,6 +268,15 @@ void CPython::WeaponIdle( void )
 	{
 		EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_reload1.wav", RANDOM_FLOAT(0.8, 0.9), ATTN_NORM);
 		m_flSoundDelay = 0;
+
+		/*
+		for (int i = 0; i < 6; i++)
+		{
+			EjectBrass ( m_pPlayer->pev->origin, 
+						Vector( RANDOM_FLOAT( -10.0, 10.0 ), RANDOM_FLOAT( -10.0, 10.0 ), (float)0.0 ), 
+						m_pPlayer->pev->angles.y, TE_BOUNCE_SHELL); 
+		}
+		*/
 	}
 
 	if (m_flTimeWeaponIdle > gpGlobals->time)
