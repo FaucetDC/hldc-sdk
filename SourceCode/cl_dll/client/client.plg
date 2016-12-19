@@ -6,16 +6,64 @@
 --------------------Configuration: client - Win32 (WCE SH4) Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP8570.tmp" with contents
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP5B90.tmp" with contents
 [
 /nologo /MC /W3 /Zi /Od /D _WIN32_WCE=212 /D "Dreamcast" /D "DEBUG" /D "SHx" /D "SH4" /D "_SH4_" /D UNDER_CE=212 /D "UNICODE" /D "_MBCS" /D "_USRDLL" /D "_UNICODE" /Fp"WCESH4Dbg/client.pch" /YX /Fo"WCESH4Dbg/" /Fd"WCESH4Dbg/" /Qsh4r7 /Qs /Qfast /c 
+"C:\hldc-sdk\SourceCode\cl_dll\ammo.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\ammo_secondary.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\ammohistory.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\battery.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\cdll_int.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\com_weapons.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\death.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\demo.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\entity.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\ev_common.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\events.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\flashlight.cpp"
 "C:\hldc-sdk\SourceCode\cl_dll\geiger.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\health.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hud.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hud_msg.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hud_redraw.cpp"
 "C:\hldc-sdk\SourceCode\cl_dll\hud_servers.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hud_update.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\input.cpp"
 "C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\menu.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\message.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\parsemsg.cpp"
+"C:\hldc-sdk\SourceCode\pm_shared\pm_debug.c"
 "C:\hldc-sdk\SourceCode\pm_shared\pm_math.c"
+"C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c"
+"C:\hldc-sdk\SourceCode\cl_dll\saytext.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\status_icons.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\statusbar.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\text_message.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\train.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\tri.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\util.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_ClassMenu.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_ConsolePanel.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_ControlConfigPanel.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_CustomObjects.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_int.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_MOTDWindow.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_SchemeManager.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_ScorePanel.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_ServerBrowser.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_TeamFortressViewport.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\vgui_teammenu.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\view.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hl\hl_baseentity.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hl\hl_events.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hl\hl_objects.cpp"
 ]
-Creating command line "shcl.exe @C:\Users\Dan\AppData\Local\Temp\RSP8570.tmp" 
-Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP8581.tmp" with contents
+Creating command line "shcl.exe @C:\Users\Dan\AppData\Local\Temp\RSP5B90.tmp" 
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP5BB1.tmp" with contents
 [
 coredll.lib /nologo /entry:"_DllMainCRTStartup" /base:"0x10000000" /align:"4096" /dll /incremental:yes /pdb:"WCESH4Dbg/client.pdb" /debug /machine:SH4 /nodefaultlib:"libc.lib /nodefaultlib:libcd.lib /nodefaultlib:libcmt.lib /nodefaultlib:libcmtd.lib /nodefaultlib:msvcrt.lib /nodefaultlib:msvcrtd.lib" /out:"WCESH4Dbg/client.dll" /implib:"WCESH4Dbg/client.lib" /subsystem:windowsce,2.12 /STACK:65536,4096 
 ".\WCESH4Dbg\ammo.obj"
@@ -66,14 +114,125 @@ coredll.lib /nologo /entry:"_DllMainCRTStartup" /base:"0x10000000" /align:"4096"
 ".\WCESH4Dbg\vgui_TeamFortressViewport.obj"
 ".\WCESH4Dbg\vgui_teammenu.obj"
 ".\WCESH4Dbg\view.obj"
+".\WCESH4Dbg\hl_weapons.obj"
+".\WCESH4Dbg\hl_baseentity.obj"
+".\WCESH4Dbg\hl_events.obj"
+".\WCESH4Dbg\hl_objects.obj"
 ]
-Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP8581.tmp"
+Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP5BB1.tmp"
 <h3>Output Window</h3>
 Compiling...
+ammo.cpp
+C:\hldc-sdk\SourceCode\cl_dll\ammo.cpp(867) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+ammo_secondary.cpp
+C:\hldc-sdk\SourceCode\cl_dll\ammo_secondary.cpp(66) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+ammohistory.cpp
+battery.cpp
+C:\hldc-sdk\SourceCode\cl_dll\battery.cpp(84) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\battery.cpp(97) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+cdll_int.cpp
+com_weapons.cpp
+C:\hldc-sdk\SourceCode\cl_dll\com_weapons.cpp(259) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+death.cpp
+demo.cpp
+entity.cpp
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(563) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(577) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(578) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(580) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(629) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(631) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(638) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(641) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(659) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(668) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(668) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(669) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(669) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(696) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(790) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(791) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\entity.cpp(845) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+ev_common.cpp
+ev_hldm.cpp
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(375) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(842) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(842) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(919) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(925) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(934) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(934) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(934) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(940) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(940) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(957) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1006) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1014) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1021) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1021) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1046) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1081) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\ev_hldm.cpp(1083) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+events.cpp
+flashlight.cpp
+C:\hldc-sdk\SourceCode\cl_dll\flashlight.cpp(80) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\flashlight.cpp(92) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\flashlight.cpp(113) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\flashlight.cpp(137) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
 geiger.cpp
 C:\hldc-sdk\SourceCode\cl_dll\geiger.cpp(239) : error C2065: 'Lsz' : undeclared identifier
+health.cpp
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(188) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(272) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(278) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(284) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(290) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(307) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(310) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(313) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(324) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(327) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(338) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(341) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(352) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(355) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(380) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(380) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\health.cpp(380) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+hud.cpp
+hud_msg.cpp
+C:\hldc-sdk\SourceCode\cl_dll\hud_msg.cpp(85) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hud_msg.cpp(85) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+hud_redraw.cpp
+C:\hldc-sdk\SourceCode\cl_dll\hud_redraw.cpp(95) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hud_redraw.cpp(115) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
 hud_servers.cpp
 C:\WCEDreamcast\inc\winsock.h(786) : error C2061: syntax error : identifier 'LPVOID'
+hud_update.cpp
+in_camera.cpp
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(91) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(94) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(96) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(101) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(102) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(108) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(109) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(118) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(203) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(216) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(233) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(244) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(271) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(273) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(276) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(278) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(282) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(283) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(293) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(373) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\in_camera.cpp(376) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+input.cpp
+C:\hldc-sdk\SourceCode\cl_dll\input.cpp(647) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
 inputw32.cpp
 C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(94) : error C2065: 'JOY_RETURNX' : undeclared identifier
 C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(95) : error C2065: 'JOY_RETURNY' : undeclared identifier
@@ -83,6 +242,26 @@ C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(98) : error C2065: 'JOY_RETURNU' : un
 C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(100) : error C2065: 'JOY_RETURNV' : undeclared identifier
 C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(138) : error C2146: syntax error : missing ';' before identifier 'ji'
 C:\hldc-sdk\SourceCode\cl_dll\inputw32.cpp(138) : fatal error C1004: unexpected end of file found
+menu.cpp
+message.cpp
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(99) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(118) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(123) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(179) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(179) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(179) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(179) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(213) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(213) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\message.cpp(362) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+parsemsg.cpp
+C:\hldc-sdk\SourceCode\cl_dll\parsemsg.cpp(154) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\parsemsg.cpp(159) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\parsemsg.cpp(164) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+pm_debug.c
+C:\hldc-sdk\SourceCode\pm_shared\pm_debug.c(164) : warning C4013: 'AngleVectorsTranspose' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_debug.c(277) : warning C4013: 'AngleVectors' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_debug.c(281) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
 pm_math.c
 C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(175) : warning C4028: formal parameter 2 different from declaration
 C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(183) : warning C4028: formal parameter 1 different from declaration
@@ -95,12 +274,176 @@ C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(228) : warning C4028: formal paramete
 C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(275) : error C2059: syntax error : 'string'
 C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(276) : error C2449: found '{' at file scope (missing function header?)
 C:\hldc-sdk\SourceCode\pm_shared\pm_math.c(280) : error C2059: syntax error : '}'
+pm_shared.c
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(176) : warning C4013: 'stricmp' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(214) : warning C4013: 'isspace' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(221) : warning C4013: 'isalpha' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(270) : warning C4013: 'strnicmp' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(310) : warning C4013: 'Length' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(675) : warning C4013: 'IS_NAN' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1084) : warning C4013: 'VectorClear' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1760) : warning C4013: 'AngleVectors' undefined; assuming extern returning int
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(539) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(549) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(550) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(623) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(734) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(734) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(756) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(777) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(863) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(901) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(907) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1159) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1232) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1347) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1475) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1476) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1495) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1525) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1567) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1686) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1874) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1995) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1996) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(1997) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2008) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2008) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2008) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2008) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2008) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2014) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2014) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2104) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2104) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2104) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2120) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2291) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2362) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2371) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2395) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2395) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2395) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2395) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2395) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2395) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2557) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2617) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2617) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2629) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2629) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2636) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2692) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2703) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2794) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2794) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2795) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2817) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2823) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(2925) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3006) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3006) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3006) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3188) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3188) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3197) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3197) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3206) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3206) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3215) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3215) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3217) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3217) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3219) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3219) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3248) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\pm_shared\pm_shared.c(3272) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+saytext.cpp
+status_icons.cpp
+statusbar.cpp
+text_message.cpp
+train.cpp
+tri.cpp
+util.cpp
+C:\hldc-sdk\SourceCode\cl_dll\util.cpp(64) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\util.cpp(64) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\util.cpp(69) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\util.cpp(69) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+vgui_ClassMenu.cpp
+vgui_ConsolePanel.cpp
+vgui_ControlConfigPanel.cpp
+vgui_CustomObjects.cpp
+vgui_int.cpp
+vgui_MOTDWindow.cpp
+vgui_SchemeManager.cpp
+vgui_ScorePanel.cpp
+vgui_ServerBrowser.cpp
+vgui_TeamFortressViewport.cpp
+C:\hldc-sdk\SourceCode\cl_dll\vgui_TeamFortressViewport.cpp(612) : warning C4531: C++ exception handling not available on Windows CE. Use Structured Exception Handling
+C:\hldc-sdk\SourceCode\cl_dll\vgui_TeamFortressViewport.cpp(1168) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\vgui_TeamFortressViewport.cpp(1751) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+vgui_teammenu.cpp
+view.cpp
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(94) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(96) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(98) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(100) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(171) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(175) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(175) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(175) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(184) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(184) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(343) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(347) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(523) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(538) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(552) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(558) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(563) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(583) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(584) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(585) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(697) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(702) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(704) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(727) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(769) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(787) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(801) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(810) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(813) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(903) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(903) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\view.cpp(904) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+hl_weapons.cpp
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(260) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(275) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(285) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(306) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(741) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(742) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(743) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(744) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(745) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(749) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(750) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(754) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(759) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(764) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(769) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(774) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(781) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+C:\hldc-sdk\SourceCode\cl_dll\hl\hl_weapons.cpp(782) : warning CBE4717: Double constant found when Qfast specified - use 'f' as a suffix to indicate single precision
+hl_baseentity.cpp
+hl_events.cpp
+hl_objects.cpp
 Error executing shcl.exe.
 
 
 
 <h3>Results</h3>
-client.dll - 13 error(s), 8 warning(s)
+client.dll - 13 error(s), 251 warning(s)
 </pre>
 </body>
 </html>

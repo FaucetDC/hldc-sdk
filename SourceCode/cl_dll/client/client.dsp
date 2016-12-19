@@ -505,6 +505,121 @@ DEP_CPP_HEALT=\
 # End Source File
 # Begin Source File
 
+SOURCE=..\hl\hl_baseentity.cpp
+DEP_CPP_HL_BA=\
+	{$(INCLUDE)}"basemonster.h"\
+	{$(INCLUDE)}"cbase.h"\
+	{$(INCLUDE)}"cdll_dll.h"\
+	{$(INCLUDE)}"const.h"\
+	{$(INCLUDE)}"crc.h"\
+	{$(INCLUDE)}"custom.h"\
+	{$(INCLUDE)}"cvardef.h"\
+	{$(INCLUDE)}"edict.h"\
+	{$(INCLUDE)}"eiface.h"\
+	{$(INCLUDE)}"extdll.h"\
+	{$(INCLUDE)}"in_buttons.h"\
+	{$(INCLUDE)}"monsterevent.h"\
+	{$(INCLUDE)}"nodes.h"\
+	{$(INCLUDE)}"player.h"\
+	{$(INCLUDE)}"progdefs.h"\
+	{$(INCLUDE)}"saverestore.h"\
+	{$(INCLUDE)}"schedule.h"\
+	{$(INCLUDE)}"vector.h"\
+	{$(INCLUDE)}"weapons.h"\
+	
+NODEP_CPP_HL_BA=\
+	"..\..\..\..\WCEDreamcast\common\crc.h"\
+	
+# End Source File
+# Begin Source File
+
+SOURCE=..\hl\hl_events.cpp
+DEP_CPP_HL_EV=\
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\cl_util.h"\
+	"..\cvardef.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\util_vector.h"\
+	"..\wrect.h"\
+	{$(INCLUDE)}"event_api.h"\
+	{$(INCLUDE)}"in_buttons.h"\
+	
+# End Source File
+# Begin Source File
+
+SOURCE=..\hl\hl_objects.cpp
+DEP_CPP_HL_OB=\
+	"..\..\dlls\cdll_dll.h"\
+	"..\..\engine\cdll_int.h"\
+	"..\ammo.h"\
+	"..\cl_dll.h"\
+	"..\cl_util.h"\
+	"..\cvardef.h"\
+	"..\demo.h"\
+	"..\health.h"\
+	"..\hud.h"\
+	"..\util_vector.h"\
+	"..\wrect.h"\
+	{$(INCLUDE)}"in_buttons.h"\
+	
+# End Source File
+# Begin Source File
+
+SOURCE=..\hl\hl_weapons.cpp
+DEP_CPP_HL_WE=\
+	"..\..\engine\cdll_int.h"\
+	"..\com_weapons.h"\
+	"..\demo.h"\
+	"..\hud_iface.h"\
+	"..\wrect.h"\
+	{$(INCLUDE)}"basemonster.h"\
+	{$(INCLUDE)}"beamdef.h"\
+	{$(INCLUDE)}"cbase.h"\
+	{$(INCLUDE)}"cdll_dll.h"\
+	{$(INCLUDE)}"cl_entity.h"\
+	{$(INCLUDE)}"const.h"\
+	{$(INCLUDE)}"crc.h"\
+	{$(INCLUDE)}"custom.h"\
+	{$(INCLUDE)}"cvardef.h"\
+	{$(INCLUDE)}"demo_api.h"\
+	{$(INCLUDE)}"dlight.h"\
+	{$(INCLUDE)}"edict.h"\
+	{$(INCLUDE)}"eiface.h"\
+	{$(INCLUDE)}"entity_state.h"\
+	{$(INCLUDE)}"event_api.h"\
+	{$(INCLUDE)}"event_args.h"\
+	{$(INCLUDE)}"event_flags.h"\
+	{$(INCLUDE)}"extdll.h"\
+	{$(INCLUDE)}"in_buttons.h"\
+	{$(INCLUDE)}"monsterevent.h"\
+	{$(INCLUDE)}"monsters.h"\
+	{$(INCLUDE)}"nodes.h"\
+	{$(INCLUDE)}"particledef.h"\
+	{$(INCLUDE)}"player.h"\
+	{$(INCLUDE)}"pm_defs.h"\
+	{$(INCLUDE)}"pm_info.h"\
+	{$(INCLUDE)}"pmtrace.h"\
+	{$(INCLUDE)}"progdefs.h"\
+	{$(INCLUDE)}"progs.h"\
+	{$(INCLUDE)}"r_efx.h"\
+	{$(INCLUDE)}"saverestore.h"\
+	{$(INCLUDE)}"schedule.h"\
+	{$(INCLUDE)}"skill.h"\
+	{$(INCLUDE)}"usercmd.h"\
+	{$(INCLUDE)}"vector.h"\
+	{$(INCLUDE)}"weaponinfo.h"\
+	{$(INCLUDE)}"weapons.h"\
+	
+NODEP_CPP_HL_WE=\
+	"..\..\..\..\WCEDreamcast\common\crc.h"\
+	
+# End Source File
+# Begin Source File
+
 SOURCE=..\hud.cpp
 DEP_CPP_HUD_C=\
 	"..\..\dlls\cdll_dll.h"\
@@ -840,6 +955,18 @@ SOURCE=..\parsemsg.cpp
 # Begin Source File
 
 SOURCE=..\..\pm_shared\pm_debug.c
+DEP_CPP_PM_DE=\
+	"..\..\pm_shared\mathlib.h"\
+	"..\..\pm_shared\pm_debug.h"\
+	"..\..\pm_shared\pm_defs.h"\
+	"..\..\pm_shared\pm_info.h"\
+	"..\..\pm_shared\pm_movevars.h"\
+	"..\..\pm_shared\pm_shared.h"\
+	{$(INCLUDE)}"const.h"\
+	{$(INCLUDE)}"in_buttons.h"\
+	{$(INCLUDE)}"pmtrace.h"\
+	{$(INCLUDE)}"usercmd.h"\
+	
 # End Source File
 # Begin Source File
 
@@ -853,6 +980,18 @@ DEP_CPP_PM_MA=\
 # Begin Source File
 
 SOURCE=..\..\pm_shared\pm_shared.c
+DEP_CPP_PM_SH=\
+	"..\..\pm_shared\mathlib.h"\
+	"..\..\pm_shared\pm_debug.h"\
+	"..\..\pm_shared\pm_defs.h"\
+	"..\..\pm_shared\pm_info.h"\
+	"..\..\pm_shared\pm_movevars.h"\
+	"..\..\pm_shared\pm_shared.h"\
+	{$(INCLUDE)}"const.h"\
+	{$(INCLUDE)}"in_buttons.h"\
+	{$(INCLUDE)}"pmtrace.h"\
+	{$(INCLUDE)}"usercmd.h"\
+	
 # End Source File
 # Begin Source File
 
