@@ -9,3 +9,14 @@ Added all files
 Updated OldSourceCode\dlls with working compile ready source code
 
 Added changelog.txt
+
+--------
+
+12/19/16
+
+Added 4 missing files to the sourcecode\cl_dll\client\client.dsw
+sourcecode\cl_dll\hl\hl_baseentity.cpp
+sourcecode\cl_dll\hl\hl_events.cpp
+sourcecode\cl_dll\hl\hl_objects.cpp
+sourcecode\cl_dll\hl\hl_weapons.cpp
+All compiled fine without modification, but you have to copy the "sourcecode\common" folder to the directory underneath WCE Dreamcast SDK include directory (C:\WCEDreamcast\common)
