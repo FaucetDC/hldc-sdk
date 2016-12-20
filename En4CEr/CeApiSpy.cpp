@@ -9,7 +9,7 @@ Purpose: Contains CE Api Spy GUI implementation
 ********************************************************************/
 
 #include <windows.h>
-#include <Commdlg.h>
+#include <211\Commdlg.h>
 #include <winuser.h>
 #ifdef POCKET_PC
 #include <Aygshell.h>

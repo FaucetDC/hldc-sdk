@@ -20,3 +20,10 @@ sourcecode\cl_dll\hl\hl_events.cpp
 sourcecode\cl_dll\hl\hl_objects.cpp
 sourcecode\cl_dll\hl\hl_weapons.cpp
 All compiled fine without modification, but you have to copy the "sourcecode\common" folder to the directory underneath WCE Dreamcast SDK include directory (C:\WCEDreamcast\common)
+
+
+--------
+
+12/20/16
+
+Added commdlg.h to En4CEr\inc. Only takes care of one error. Compiler complains about a missing header in an #if statement, might not be needed
