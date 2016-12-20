@@ -31,3 +31,5 @@ Added commdlg.h to En4CEr\inc. Only takes care of one error. Compiler complains 
 Added 'misc' folder
 
 Added misc example code for DLL injection using WCE
+
+Removed all source code files pertaining to VGUI in client.dsw
