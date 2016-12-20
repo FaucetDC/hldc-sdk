@@ -6,163 +6,103 @@
 --------------------Configuration: cl_dll - Win32 Debug--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP5705.tmp" with contents
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP4A54.tmp" with contents
 [
 /nologo /G5 /MTd /W3 /Gm /GX /ZI /Od /I "..\utils\vgui\include" /I "..\engine" /I "..\common" /I "..\pm_shared" /I "..\dlls" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR".\Debug/" /Fp".\Debug/cl_dll.pch" /YX /Fo".\Debug/" /Fd".\Debug/" /FD /c 
-"C:\hldc_dlls\new\cl_dll\ev_hldm.cpp"
-"C:\hldc_dlls\new\cl_dll\hl\hl_baseentity.cpp"
-"C:\hldc_dlls\new\cl_dll\hl\hl_events.cpp"
-"C:\hldc_dlls\new\cl_dll\hl\hl_objects.cpp"
-"C:\hldc_dlls\new\cl_dll\hl\hl_weapons.cpp"
-"C:\hldc_dlls\new\dlls\wpn_shared\hl_wpn_glock.cpp"
-"C:\hldc_dlls\new\cl_dll\ammo.cpp"
-"C:\hldc_dlls\new\cl_dll\ammo_secondary.cpp"
-"C:\hldc_dlls\new\cl_dll\ammohistory.cpp"
-"C:\hldc_dlls\new\cl_dll\battery.cpp"
-"C:\hldc_dlls\new\cl_dll\cdll_int.cpp"
-"C:\hldc_dlls\new\cl_dll\com_weapons.cpp"
-"C:\hldc_dlls\new\cl_dll\death.cpp"
-"C:\hldc_dlls\new\cl_dll\demo.cpp"
-"C:\hldc_dlls\new\cl_dll\entity.cpp"
-"C:\hldc_dlls\new\cl_dll\ev_common.cpp"
-"C:\hldc_dlls\new\cl_dll\events.cpp"
-"C:\hldc_dlls\new\cl_dll\flashlight.cpp"
-"C:\hldc_dlls\new\cl_dll\geiger.cpp"
-"C:\hldc_dlls\new\cl_dll\health.cpp"
-"C:\hldc_dlls\new\cl_dll\hud.cpp"
-"C:\hldc_dlls\new\cl_dll\hud_msg.cpp"
-"C:\hldc_dlls\new\cl_dll\hud_redraw.cpp"
-"C:\hldc_dlls\new\cl_dll\hud_servers.cpp"
-"C:\hldc_dlls\new\cl_dll\hud_update.cpp"
-"C:\hldc_dlls\new\cl_dll\in_camera.cpp"
-"C:\hldc_dlls\new\cl_dll\input.cpp"
-"C:\hldc_dlls\new\cl_dll\inputw32.cpp"
-"C:\hldc_dlls\new\cl_dll\menu.cpp"
-"C:\hldc_dlls\new\cl_dll\message.cpp"
-"C:\hldc_dlls\new\cl_dll\parsemsg.cpp"
-"C:\hldc_dlls\new\pm_shared\pm_debug.c"
-"C:\hldc_dlls\new\pm_shared\pm_math.c"
-"C:\hldc_dlls\new\pm_shared\pm_shared.c"
-"C:\hldc_dlls\new\cl_dll\saytext.cpp"
-"C:\hldc_dlls\new\cl_dll\status_icons.cpp"
-"C:\hldc_dlls\new\cl_dll\statusbar.cpp"
-"C:\hldc_dlls\new\cl_dll\text_message.cpp"
-"C:\hldc_dlls\new\cl_dll\train.cpp"
-"C:\hldc_dlls\new\cl_dll\tri.cpp"
-"C:\hldc_dlls\new\cl_dll\util.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_ClassMenu.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_ConsolePanel.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_ControlConfigPanel.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_CustomObjects.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_int.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_MOTDWindow.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_SchemeManager.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_ScorePanel.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_ServerBrowser.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_TeamFortressViewport.cpp"
-"C:\hldc_dlls\new\cl_dll\vgui_teammenu.cpp"
-"C:\hldc_dlls\new\cl_dll\view.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\geiger.cpp"
+"C:\hldc-sdk\SourceCode\cl_dll\hud_servers.cpp"
+"C:\hldc-sdk\SourceCode\pm_shared\pm_math.c"
 ]
-Creating command line "cl.exe @C:\Users\Dan\AppData\Local\Temp\RSP5705.tmp" 
-Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP5715.tmp" with contents
+Creating command line "cl.exe @C:\Users\Dan\AppData\Local\Temp\RSP4A54.tmp" 
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP4A64.tmp" with contents
 [
 oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib winmm.lib ../utils/vgui/lib/win32_vc6/vgui.lib wsock32.lib /nologo /subsystem:windows /dll /incremental:yes /pdb:".\Debug/client.pdb" /debug /machine:I386 /out:".\Debug\client.dll" /implib:".\Debug/client.lib" 
-.\Debug\ev_hldm.obj
-.\Debug\hl_baseentity.obj
-.\Debug\hl_events.obj
-.\Debug\hl_objects.obj
-.\Debug\hl_weapons.obj
-.\Debug\hl_wpn_glock.obj
-.\Debug\ammo.obj
-.\Debug\ammo_secondary.obj
-.\Debug\ammohistory.obj
-.\Debug\battery.obj
-.\Debug\cdll_int.obj
-.\Debug\com_weapons.obj
-.\Debug\death.obj
-.\Debug\demo.obj
-.\Debug\entity.obj
-.\Debug\ev_common.obj
-.\Debug\events.obj
-.\Debug\flashlight.obj
-.\Debug\geiger.obj
-.\Debug\health.obj
-.\Debug\hud.obj
-.\Debug\hud_msg.obj
-.\Debug\hud_redraw.obj
-.\Debug\hud_servers.obj
-.\Debug\hud_update.obj
-.\Debug\in_camera.obj
-.\Debug\input.obj
-.\Debug\inputw32.obj
-.\Debug\menu.obj
-.\Debug\message.obj
-.\Debug\parsemsg.obj
-.\Debug\pm_debug.obj
-.\Debug\pm_math.obj
-.\Debug\pm_shared.obj
-.\Debug\saytext.obj
-.\Debug\status_icons.obj
-.\Debug\statusbar.obj
-.\Debug\text_message.obj
-.\Debug\train.obj
-.\Debug\tri.obj
-.\Debug\util.obj
-.\Debug\vgui_ClassMenu.obj
-.\Debug\vgui_ConsolePanel.obj
-.\Debug\vgui_ControlConfigPanel.obj
-.\Debug\vgui_CustomObjects.obj
-.\Debug\vgui_int.obj
-.\Debug\vgui_MOTDWindow.obj
-.\Debug\vgui_SchemeManager.obj
-.\Debug\vgui_ScorePanel.obj
-.\Debug\vgui_ServerBrowser.obj
-.\Debug\vgui_TeamFortressViewport.obj
-.\Debug\vgui_teammenu.obj
-.\Debug\view.obj
+".\Debug\ev_hldm.obj"
+".\Debug\hl_baseentity.obj"
+".\Debug\hl_events.obj"
+".\Debug\hl_objects.obj"
+".\Debug\hl_weapons.obj"
+".\Debug\hl_wpn_glock.obj"
+".\Debug\ammo.obj"
+".\Debug\ammo_secondary.obj"
+".\Debug\ammohistory.obj"
+".\Debug\battery.obj"
+".\Debug\cdll_int.obj"
+".\Debug\com_weapons.obj"
+".\Debug\death.obj"
+".\Debug\demo.obj"
+".\Debug\entity.obj"
+".\Debug\ev_common.obj"
+".\Debug\events.obj"
+".\Debug\flashlight.obj"
+".\Debug\geiger.obj"
+".\Debug\health.obj"
+".\Debug\hud.obj"
+".\Debug\hud_msg.obj"
+".\Debug\hud_redraw.obj"
+".\Debug\hud_servers.obj"
+".\Debug\hud_update.obj"
+".\Debug\in_camera.obj"
+".\Debug\input.obj"
+".\Debug\inputw32.obj"
+".\Debug\menu.obj"
+".\Debug\message.obj"
+".\Debug\parsemsg.obj"
+".\Debug\pm_debug.obj"
+".\Debug\pm_math.obj"
+".\Debug\pm_shared.obj"
+".\Debug\saytext.obj"
+".\Debug\status_icons.obj"
+".\Debug\statusbar.obj"
+".\Debug\text_message.obj"
+".\Debug\train.obj"
+".\Debug\tri.obj"
+".\Debug\util.obj"
+".\Debug\view.obj"
 ]
-Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP5715.tmp"
-Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP5716.bat" with contents
+Creating command line "link.exe @C:\Users\Dan\AppData\Local\Temp\RSP4A64.tmp"
+Creating temporary file "C:\Users\Dan\AppData\Local\Temp\RSP4A65.bat" with contents
 [
 @echo off
 copy .\Debug\client.dll \half-life\mp\cl_dlls
 ]
-Creating command line "C:\Users\Dan\AppData\Local\Temp\RSP5716.bat"
+Creating command line "C:\Users\Dan\AppData\Local\Temp\RSP4A65.bat"
 Compiling...
-ev_hldm.cpp
-hl_baseentity.cpp
-hl_events.cpp
-hl_objects.cpp
-hl_weapons.cpp
-hl_wpn_glock.cpp
-ammo.cpp
-ammo_secondary.cpp
-ammohistory.cpp
-battery.cpp
-cdll_int.cpp
-com_weapons.cpp
-death.cpp
-demo.cpp
-entity.cpp
-ev_common.cpp
-events.cpp
-flashlight.cpp
 geiger.cpp
-C:\hldc_dlls\new\cl_dll\geiger.cpp(26) : fatal error C1083: Cannot open include file: 'time_ce.h': No such file or directory
-health.cpp
-hud.cpp
-hud_msg.cpp
-hud_redraw.cpp
+c:\hldc-sdk\sourcecode\cl_dll\geiger.cpp(26) : fatal error C1083: Cannot open include file: 'time_ce.h': No such file or directory
 hud_servers.cpp
 c:\program files\microsoft visual studio\vc98\include\string.h(164) : error C2732: linkage specification contradicts earlier specification for 'stricmp'
         c:\program files\microsoft visual studio\vc98\include\string.h(164) : see declaration of 'stricmp'
+c:\program files\microsoft visual studio\vc98\include\ctype.h(107) : error C2732: linkage specification contradicts earlier specification for 'isalpha'
+        c:\program files\microsoft visual studio\vc98\include\ctype.h(107) : see declaration of 'isalpha'
+c:\program files\microsoft visual studio\vc98\include\ctype.h(110) : error C2732: linkage specification contradicts earlier specification for 'isdigit'
+        c:\program files\microsoft visual studio\vc98\include\ctype.h(110) : see declaration of 'isdigit'
 c:\program files\microsoft visual studio\vc98\include\ctype.h(112) : error C2732: linkage specification contradicts earlier specification for 'isspace'
         c:\program files\microsoft visual studio\vc98\include\ctype.h(112) : see declaration of 'isspace'
-hud_update.cpp
-in_camera.cpp
-input.cpp
-cl.exe terminated at user request.
+c:\program files\microsoft visual studio\vc98\include\ctype.h(114) : error C2732: linkage specification contradicts earlier specification for 'isalnum'
+        c:\program files\microsoft visual studio\vc98\include\ctype.h(114) : see declaration of 'isalnum'
+c:\program files\microsoft visual studio\vc98\include\ctype.h(115) : error C2732: linkage specification contradicts earlier specification for 'isprint'
+        c:\program files\microsoft visual studio\vc98\include\ctype.h(115) : see declaration of 'isprint'
+pm_math.c
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(175) : warning C4028: formal parameter 2 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(183) : warning C4028: formal parameter 1 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(183) : warning C4028: formal parameter 2 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(194) : warning C4028: formal parameter 1 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(194) : warning C4028: formal parameter 2 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(194) : warning C4028: formal parameter 3 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(228) : warning C4028: formal parameter 1 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(228) : warning C4028: formal parameter 2 different from declaration
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(275) : error C2059: syntax error : 'string'
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(276) : error C2449: found '{' at file scope (missing function header?)
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(280) : error C2059: syntax error : '}'
+c:\hldc-sdk\sourcecode\pm_shared\pm_math.c(344) : warning C4013: 'printf' undefined; assuming extern returning int
+Error executing cl.exe.
+<h3>Output Window</h3>
 
+
+
+<h3>Results</h3>
+client.dll - 10 error(s), 9 warning(s)
 </pre>
 </body>
 </html>

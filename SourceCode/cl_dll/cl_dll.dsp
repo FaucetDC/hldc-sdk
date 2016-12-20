@@ -25,6 +25,7 @@ CFG=cl_dll - Win32 Release
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName ""$/GoldSrc/cl_dll", HGEBAAAA"
 # PROP Scc_LocalPath "."
+# PROP WCE_FormatVersion ""
 CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
