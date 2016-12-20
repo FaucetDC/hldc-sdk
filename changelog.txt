@@ -27,3 +27,7 @@ All compiled fine without modification, but you have to copy the "sourcecode\com
 12/20/16
 
 Added commdlg.h to En4CEr\inc. Only takes care of one error. Compiler complains about a missing header in an #if statement, might not be needed
+
+Added 'misc' folder
+
+Added misc example code for DLL injection using WCE
