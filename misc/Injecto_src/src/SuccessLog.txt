@@ -1,0 +1,248 @@
+
+************************
+DLL_PROCESS_ATTACH
+Hooking...
+	socket() -> OK
+	send() -> OK
+	recv() ->OK
+	listen() -> OK
+	accept() -> OK
+	bind() -> OK
+	closesocket() -> OK
+	connect() -> OK
+WSAGetLastError() ->error
+
+DLL_THREAD_ATTACH
+socket(af=AF_INET, type=SOCK_STREAM, protocol=0) - ret=(SOCKET)164 //New socket descriptor
+bind(SOCKET=164, sockaddr=8dfc44) - ret=0
+listen(SOCKET=164, backlog=5) - ret=0
+DLL_THREAD_ATTACH
+socket(af=AF_INET, type=SOCK_STREAM, protocol=0) - ret=(SOCKET)256 //New socket descriptor
+connect(SOCKET=256, sockaddr=8df40c) - ret=-1send(SOCKET=256, size=15) - ret=15 
+{NICK CrankHank
+}
+send(SOCKET=256, size=42) - ret=42 
+{USER CrankHank "" "irc.inet.tele.dk" :ask
+}
+recv(SOCKET=256, size=998) - ret=46(bytes recv'ed) 
+{NOTICE AUTH :*** Looking up your hostname...
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=82(bytes recv'ed) 
+{NOTICE AUTH :*** Checking Ident
+NOTICE AUTH :*** Couldn't look up your hostname
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+accept(SOCKET=164) - ret=(SOCKET)260//New socket descriptor
+recv(SOCKET=260, size=259) - ret=13(bytes recv'ed) 
+{1231 , 6667
+}
+send(SOCKET=260, size=34) - ret=34 
+{1231, 6667 : USERID : UNIX : ask
+}
+closesocket(SOCKET=164) - ret=0
+closesocket(SOCKET=260) - ret=0
+recv(SOCKET=256, size=998) - ret=37(bytes recv'ed) 
+{NOTICE AUTH :*** Got Ident response
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=998(bytes recv'ed) 
+{:irc.inet.tele.dk 001 CrankHank :Welcome to the Internet Relay Network CrankHank
+:irc.inet.tele.dk 002 CrankHank :Your host is irc.inet.tele.dk[irc.inet.tele.dk/6667], running version 2.8/hybrid-6.3.1
+NOTICE CrankHank :*** Your host is irc.inet.tele.dk[irc.inet.tele.dk/6667], running version 2.8/hybrid-6.3.1
+:irc.inet.tele.dk 003 CrankHank :This server was created Sun Aug 18 2002 at 21:26:43 CEST
+:irc.inet.tele.dk 004 CrankHank irc.inet.tele.dk 2.8/hybrid-6.3.1 oOiwszcrkfydnxb biklmnopstve
+:irc.inet.tele.dk 005 CrankHank WALLCHOPS PREFIX=(ov)@+ CHANTYPES=#& MAXCHANNELS=20 MAXBANS=25 NICKLEN=9 TOPICLEN=120 KICKLEN=90 NETWORK=EFnet CHANMODES=be,k,l,imnpst EXCEPTS KNOCK MODES=4 :are supported by this server
+:irc.inet.tele.dk 251 CrankHank :There are 6007 users and 93836 invisible on 54 servers
+:irc.inet.tele.dk 252 CrankHank 364 :IRC Operators online
+:irc.inet.tele.dk 254 CrankHank 39506 :channels formed
+:irc.inet.tele.dk 255 CrankHank :I have 7991 clients and 1 servers
+:irc.i}
+send(SOCKET=256, size=19) - ret=19 
+{USERHOST CrankHank
+}
+recv(SOCKET=256, size=998) - ret=998(bytes recv'ed) 
+{net.tele.dk 265 CrankHank :Current local  users: 7991  Max: 11132
+:irc.inet.tele.dk 266 CrankHank :Current global users: 99843  Max: 114765
+:irc.inet.tele.dk 250 CrankHank :Highest connection count: 11133 (11132 clients) (1843210 since server was (re)started)
+:irc.inet.tele.dk 375 CrankHank :- irc.inet.tele.dk Message of the Day - 
+:irc.inet.tele.dk 372 CrankHank :-    __      .___       .__        __                              __   
+:irc.inet.tele.dk 372 CrankHank :-  _/  |_  __| _/____   |__| _____/  |_  ___________  ____   _____/  |_ 
+:irc.inet.tele.dk 372 CrankHank :-  \   __\/ __ |/ ___\  |  |/    \   __\/ __ \_  __ \/    \_/ __ \   __\
+:irc.inet.tele.dk 372 CrankHank :-   |  | / /_/ \  \___  |  |   |  \  | \  ___/|  | \/   |  \  ___/|  |  
+:irc.inet.tele.dk 372 CrankHank :-   |__| \____ |\___  > |__|___|  /__|  \___  >__|  |___|  /\___  >__|  
+:irc.inet.tele.dk 372 CrankHank :-             \/    \/          \/          \/           \/     \/  
+:irc.inet.tele.dk 372 }
+recv(SOCKET=256, size=998) - ret=998(bytes recv'ed) 
+{CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-                  Welcome to TDC Internet A/S IRC server
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  Location: Aarhus, Denmark (56 11 N  10 11 E)
+:irc.inet.tele.dk 372 CrankHank :-  Operated by: TDC Internet, http://www.opasia.dk - http://www.zillion.dk.
+:irc.inet.tele.dk 372 CrankHank :-  Operating since: 17 Jan 2002.
+:irc.inet.tele.dk 372 CrankHank :-  Ports: 6661-6669.
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  Rules on this server:
+:irc.inet.tele.dk 372 CrankHank :-  - No bots (but if it's quiet and we don't know it's a bot we don't care)
+:irc.inet.tele.dk 372 CrankHank :-  - No a}
+recv(SOCKET=256, size=998) - ret=998(bytes recv'ed) 
+{buse (clones, flooding, spam and mass advertising) 
+:irc.inet.tele.dk 372 CrankHank :-  - No begging for O-lines - we have enough opers.
+:irc.inet.tele.dk 372 CrankHank :-  - Sorry, but you cannot join any channels on split.
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  You can contact our oper team:
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  - Sonny T. Larsen 'STL' (Server admin)
+:irc.inet.tele.dk 372 CrankHank :-  - Jan Chrillesen 'Chrille' (Server admin)
+:irc.inet.tele.dk 372 CrankHank :-  - Anders Hardangen 'Hardy'
+:irc.inet.tele.dk 372 CrankHank :-  - Jaded
+:irc.inet.tele.dk 372 CrankHank :-  - sprite-dk
+:irc.inet.tele.dk 372 CrankHank :-  - Alex Short 'MrDev'
+:irc.inet.tele.dk 372 CrankHank :-  - Patrik Hildingsson 'KurD'
+:irc.inet.tele.dk 372 CrankHank :-  - Denis My}
+recv(SOCKET=256, size=998) - ret=832(bytes recv'ed) 
+{senko 'duster'
+:irc.inet.tele.dk 372 CrankHank :-  
+:irc.inet.tele.dk 372 CrankHank :-  Try `/stats p irc.inet.tele.dk' to find an active oper
+:irc.inet.tele.dk 372 CrankHank :-  (TeleOPM and TeleMon are bots - not real opers)
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:irc.inet.tele.dk 372 CrankHank :-  
+:irc.inet.tele.dk 372 CrankHank :-  Contacts:
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  - Send questions regarding server to efnet-opers@tdk.net.
+:irc.inet.tele.dk 372 CrankHank :-  - Abuse reports to: abuse@eris.dk.
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-   ATTENTION:
+:irc.inet.tele.dk 372 CrankHank :-   proxy-scanner.eris.dk is not trying to hack}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=430(bytes recv'ed) 
+{ you! On join we connect to
+:irc.inet.tele.dk 372 CrankHank :-   port 23, 80, 1080, 3128 and 8080 to scan for open proxies and wingates
+:irc.inet.tele.dk 372 CrankHank :- 
+:irc.inet.tele.dk 372 CrankHank :-  :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+:irc.inet.tele.dk 376 CrankHank :End of /MOTD command.
+:CrankHank MODE CrankHank :+i
+:DkChk!sprite@sprite.eris.dk PRIVMSG CrankHank :VERSION
+}
+send(SOCKET=256, size=53) - ret=53 
+{NOTICE DkChk :VERSION mIRC v6.01 Khaled Mardam-Bey
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=63(bytes recv'ed) 
+{:irc.inet.tele.dk 302 CrankHank :CrankHank=+ask@212.77.210.9 
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+send(SOCKET=256, size=10) - ret=10 
+{JOIN #c++
+}
+recv(SOCKET=256, size=998) - ret=998(bytes recv'ed) 
+{:CrankHank!ask@212.77.210.9 JOIN :#c++
+:irc.inet.tele.dk 332 CrankHank #c++ :#C++ webpage at http://www.rafb.net/efnet_cpp/ -- Paste here: http://www.rafb.net/efnet_cpp/paste/
+:irc.inet.tele.dk 333 CrankHank #c++ CalcMe 1038852046
+:irc.inet.tele.dk 353 CrankHank @ #c++ :CrankHank meeep Gabriel2k Gimp|work Flygel_ JR Coldcut Rud0lf dsadsa roded anli bloodwulf Aeplus @Stingray_ harry`` soundream Jyunsei Jonnings SeskaPeel Gloomer Cyrix-- kawfee PirotLord lilsynth logiclrd ngn|night ^Mihcs^ strdup TripH Gollum` illologyy [ryan]SLP r3lic76 MindChild Oax stevieo WaltEvilD trb121 tallBalla YoMismo GU014 cybier foxdeman loxs tinghich wawb heuwitt Kniht Roark` Kilroy @Soronel maligned johnx @[eloi] zartik owm ohwhyme Videoman ThaDragon 
+:irc.inet.tele.dk 353 CrankHank @ #c++ :SpaceRain Nyhoff nXr dwango spec aceth k1net1k` Roark_ Omnic0n slex Krientle citruz valacar dualpent2 KnightOwl dasOp Lazz ^cell^ plexs Caqula ChrisD khaladan _YAku Sir_pig dps devil666 BKL Setzer Raider mEAt matts }
+send(SOCKET=256, size=10) - ret=10 
+{MODE #c++
+}
+recv(SOCKET=256, size=998) - ret=26(bytes recv'ed) 
+{exo Yachtsman skylan Davec}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=536(bytes recv'ed) 
+{x netra _Stingray DuneSkool snekk @morfic War2 umlaut zuez xTenSic ToXiC- sofam charlieC doWHOISme rolo |Rayden| mEAt_ trentrez aunden enky cchen Cpkxm detour puddl svn`quadd smiloid xd tarsin Spec-Chum Apoztle Kae larne 
+:irc.inet.tele.dk 353 CrankHank @ #c++ :lmov @Asha`man Palatine leeor skept @Swish |Epitaph| rp Raphael^^ cb1 deeno_ many ht7z SpiXe badonaway Justice- _Codex moname HMetal Sylvan kanin ken-ni iNMazer ava iamcbs Van^ Jezral w00tz` zewL Tre razka Mr-Frisky @CalcMe @Mind2 Urgo daysleper drlion daggerr blitch wirsc}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=214(bytes recv'ed) 
+{h DT[away] dreamwalk Gambit- desnarf N0-Body Mixter Sceleris Rama^ lorschy falxx fatmaster vilse @Birgitte termix segmond cout rza edison andreas Mammut 
+:irc.inet.tele.dk 366 CrankHank #c++ :End of /NAMES list.
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=92(bytes recv'ed) 
+{:irc.inet.tele.dk 324 CrankHank #c++ +stn 
+:irc.inet.tele.dk 329 CrankHank #c++ 994867685
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+send(SOCKET=256, size=14) - ret=14 
+{JOIN #nazsoft
+}
+recv(SOCKET=256, size=998) - ret=201(bytes recv'ed) 
+{:CrankHank!ask@212.77.210.9 JOIN :#nazsoft
+:irc.inet.tele.dk MODE #nazsoft +nt
+:irc.inet.tele.dk 353 CrankHank = #nazsoft :@CrankHank 
+:irc.inet.tele.dk 366 CrankHank #nazsoft :End of /NAMES list.
+}
+send(SOCKET=256, size=14) - ret=14 
+{MODE #nazsoft
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=100(bytes recv'ed) 
+{:irc.inet.tele.dk 324 CrankHank #nazsoft +tn 
+:irc.inet.tele.dk 329 CrankHank #nazsoft 1038913315
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=42(bytes recv'ed) 
+{:Cranker!ask@212.77.210.9 JOIN :#nazsoft
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=109(bytes recv'ed) 
+{:JR!~JR@12.242.220.80 PRIVMSG #c++ :char *key = str.c_string(); doesnt like it because it needs to be const
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=70(bytes recv'ed) 
+{:JR!~JR@12.242.220.80 PRIVMSG #c++ :but if i do const then i cant ++
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=43(bytes recv'ed) 
+{:JR!~JR@12.242.220.80 PRIVMSG #c++ :hmmmm
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=68(bytes recv'ed) 
+{:larne!ejb@deliverance.lythe.org.uk PRIVMSG #c++ :um, yes you can.
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=34(bytes recv'ed) 
+{:Cranker!ask@212.77.210.9 QUIT :
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=103(bytes recv'ed) 
+{:larne!ejb@deliverance.lythe.org.uk PRIVMSG #c++ :const char *key; // mutable pointer to const object
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=106(bytes recv'ed) 
+{:larne!ejb@deliverance.lythe.org.uk PRIVMSG #c++ :char *const key; // constant pointer to mutable object
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=40(bytes recv'ed) 
+{:JR!~JR@12.242.220.80 PRIVMSG #c++ :oh
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=113(bytes recv'ed) 
+{:larne!ejb@deliverance.lythe.org.uk PRIVMSG #c++ :const char *const key; // constant pointer to constant object
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=51(bytes recv'ed) 
+{:JR!~JR@12.242.220.80 PRIVMSG #c++ :right to left
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+recv(SOCKET=256, size=998) - ret=57(bytes recv'ed) 
+{:thegenius!~kenneth@h225n2fls33o87.telia.com JOIN :#c++
+}
+recv(SOCKET=256, size=998) - ret=-1 - SOCKET_ERROR - WSAGetLastError=???
+send(SOCKET=256, size=7) - ret=7 
+{QUIT :
+}
+closesocket(SOCKET=256) - ret=0
+DLL_PROCESS_DETACH
+********************
+

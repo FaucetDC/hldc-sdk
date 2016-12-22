@@ -1,0 +1,410 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                        PART II                         º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.4
+Date     :  17-02-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hello again, budding Assembler programmers.  For those who missed the first
+issue, get it now at my homepage.
+
+Anyway, last issue I said we'd be discussing hexadecimal, segments + offsets,
+some more instructions and some procedures containing assembler that you could
+actually use.
+
+So, here we go with segments and offsets!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ LESSON 3 - Segments and Offsets
+---------------------------------
+
+Before we delve into the big, bad world of segments and offsets, there is some
+terminology you'll need to know.
+
+   ş The BIT - the smallest piece of data we can use.  A bit - one eigth of
+     a byte can be either a 1 or a 0.  Using these two digits we can make up
+     numbers in BINARY or BASE 2 format.
+
+     EG:     0000 = 0   0100 = 4   1000 = 8    1100 = 12   10000 = 16
+             0001 = 1   0101 = 5   1001 = 9    1101 = 13   ...I think you
+             0010 = 2   0110 = 6   1010 = 10   1110 = 14   get the idea...
+             0011 = 3   0111 = 7   1011 = 11   1111 = 15
+
+   ş The NIBBLE, or four bits.  A nible can have a maximum value of 1111 which
+     is 15 in decimal.  This is where hexadecimal comes in.  hex is based on
+     those 16 numbers, (0-15), and when writing hex, we use the 'digits'
+     below:
+
+     0 1 2 3 4 5 6 7 8 9 A B C D E F
+
+     Hexadecimal is actually quite easy to use, and just as a 'fun fact', I
+     think the Babylonians - some ancient civilisation anyway - used a BASE-16
+     number system.  Any historians out there who want to confirm this?
+
+     IMPORTANT >>> A nibble can hold a value up to Fh <<< IMPORTANT
+
+   ş The BYTE - what we'll be using most.  The byte is 8 bits long - that's 2
+     nibbles, and is the only value you'll be able to put in one of the 8-bit
+     registers, EG: AH, AL, BH, BL, ...
+
+     A byte has a maximum value of 255 in decimal, 11111111 in binary, or FFh
+     in hexadecimal.
+
+   ş The WORD - another commonly used unit.  A word is a 16-bit number, and
+     is capable of holding a number up to 65535.  That's 1111111111111111 in
+     binary, and FFFFh in hex.
+
+     Note:  Because a word is four nibbles, it is also represented by four
+            hexadecimal figures.
+
+     Note:  This is a 16-bit number, and this corresponds to the 16-bit
+            registers.  That's AX, BX, CX, DX, DI, SI, BP, SP, DS, ES, SS
+            and IP.
+
+   ş The DWORD, or double word consists of 2 words or 4 bytes or 8 nibbles or
+     32-bits.  You will not use double words much in these tutorials, but
+     we'll mention them later when we cover 32-BIT PROGRAMMING.
+
+     A DWORD can hold from 0 to 4,294,967,295, that's FFFFFFFFh, or
+     11111111111111111111111111111111.  I hope there's 32 one's back there.
+
+     The DWORD is also the size of the 32-BIT extended registers, or EAX,
+     EBX, ECX, EDX, EDI, ESI, EBP, ESP and EIP.
+
+   ş The KILOBYTE, is 1024 bytes, _NOT_ 1000 bytes.  The kilobyte is equal to
+     256 double-words, 512 words, 1024 bytes, 2048 nibbles or 8192 BITS.  I'm
+     not going to write out all the one's.
+
+   ş The MEGABYTE, or 1024 kilobytes.  That's 1,048,576 bytes or 8,388,608
+     bits.
+
+Now we've covered the terminology, let's have a closer look at just how those
+registers are structured.  We said that AL and AH were 8-bit registers, so
+shouldn't they look something like this?
+
+                    AH                                 AL
+           ÚÄÄÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÄÄ¿              ÚÄÄÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÄÄ¿
+           ³  0³0³0³0³0³0³0³0  ³              ³  0³0³0³0³0³0³0³0  ³
+
+
+In this case, both AH and AL = 0, OR 00h and 00h.  As a result, to work out
+AX we use:  AX = 00h + 00h.  When I say + I mean, 'just put together' not
+AX = AH PLUS AL.
+
+So, if AH were to equal 00000011 and AL were to equal 0000100, to work out
+AX we must do the following.
+
+1) Get the hex values for AH and AL.
+
+   00000011 = 03h   00010000 = 10h
+
+2) Combine them.
+
+   AX = AH  + AL
+   AX = 03h + 10h
+   AX = 0310h
+
+And there you have it.  Not too tricky.
+
+Okay, now lets look at a 16-bit register:
+
+
+                                 AX
+                     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                     ³                       ³
+
+                    AH                       AL
+           ÚÄÄÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÄÄ¿    ÚÄÄÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÄÄ¿
+           ³  0³0³0³0³0³0³0³0  ³    ³  0³0³0³0³0³0³0³0  ³
+
+So from that, we can see that AX = 00000000 and 00000000, or 0000000000000000.
+
+
+Now lastly, lets see what a 32-bit register looks like:
+
+              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+              ³                      EAX                       ³
+              ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                        ³
+              ³           AX          ³                        ³
+              ÃÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄ´                        ³
+              ³ 00000000  ³  00000000 ³ 00000000     00000000  ³
+              ³    AH     ³     AL    ³                        ³
+              ÀÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+Not too difficult either, I hope.  And if you got that, you're ready for
+SEGMENTS and OFFSETS.
+
+
+ A Segmented Architechture
+----------------------------
+
+Long, long ago, when IBM built the first PC, it wasn't feasible for programs
+to be above 1 megabyte - heck, the first XT's had only 64K of RAM!  Anyway,
+seeing as the designers of the XT didn't envisage huge applications, they
+decided split memory up into SEGMENTS, measily small areas of RAM which you
+can JUST fit a virtual screen for 320x200x256 graphics mode in.
+
+Of course, you can access more than a megabyte of RAM, but you have to split
+it up into segments to use it, and this is the problem.  Of course, with
+32-bit programming you can access up to 4GB of RAM without using segments, but
+that's another story.
+
+Segments and offsets are just a method of specifying a location in memory.
+
+
+EG:   3CE5:502A
+
+      ^^^^ ^^^^
+      SEG  OFS
+
+Okay, here's the specs:
+
+
+An OFFSET  = SEGMENT X 16
+A  SEGMENT = OFFSET  / 16
+
+Some segment registers are:
+
+CS, DS, ES, SS and FS, GF  - Note: The last 2 are 386+ registers.
+
+Some offset registers are:
+
+BX, DI, SI, BP, SP, IP     - Note: When in protected mode, you can use any
+                                   general purpose register as an offset
+                                   register - EXCEPT IP.
+
+
+Some common segments and offsets are:
+
+    CS:IP - Addres of the currently executing code.
+    SS:SP - Address of the current stack position.
+
+    NOTE: DO NOT TAMPER WITH THESE!
+
+So when we refer to segments and offsets, we do so in the form:
+
+SEGMENT:OFFSET
+
+A good example would be:
+
+A000:0000 - which actually corresponds to the top left of the VGA screen in
+            320x200x256 color mode.
+
+            ** FUN FACT ** VGA RAM starts a A000h  :)
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Phew!  That was a lot for the second tute.  However, we're not done yet.  The
+AX, AH, AL thing is a concept you may not have grasped yet, so here we go:
+
+    MOV   AX, 0     ; AX = 0
+    MOV   AL, 0     ; AL = 0
+    MOV   AH, 0     ; AH = 0
+
+    MOV   AL, FFh   ; AL = FFh
+                    ; AX = 00FFh
+                    ; AH = 00h
+
+    INC   AX        ; AX = AX + 1
+
+                    ; AX = 0100h
+                    ; AH = 01h
+                    ; AL = 00h
+
+    MOV   AH, ABh   ; AX = AB00h
+                    ; AH = ABh
+                    ; AL = 00h
+
+
+Got it yet?
+
+
+THINGS TO DO:
+
+1) Learn the BIT/NIBBLE/BYTE... stuff off by heart.
+2) Go back over the segment and offset examples.
+3) Make sure you understand the relationship between AX, AH and AL.
+4) How about some hex addition problems?
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ The Stack
+-----------
+
+The stack is a very useful feature which we can take advantage of.  Think of
+it as stack of papers in an IN tray.  If you put something on the top, it'll
+be the first one taken off.
+
+As you add something to the stack, the stack pointer is DECREASED, and when
+you take it off, it is INCREASED.  To explain this better, look at the
+diagram below:
+
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³    The STACK     ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³                  ³      <<< When PUSHing a byte onto the stack, it goes
+    ³ ş                ³          here - last on, first off.
+    ³ ş                ³
+    ³ ş                ³
+    ³ ş                ³
+    ³ ş                ³
+
+
+    ³  SP              ³      <<< The stack pointer moves downward.
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+And in practice:
+
+
+   MOV   AX, 03h   ; AX = 03h
+   PUSH  AX        ; PUSH AX onto the stack
+
+   MOV   AX, 04Eh  ; AX = 04Eh
+
+                   ; Do anything...perform a sum?
+
+   POP   AX        ; AX = 03h
+
+Or:
+
+   MOV   AX, 03h   ; AX = 03h
+   PUSH  AX        ; Add AX to the stack
+
+   MOV   AX, 04Eh  ; AX = 04Eh
+
+                   ; Do anything...perform a sum?
+
+   POP   BX        ; BX = 03h
+
+
+You've just learnt two new instructions:
+
+   ş PUSH <register>   - PUSHes something onto the stack, and
+
+   ş POP <register>    - POPs it back off.
+
+
+That's all you'll need to know about the stack - for now.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+And lastly, some procedures which demonstrate some of this stuff.  Note that
+the comments have been DELIBERATELY REMOVED.  It is your task to try and
+comment them, and by comment I just mean write down what each instruction is
+doing.  Note also, that some new instructions are introduced.
+
+
+Procedure ClearScreen(A : Byte; Ch : Char);   Assembler;
+
+Asm     { ClearScreen }
+  mov   ax, 0B800h
+  mov   es, ax
+  xor   di, di
+  mov   cx, 2000
+  mov   ah, A
+  mov   al, &Ch
+  rep   stosw
+End;    { ClearScreen }
+
+
+Procedure CursorXY(X, Y : Word);   Assembler;
+
+Asm    { CursorXY }
+   mov   ax, Y
+   mov   dh, al
+   dec   dh
+   mov   ax, X
+   mov   dl, al
+   dec   dl
+   mov   ah, 2
+   xor   bh, bh
+   int   10h
+End;    { CursorXY }
+
+
+Procedure PutPixel(X, Y : Integer; C : Byte; Adr : Word);   Assembler;
+
+Asm     { PutPixel }
+   mov   ax, [Adr]
+   mov   es, ax
+   mov   bx, [X]
+   mov   dx, [Y]
+   xchg  dh, dl
+   mov   al, [C]
+   mov   di, dx
+   shr   di, 2
+   add   di, dx
+   add   di, bx
+   stosb
+End;    { PutPixel }
+
+
+Procedure Delay(ms : Word);   Assembler;
+
+Asm     { Delay }
+   mov   ax, 1000
+   mul   ms
+   mov   cx, dx
+   mov   dx, ax
+   mov   ah, 86h
+   int   15h
+End;    { Delay }
+
+
+THINGS TO DO:
+
+1) Go over the stack example.  Make your own code example.
+2) Comment the procedures above as best as you can.  Try and guess what the
+   new instructions do.  It's not that hard.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+                             COMING UP NEXT WEEK:
+                            ----------------------
+
+           ş Many more instructions, all the JUMPS.
+
+           ş What are flags?
+
+           ş The above procedures with comments.
+
+           ş An assembler-only program.  You'll need DEBUG at least,
+             though TASM and TLINK would be a good idea.
+
+
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+- Adam Hyde.

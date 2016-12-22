@@ -1,0 +1,16 @@
+; CLW file contains information for the WCE MFC ClassWizard
+
+[General Info]
+Version=1
+ClassCount=1
+Class1=CMydllApp
+LastClass=CMydllApp
+NewFileInclude2=#include "mydll.h"
+ResourceCount=0
+NewFileInclude1=#include "stdafx.h"
+
+[CLS:CMydllApp]
+Type=0
+HeaderFile=mydll.h
+ImplementationFile=mydll.cpp
+Filter=N

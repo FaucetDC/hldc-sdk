@@ -1,0 +1,657 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                        PART VII                        º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.3
+Date     :  01-05-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hi again, and welcome to the seventh instalment of the Assembler Tutorials.
+These tutorials seem to be coming out at an irregular rate, but people are
+screaming at me for things I haven't done, and I'm still working on projects
+of my own.  I hope to spit these tutes out fortnightly.
+
+Now this week we'll be covering two pretty important topics.  When I first
+began playing around with Assembler I soon realised that Turbo Pascal, (the
+language I was working with then), had a few limitations - one of them being
+that it was, and still is, a 16-bit language.  This meant that if I wanted to
+play around with super-fast 32-bit screen writes, I couldn't.  Not even with
+the built in Assembler, (well, not easily anyway).
+
+What I needed to do was to write code separately in 100% Assembler, then link
+it to Turbo.  This isn't a particularly hard task, and is one of the things
+I'm going to try and teach you today.
+
+The other advantage of writing routines in stand alone Assembler is that you
+can also link the resulting object code to another high-level language, like
+C.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³    WRITING EXTERNAL CODE FOR YOUR HIGH LEVEL LANGUAGE    ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Before we begin, you'll need an idea of what far and near calls are.  If you
+already know, then skip ahead past this little section.
+
+As we discussed before, the PC has a segmented architecture.  As you know,
+you can only access one 64K segment at a time.  Now if you are working on code
+less than 64K in size, or in a language that takes care of all your worries
+for you, you don't need to worry so much.  However, when working in Assembler,
+we do.
+
+Imagine we have the following program loaded into memory:
+
+
+       ú
+       ù              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+       ³              ³                         ³
+  64K  ³       ÚÄÄÄÄÄÄ´       ROUTINE TWO       ÃÄÄÄ¿
+       ³       ³      ³                         ³   ³
+                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³
+               ³                                    
+              ³ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿        ³
+       ³       ³ ³                         ³        ³
+       ³       ÀÄ´       ROUTINE ONE       ÃÄÄÄÄÄÄ¿ ³
+       ³         ³                         ³      ³ ³
+       ³         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ      ³ ³
+       ³                                           
+  64K  ³              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ³ ³
+       ³              ³                         ÃÄÙ ³
+       ³   Entry  ÄÄÄ´      MAIN PROGRAM       ³   ³
+       ³              ³                       ÚÄÅÄÄÄÙ
+       ³              ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÙ
+       ³                                      
+                                           Exit
+
+
+When a JMP is executed to transfer control to Routine One, this will be a
+near call.  We do not leave the segment that the main body of the program
+is located in, and so when the JMP or CALL is executed, and CS:IP is changed
+by JMP, only IP need be changed, not CS.
+
+The offset changes, but not the segment.
+
+Now jumping to Routine Two would be different.  This leaves the current
+segment, and so both parts of the CS:IP pair will need to be altered.  This
+is a far call.
+
+The problem occurs when the CPU encounters a RET or RETF at the end of the
+call.  Let's say by accident you put RET at the end of Routine Two instead of
+RETF.  When the CPU saw RET it would only POP IP off the stack, and so your
+machine would probably crash, as CS:IP would now be pointing to garbage.
+
+This point is especially important when linking to a high-level language.
+Whenever you write code in Assembler and link it to say, Pascal, remember to
+use the {$F+} compiler directive, even if it wasn't a far call.  This way,
+after Turbo has called the routine, it'll pop both CS and IP, and everything
+will be fine.
+
+Failure to do so is at your own risk!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay, let's return to the stand alone model we saw in Tutorial Three.  I don't
+remember rightly, but I think it went something like this:
+
+
+    DOSSEG
+    .MODEL SMALL
+    .STACK 200h
+    .DATA
+    .CODE
+
+START:
+
+
+END START
+
+
+Now, I think it's time you graduated from using that skeleton.  Let's look
+at other ways we can set up a skeleton routine:
+
+
+    DATA     SEGMENT WORD PUBLIC
+
+    DATA     ENDS
+
+
+    CODE     SEGMENT WORD PUBLIC
+     ASSUME  CS:CODE, DS:DATA
+
+    CODE     ENDS
+
+    END
+
+This is an obviously different skeleton.  Note how I omitted the period in
+front of DATA and CODE.  Depending on which assembler/linker you use, you may
+need to use a period or you may not.  TASM, the assembler I use, supports both
+of these formats, so pick one that both you and your assembler are happy with.
+
+Note also the use of DATA  SEGMENT WORD PUBLIC.  Firstly, WORD tells the
+assembler to align the segment on word boundaries.
+
+FUN FACT: You needn't worry about this for now, but Turbo Pascal does this
+          anyway, so putting BYTE instead of word would make no difference. :)
+
+PUBLIC allows the compiler you use, to access any variables you may wish to
+place in the data segment.  If you do not want your high-level language to
+have access to any variables you may declare, then omit this.  If you will
+not be needing access to the data segment anyway, then don't bother with the
+whole DATA SEGMENT thing.
+
+
+Now, onto the code segment.  Generally, you will need to include this in all
+the code you write.  :)  The assume statement will also be pretty standard in
+all you'll work with.  You can also expect to see CSEG and DSEG instead of
+CODE and DATA.  Note that again this is declared public.  This is where all
+our routines will go.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                 So, how do I declare external procedures?
+
+
+Okay, for this example, we're going to use a few simple routines similar to
+those in the MODE13H Pascal library.  (Available from my homepage).
+
+If you remember, the procedures looked a bit like this:
+
+
+   ş Procedure PutPixel(X, Y : Integer; Color : Byte);
+
+   ş Procedure InitMCGA;
+
+   ş Procedure Init80x25;
+
+
+Fitting these in our skeleton gives us this:
+
+
+    CODE     SEGMENT WORD PUBLIC
+     ASSUME  CS:CODE, DS:DATA
+
+     PUBLIC  PutPixel
+     PUBLIC  InitMCGA
+     PUBLIC  Init80x25
+
+    CODE     ENDS
+
+
+    END
+
+Now, all we have to do is to code 'em.  But hang on a minute - the PutPixel
+routine had PARAMETERS.  How do we use these in external code???
+
+This is the tricky bit.  What we do is push these values onto the stack,
+simply saying -- PutPixel(10, 20, 15); -- will do this for us.  It's getting
+them off that's harder.  What I generally do, and I suggest you do, is make
+sure that you DECLARE ALL EXTERNAL PROCEDURES FAR.  This makes working with
+the stack so much easier.
+
+
+FUN FACT: Remember that what's first on the stack is LAST OFF.  :)
+
+
+When you call PutPixel, the stack will be changed.  As this is a far call,
+the first four bytes will hold CS:IP.  The bytes from then on will hold your
+parameters.
+
+To cut a long story short, let's say the stack used to look like this:
+
+   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ...
+
+After calling -- PutPixel(10, 20, 15); -- some time later, it may look like
+this:
+
+
+   4C EF 43 12 0F 00 14 00 0A 00   9E F4 3A 23 1E 21 ...
+
+   ^^^^^^^^^^^ ^^^^^ ^^^^^ ^^^^^   ^^^^^^^^^^^^^^^^^
+      CS:IP    Color   Y     X      Some other crap
+
+
+Now, to complicate things, the CPU stores words on the stack with THE LEAST
+SIGNIFICANT PART FIRST.  This doesn't bother us too much, but if you muck
+around with a debugger without realising this, you're gonna get really
+confused.
+
+Note also, that when Turbo Pascal puts one byte data types on the stack, they
+will chew up TWO BYTES, NOT ONE.  Don't you just _love_ the way the PC is
+organised?  ;)
+
+
+Now, all that I've said up until this point only applies to value parameters -
+PARAMETERS YOU CANNOT CHANGE.  When you muck around with REFERENCE PARAMETERS,
+like -- MyProc(Var A, B, C : Word); -- each parameter now uses FOUR BYTES of
+stack space, two for the segment and two for the offset of where the variable
+is located in memory.
+
+So if you pushed a variable that was held in, say, memory address 4AD8:000Eh,
+no matter what the value of this was, 4AD8:000Eh would be stored on the stack.
+
+As it happens, that would look like 0E 00 D8 4A on the stack, remembering that
+the least significant nibble is stored first.
+
+
+FUN FACT:  Value Parameters actually put the value on the stack, Reference
+           Parameters store the address.  :)
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay, now I've got you well and truly confused, it gets a little worse!
+
+To reference these parameters in your code, you have to use the stack pointer,
+SP.  Trouble is, you aren't allowed to play with SP directly, you have to
+push BP, and move SP into it.  This now adds another two bytes to the stack.
+Lets say BP was equal to 0A45h.  Before pushing BP, the stack would look like
+this:
+
+   4C EF 43 12 0F 00 14 00 0A 00
+
+   ^^^^^^^^^^^ ^^^^^ ^^^^^ ^^^^^
+      CS:IP    Color   Y     X
+
+After pushing BP, you get:
+
+
+ 45 0A 4C EF 43 12 0F 00 14 00 0A 00
+
+  ^^^^ ^^^^^^^^^^^ ^^^^^ ^^^^^ ^^^^^
+   BP     CS:IP    Color   Y     X
+
+
+Now we've finally got over all that, we can actually access the damn things!
+What you'd do after calling -- PutPixel(10, 20, 15); -- to access the Color
+value - 15 - is this:
+
+   PUSH  BP
+   MOV   BP, SP
+
+   MOV   AX, [BP+6]   ; Now we have Color
+
+
+We can access X and  Y like this:
+
+   MOV   BX, [BP+8]   ; Now we have Y
+
+   MOV   CX, [BP+10]  ; Now we have X
+
+
+And now we restore BP:
+
+   POP   BP
+
+
+Now we return from a FAR call, and remove the six bytes of data we put on the
+stack:
+
+   RETF  6
+
+
+And that's it!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Now, let's put the PutPixel, InitMCGA and Init80x25 into some Assembler
+code.  You end up with something like this:
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+CODE SEGMENT WORD PUBLIC
+     ASSUME  CS:CODE, DS:DATA
+
+     PUBLIC PutPixel        ; Declare the public procedures
+     PUBLIC InitMCGA
+     PUBLIC Init80x25
+
+.386                        ; Let's use some 386 registers
+
+; ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+;
+; Procedure PutPixel(X, Y : Integer; Color : Byte);
+;
+
+
+PutPixel PROC FAR           ; Declare a FAR procedure
+
+   PUSH  BP
+   MOV   BP, SP             ; Set up the stack
+
+   MOV   BX, [BP+10]        ; BX = X
+   MOV   DX, [BP+08]        ; DX = Y
+   XCHG  DH, DL             ; As Y will always have a value of less than 200,
+   MOV   AL, [BP+06]        ; this is 320x200 don't forget, saying XCHG DH,DL
+   MOV   DI, DX             ; is an ingenious way of saying SHL DX, 8
+   SHR   DI, 2
+   ADD   DI, DX
+   ADD   DI, BX             ; Now we have the offset, so...
+   MOV   FS:[DI], AL        ; ...plot it at FS:DI
+
+   POP   BP
+   RETF  6
+
+PutPixel ENDP
+
+; ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+;
+; Procedure InitMCGA;
+;
+
+InitMCGA PROC FAR
+
+   MOV   AX, 0A000H         ; Point AX to the VGA
+   MOV   FS, AX             ; Why not FS?
+   MOV   AH, 00H
+   MOV   AL, 13H
+   INT   10H
+   RETF
+
+InitMCGA ENDP
+
+; ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+;
+; Procedure Init80x25;
+;
+
+Init80x25 PROC FAR
+
+   MOV   AH, 00H
+   MOV   AL, 03H
+   INT   10H
+   RETF
+
+Init80x25 ENDP
+
+CODE    ENDS
+        END
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+And that's it.  I'm sorry if I made the whole thing a bit of a confusing
+exercise, but that's the fun of computers! :)
+
+Oh, by the way, you can use the above code in Pascal by assembling it with
+TASM, or MASM.  <shudder>  Next, include it in your code as follows:
+
+{$L WHATEVERYOUCALLEDIT.OBJ}
+{$F+}
+Procedure PutPixel(X, Y : Integer; Color : Byte);   External;
+Procedure InitMCGA;                                 External;
+Procedure Init80x25;                                External;
+{$F-}
+
+Begin
+   InitMCGA;
+   PutPixel(100, 100, 100);
+   ReadLn;
+   Init80x25;
+End.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³           FUNCTIONS AND FURTHER OPTIMIZATION             ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+You can get your Assembler routines to return values which you can use in
+your high-level language if you wish.  The table below contains all the
+necessary information you'll need to know:
+
+
+                  ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+                  º  Type to Return  ³  Register(s) to Use  º
+                  ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+                  º  Byte            ³  AL                  º
+                  º  Word            ³  AX                  º
+                  º  LongInt         ³  DX:AX               º
+                  º  Pointer         ³  DX:AX               º
+                  º  Real            ³  DX:BX:AX            º
+                  ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+
+Now that you've seen how to write external code, you'll probably want to
+know how you can tweak it to get the full performance that external code can
+deliver.
+
+Some points for you to work with are as follows:
+
+   ş You can't use SP directly, but you CAN use ESP.  And no, I don't mean use
+     your mental powers to get the parameter you want.  :)
+
+   ş That'll do away with the slow pushing/popping of BP.
+
+   ş Remember that you'll need to change [xx+6] to [xx+4] for the last,
+     (first), parameter - as BP is now no longer on the stack.
+
+Have a fiddle, and see what you can do with it.  It is possible through
+tweaking to make the code faster than the inline routine featured in
+MODE13H.ZIP version 1 - (available from my homepage).
+
+
+Note:  I plan to further develop the MODE13H library, adding fonts and other
+       cool features.  It will be eventually coded in standalone Assembler,
+       AND be callable from C and Pascal.
+
+       Standalone code also has a hefty speed increase.  Today I tested the
+       PutPixel routine in the MODE13H library and a standalone PutPixel,
+       (practically identical), and saw an amazing speed difference.
+
+       On a 486SX 25 with 4MB of RAM and a 16-bit VGA card, it took only 5
+       hundredths of a second for the standalone routine to plot 65,536 pixels
+       in the middle of the screen, as opposed to 31 hundredths of a second
+       for the other routine.  Big difference, huh?
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³                       OPTIMIZATION                       ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+As speedy as Assembler may be, you can always speed things up further.  I'm
+going to give some coverage on how you can speed your code up on the 80486,
+and the 80386, to some extent.
+
+I'm not going to worry too much about the Pentium for now, as the tricks to
+use on the Pentium certainly ARE tricky, and would take quite a while to
+explain.  Also, you should avoid Pentium specific code, (though this is
+slowly changing).
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+  The AGI (Address Generation Interlock):
+
+What the hell is that?, you ask.  An AGI occurs when a register that is
+currently being used as a base or index was the destination of a previous
+instruction.  AGI's are bad, and chew up clock ticks.
+
+
+EG:   MOV   ECX, 3
+      MOV   FS, ECX
+
+
+This can be avoided by performing another instruction between the two MOVes,
+as an AGI can only occur on adjacent instructions.  (On the 486 anyway.)  On
+the Pentium, an AGI can occur anywhere between THREE instructions.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+  Use 32-bit Instructions/Registers:
+
+
+Using 32-bit registers tends to be faster than using their 16-bit
+counterparts.  (Particularly EAX, as many instructions actually become one
+byte shorter when this register is used.  Using DS instead of ES is also
+faster for a similar reason.)
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+  Other things to try:
+
+
+   ş Avoid LOOPing.  Try using just a DEC, or INC following by a JZ or similar
+     instruction.  This can make a big difference.
+
+   ş When zeroing out registers, use XOR rather than MOV xx, 0.  Believe it or
+     not, this is actually faster.
+
+   ş Make use of TEST when you are checking to see if a register is equal to
+     zero.  By ANDing the operands together, no time is wasted in farting
+     around with a destination register.  TEST EAX, EAX is a good way of
+     checking to see if EAX = 0.
+
+   ş USE SHIFTS!  Don't use multiplication to work out even the simplest of
+     sums.  The CPU can move a few ones and zeros left or right much faster
+     than it can do the multiplication/division.
+
+   ş Make cunning use of LEA.  One instruction is all it takes to perform an
+     integer multiply and store the result in a register.  This is a useful
+     alternative to SHL/SHR.  (I know, I know... I said multiplication was
+     bad.  But an LEA can sometimes be useful as it can save several
+     instructions.)
+
+     EG: LEA ECX, [EDX+EDX*4]   ; ECX = EDX x 5
+
+
+   ş Avoid MOVing into segment registers often.  If you are going to be
+     working with a value that doesn't change, such as A000h, then load it
+     into, say, FS and use FS from then on.
+
+   ş Believe it or not, string instructions, (LODSx, MOVSx, STOSx) are much
+     faster on a 386 than they are in a 486.  If working with 486+, then
+     use other, more simple instructions instead.
+
+   ş When moving 32-bit chunks, REP STOSD is a lot faster than using a loop
+     to accomplish the same thing.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Well, now you've seen how you can write external code, declare procedures in
+Assembler and optimize your routines.  Next week I'm _finally_ going to draw
+all that you've learnt together, and see if we can make some sense out of it
+all.  I'm also going to include a stand alone Assembler example - a better
+starfield with palette control, to demonstrate INs and OUTs, program control,
+procedures and TESTing.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Next week's tutorial will include:
+
+   ş A review of all you've learnt - finally(sorry!);
+   ş Declaring sub-procedures in Assembler;
+   ş A nifty example;  :)
+   ş Some other great topic.
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+See you next week!
+
+- Adam.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Just a little joke I found on a local BBS, which I thought quite amusing.
+I guess those with a UNIX background will understand it more...
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Micro was a real-time operator and dedicated multi-user.  His
+broad-band protocol made it easy for him to interface with numerous
+input/output devices, even if it meant time-sharing.
+
+One evening he arrived home just as the Sun was crashing, and had
+parked his Motorola 68040 in the main drive (he had missed the
+5100 bus that morning), when he noticed an elegant piece of liveware
+admiring the daisy wheels in his garden.  He thought to himself,
+"She looks user-friendly. I'll see if she'd like an update tonight."
+
+Mini was her name, and she was delightfully engineered with eyes
+like COBOL and a PR1ME mainframe architecture that set Micro's
+peripherals networking all over the place.
+
+He browsed over to her casually, admiring the power of her twin,
+32-bit floating point processors and enquired "How are you, Honeywell?".
+"Yes, I am well", she responded, batting her optical fibers engagingly
+and smoothing her console over her curvilinear functions.
+
+Micro settled for a straight line approximation.  "I'm stand-alone
+tonight", he said, "How about computing a vector to my base address?
+I'll output a byte to eat, and maybe we could get offset later on."
+
+Mini ran a priority process for 2.6 milliseconds, then transmitted 8 K.
+"I've been dumped myself recently, and a new page is just what I need
+to refresh my disks.  I'll park my machine cycle in your background and
+meet you inside."   She walked off, leaving Micro admiring her solenoids
+and thinking, "Wow, what a global variable, I wonder if she'd like my
+firmware?"
+
+They sat down at the process table to top of form feed of fiche and
+chips and a bucket of baudot.  Mini was in conversation mode and expanded
+on ambiguous arguments while Micro gave the occassional acknowledgements,
+although, in reality, he was analyzing the shortest and least critical
+path to her entry point.  He finally settled on the old 'Would you like
+to see my benchmark routine', but Mini was again one step ahead.
+
+Suddenly she was up and stripping off her parity bits to reveal the
+full functionality of her operating system software.  "Let's get BASIC,
+you RAM", she said.  Micro was loaded by this; his hardware was in
+danger of overflowing its output buffer, a hang-up that Micro had
+consulted his analyst about. "Core", was all he could say, as she
+prepared to log him off.
+
+Micro soon recovered, however, when Mini went down on the DEC and
+opened her divide files to reveal her data set ready.
+He accessed his fully packed root device and was just about to start
+pushing into her CPU stack, when she attempted an escape sequence.
+
+"No, no!", she cried, "You're not shielded!"

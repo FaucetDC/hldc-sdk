@@ -1,0 +1,1009 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                         PART V                         º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.5
+Date     :  15-03-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Well, another week or so seems to have gone by... Another week I should have
+been using to accomplish something useful.  Anyway, it seems that the
+tutorials have gained a bit more popularity, which is good.
+
+I've also received some demo code from someone who seems to have found the
+tutorials of some use.  Please, if you attempt something either with the help
+of the tutorials or on your own, please send it to me.  I like to see what
+people have made of my work, or just how creative you all are.  If you write
+something that I think could be useful for others to learn from, or is just
+pretty cool, I'll stick it up on my web site.
+
+Note that I included a starfield demonstration in this week's tutorial just
+for the hell of it.  You can run STARS.EXE, or look at STARS.PAS for the full
+source.  It's only a simple demo, but it can be used to achieve some very
+nice effects.
+
+Now, this week we're firstly going to list a summary of all the instructions
+that you should have learnt by now, and a few new ones as well.  Then we'll
+take a look at how the VGA is arranged, and cover a simple line routine.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³                THE INSTRUCTION SET SUMMARY               ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+   ş ADC <DEST>, <SOURCE>        - Name: Add with Carry
+                                   Type: 8086+
+
+                                   Description: This instruction adds <SOURCE>
+                                   to <DEST> and adds the value stored in the
+                                   carry flag, which will be a one or a zero
+                                   to <DEST> also.
+
+                                   Basically, DEST = DEST + SOURCE + CF
+
+                                   EG: ADC AX, BX
+
+
+   ş ADD <DEST>, <SOURCE>        - Name: Add
+                                   Type: 8086+
+
+                                   Description: This instruction adds <SOURCE>
+                                   and <DEST>, storing the result in <DEST>.
+
+                                   EG: ADD AX, BX
+
+
+   ş AND <DEST>, <SOURCE>        - Name: Boolean AND
+                                   Type: 8086+
+
+                                   Description: This instruction performs a
+                                   bit by bit comparison of <DEST> and
+                                   <SOURCE>, storing the result in <DEST>.
+
+                                   EG: AND 0, 0     = 0
+                                       AND 0, 1     = 0
+                                       AND 1, 0     = 0
+                                       AND 1, 1     = 1
+
+
+   ş BT <DEST>, <BIT NUMBER>     - Name: Bit Test
+                                   Type: 80386+
+
+                                   Description: This instruction tests
+                                   <BIT NUMBER> of <DEST> which can either
+                                   be a 16 or 32-bit register or memory
+                                   location.  If <DEST> is a 16-bit number
+                                   then <BIT NUMBER> can range from 0 - 15,
+                                   else if <DEST> is a 32-bit number, then
+                                   <BIT NUMBER> may have a value from 0 to 31.
+
+                                   The value held in <BIT NUMBER> of <DEST> is
+                                   then copied into the carry flag.
+
+                                   EG: BT   AX, 3
+                                       JC   WasEqualToOne
+
+
+   ş CALL <DEST>                 - Name: Procedure Call
+                                   Type: 8086+
+
+                                   Description: This instruction simply calls
+                                   a subroutine.  In more technical terms, it
+                                   pushes the address of the next instruction,
+                                   IP, onto the stack, and then sets the
+                                   instruction pointer, IP, to the value
+                                   specified by <DEST>.
+
+                                   EG: CALL MyProc
+
+
+   ş CBW                          - Name: Convert Byte to Word
+                                    Type: 8086+
+
+                                    Description: This instruction extends the
+                                    byte in AL to AX.
+
+                                    EG: MOV   AL, 01h
+                                        CBW
+                                        ADD   BX, AX   ; Do something with AX
+
+
+   ş CLC                          - Name: Clear Carry Flag
+                                    Type: 8086+
+
+                                    Description: This instruction clears the
+                                    carry flag in the flags register to 0.
+
+                                    EG: CLC
+
+
+   ş CLD                          - Name: Clear Direction Flag
+                                    Type: 8086+
+
+                                    Description: This instruction clears the
+                                    direction flag in the flags register to
+                                    0.  When the direction flag is 0, any
+                                    string instructions increment the index
+                                    registers SI and DI.
+
+                                    EG: CLD
+
+
+   ş CLI                          - Name: Clear Interrupt Flag
+                                    Type: 8086+
+
+                                    Description: This instruction clears the
+                                    interrupt flag in the flags register to
+                                    0, thus disabling hardware interrupts.
+
+                                    EG: CLI
+
+
+   ş CMC                          - Name: Complement the Carry Flag
+                                    Type: 8086+
+
+                                    Description: This instruction checks the
+                                    value currently held in the carry flag.
+                                    If it is 0 - it becomes a 1 and if it is
+                                    1 - it becomes a 0.
+
+                                    EG: BT   AX, 1    ; Test bit 1 of AX
+                                        JC   WasOne
+                                        JMP  Done
+
+                                        WasOne:
+                                        CMC           ; Return CF to 0
+
+                                        Done:
+
+
+   ş CMP <VALUE1>, <VALUE2>       - Name: Compare Integer
+                                    Type: 8086+
+
+                                    Description: This instruction compares
+                                    <VALUE1> and <VALUE2> and reflects the
+                                    comparison in the flags.
+
+                                    EG: CMP AX, BX
+
+                                    See also the Jcc instructions.
+
+
+   ş CWD                          - Name: Convert Word to Doubleword
+                                    Type: 8086+
+
+                                    Description: This instruction extends the
+                                    word in AX to the DX:AX pair.
+
+                                    EG: CWD
+
+
+   ş DEC <VALUE>                  - Name: Decrement
+                                    Type: 8086+
+
+                                    Description: This instruction subtracts
+                                    one from the value held in <VALUE> and
+                                    stores the result in <VALUE>.
+
+                                    EG: DEC AX
+
+
+   ş DIV <VALUE>                  - Name: Unsigned Division
+                                    Type: 8086+
+
+                                    Description: This instruction divides
+                                    <VALUE> by either AX for a byte, DX:AX for
+                                    a word or EDX:EAX for a doubleword.
+
+                                    For a byte, the quotient is returned in
+                                    AL and the remainder in AH, for a word the
+                                    quotient is returned in AX and the
+                                    remainder in DX and for a DWORD, the
+                                    quotient is returned in EAX and the
+                                    remainder in EDX.
+
+                                    EG: MOV   AX, 12
+                                        MOV   BH, 5
+                                        DIV   BH
+                                        MOV   Quotient, AL
+                                        MOV   Remainder, AH
+
+
+   ş IN <ACCUMULATOR>, <PORT>     - Name: Input from I/O port
+                                    Type: 8086+
+
+                                    Description: This instruction reads a
+                                    value from one of the 65536 hardware ports
+                                    into the specified accumulator.
+
+                                    AX and AL are commonly used for input
+                                    ports, and DX is commonly used to
+                                    identify the port.
+
+                                    EG: IN    AX, 72h
+
+                                        MOV   DX, 3C7h
+                                        IN    AL, DX
+
+
+   ş INC <VALUE>                  - Name: Increment
+                                    Type: 8086+
+
+                                    Description: This instruction adds one to
+                                    the number held in <VALUE>, and stores
+                                    the result in <VALUE>.
+
+                                    EG: MOV   AX, 13h   ; AX = 13h
+                                        INC   AX        ; AX = 14h
+
+
+   ş INT <INTERRUPT>              - Name: Generate an Interrupt
+                                    Type: 8086+
+
+                                    Description: This instruction saves the
+                                    current flags and instruction pointer on
+                                    the stack, and then calls <INTERRUPT>
+                                    based on the value in AH.
+
+                                    EG:   MOV   AH, 00h   ; Set video mode
+                                          MOV   AL, 13h   ; Video mode 13h
+                                          INT   10h       ; Generate interrupt
+
+
+   ş Jcc                          - Name: Jump if Condition
+                                    Type: 8086+
+
+   I'm not going to repeat myself for all 32 of them, just look in Tutorial
+   Three for the entire list of them.  Bear in mind that it would be a good
+   idea to call CMP, OR, DEC or something similar before you use one of these
+   instructions. :)
+
+   EG: DEC   AX
+       JZ    AX_Has_Reached_Zero
+
+
+   ş JMP <DEST>                   - Name: Jump
+                                    Type: 8086+
+
+                                    Description: This instruction simply
+                                    loads a new value, <DEST>, into the
+                                    instruction pointer, thus transferring
+                                    control to another part of the code.
+
+                                    EG: JMP   MyLabel
+
+
+   ş LAHF                         - Name: Load AH with Flags
+                                    Type: 8086+
+
+                                    Description: This instruction copies the
+                                    low bytes of the flags register into AH.
+                                    The contents of AH will look something
+                                    like the following after the instruction
+                                    has been executed:
+
+
+              ÚÄÄÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄ¿
+              ³ Flag ³ SF ³ ZF ³ -- ³ AF ³ -- ³ PF ³ -- ³ CF ³
+              ÃÄÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄ´
+              ³ Bit  ³ 07 ³ 06 ³ 05 ³ 04 ³ 03 ³ 02 ³ 01 ³ 00 ³
+              ÀÄÄÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÙ
+
+            You may now test the bits individually, or perform an
+          instruction similar to the follow to get an individual flag:
+
+          EG: LAHF
+              SHR   AH, 6
+              AND   AH, 1   ; AH now contains the ZF flag.
+
+
+   ş LEA <DEST>, <SOURCE>         - Name: Load Effective Address
+                                    Type: 8086+
+
+                                    Description: This instruction loads the
+                                    memory address that <SOURCE> resides in,
+                                    into <DEST>.
+
+                                    EG: I use   LEA   SI, Str  in a procedure
+                                        of mine which puts a string on the
+                                        screen very fast.
+
+
+   ş LOOP <LABEL>                 - Name: Decrement CX and Branch
+                                    Type: 8086+
+
+                                    Description: This instruction is a form
+                                    of the For...Do loop that exists in most
+                                    high-level languages.  Basically it loops
+                                    back to a label, or memory offset, until
+                                    CX = 0.
+
+                                    EG: MOV   CX, 12
+
+                                        DoSomeStuff:
+                                           ;...
+                                           ;...
+                                           ;... This will be repeated 12 times
+
+                                        LOOP DoSomeStuff
+
+
+   ş Lseg <DEST>, <SOURCE>        - Name: Load Segment Register
+                                    Type: 8086+
+
+                                    Description: This instruction exists in
+                                    several forms.  All accept the same
+                                    syntax, in which <SOURCE> specifies a
+                                    48-bit pointer, consisting of a 32-bit
+                                    offset and a 16-bit selector.  The 32-bit
+                                    offset is loaded into <DEST>, and the
+                                    selector is loaded into the segment
+                                    register specified by seg.
+
+                                    The following forms exist:
+
+                                    LDS
+                                    LES
+                                    LFS     * 32-bit
+                                    LGS     * 32-bit
+                                    LSS
+
+                                    EG: LES   SI, A_Pointer
+
+
+   ş MOV <DEST>, <SOURCE>         - Name: Move Data
+                                    Type: 8086+
+
+                                    Description: This instruction copies
+                                    <SOURCE> into <DEST>.
+
+                                    EG: MOV   AX, 3Eh
+                                        MOV   SI, 12h
+
+
+   ş MUL <SOURCE>                 - Name: Unsigned Multiplication
+                                    Type: 8086+
+
+                                    Description: This instruction multiplies
+                                    <SOURCE> by the accumulator, which depends
+                                    on the size of <SOURCE>.
+
+                                    If <SOURCE> is a byte then:
+
+                                    * AL is the multiplicand;
+                                    * AX is the product.
+
+                                    If <SOURCE> is a word then:
+
+                                    * AX is the multiplicand;
+                                    * DX:AX is the product.
+
+                                    If <SOURCE> is a doubleword then:
+
+                                    * EAX is the multiplicand;
+                                    * EDX:EAX is the product.
+
+                                    Note: The flags are left in an un-touched
+                                    state except for OF and CF, which are
+                                    cleared to 0 if the high byte, word or
+                                    dword of the product is 0.
+
+                                    EG: MOV   AL, 3
+                                        MUL   10
+                                        MOV   Result, AX
+
+
+   ş NEG <VALUE>                  - Name: Negate
+                                    Type: 8086+
+
+                                    Description: This instruction subtracts
+                                    <VALUE> from 0, resulting in a two's
+                                    complement negation of <VALUE>.
+
+                                    EG: MOV   AX, 03h
+                                        NEG   AX       ; AX = -3
+
+
+   ş NOT <VALUE>                  - Name: Boolean Complement
+                                    Type: 8086+
+
+                                    Description: This instruction inverts the
+                                    state of each bit in the operand.
+
+                                    EG: NOT   CX
+
+
+   ş OR <DEST>, <SOURCE>          - Name: Boolean OR
+                                    Type: 8086+
+
+                                    Description: This instruction performs a
+                                    boolean OR operation between each bit of
+                                    <DEST> and <SOURCE>, storing the result
+                                    in <DEST>.
+
+                                    EG: OR 0, 0     = 0
+                                        OR 0, 1     = 1
+                                        OR 1, 0     = 1
+                                        OR 1, 1     = 1
+
+
+   ş OUT <PORT>, <ACCUMULATOR>    - Name: Output to Port
+                                    Type: 8086+
+
+                                    Description: This instruction outputs the
+                                    value in the accumulator to <PORT>.  Using
+                                    the DX register to pass the port to OUT,
+                                    you may access up to 65,536 ports.
+
+                                    EG: MOV   DX, 378h
+                                        OUT   DX, AX
+
+
+   ş POP <REGISTER>               - Name: Pop Register
+                                    Type: 8086+
+
+                                    Description: This instruction pops the
+                                    current value off the stack, and places
+                                    it into <REGISTER>.
+
+                                    EG: POP   AX
+
+
+   ş POPA                         - Name: Pop All General Registers
+                                    Type: 80186+
+
+                                    Description: This instruction pops all
+                                    the 16-bit general purpose registers off
+                                    the stack, except for SP.
+
+                                    It is the same as:
+
+                                    POP   AX
+                                    POP   BX
+                                    POP   CX
+                                    ...
+
+                                    EG: POPA
+
+
+   ş POPF                         - Name: Pop Stack into Flags
+                                    Type: 8086+
+
+                                    Description: This instruction pops the
+                                    low byte of the flags off the stack.
+
+                                    EG: POPF
+
+
+   ş PUSH <REGISTER>              - Name: Push Register
+                                    Type: 8086+
+
+                                    Description: This instruction pushes
+                                    <REGISTER> onto the stack.
+
+                                    EG: PUSH  AX
+
+
+   ş PUSHA                        - Name: Push All General Registers
+                                    Type: 80186+
+
+                                    Description: This instruction pushes all
+                                    16-bit general purpose registers onto the
+                                    stack.
+
+                                    It is the same as:
+
+                                    PUSH  AX
+                                    PUSH  BX
+                                    PUSH  CX
+                                    ...
+
+                                    EG: PUSHA
+
+
+   ş PUSHF                        - Name: Push Flags
+                                    Type: 8086+
+
+                                    Description: This instruction pushes the
+                                    low byte of the flags of the stack.
+
+                                    EG: PUSHF
+
+
+   ş REP                          - Name: Repeat String Prefix
+                                    Type: 8086+
+
+                                    Description: This instruction will repeat
+                                    the following instructing for the number
+                                    of times specified in the CX register.
+
+                                    EG: MOV   CX, 6
+                                        REP   STOSB    ; Store 6 bytes
+
+
+   ş RET                          - Name: Near Return from Subroutine
+                                    Type: 8086+
+
+                                    Description: This instruction returns IP
+                                    to the value it had held before the
+                                    last CALL instruction.  RET, or RETF for a
+                                    far jump, must be called when using
+                                    stand alone assembler.
+
+                                    EG: RET
+
+
+   ş ROL <DEST>, <VALUE>          - Name: Rotate Left
+                                    Type: 8086+
+
+                                    Description: This instruction rotates
+                                    <DEST> <VALUE> times.  A rotation is
+                                    achieved by shifting <DEST> once, then
+                                    transferring the bit shifted off the high
+                                    end to the low-order position of <DEST>.
+
+                                    EG: ROL   AX, 3
+
+
+   ş ROR <DEST>, <VALUE>          - Name: Rotate Right
+                                    Type: 8086+
+
+                                    Description: This instruction rotates
+                                    <DEST> <VALUE> times.  A rotation is
+                                    achieved by shifting <DEST> once, and
+                                    transferring the bit shifted off the low
+                                    end to the high-order position of <DEST>.
+
+                                    EG: ROR    BX, 5
+
+
+   ş SAHF                         - Name: Store AH in Flags
+                                    Type: 8086+
+
+                                    Description: This instruction loads the
+                                    contents of the AH register into bits
+                                    7, 6, 4, 2 and 0 of the flags register.
+
+                                    EG: SAHF
+
+
+   ş SBB <DEST>, <SOURCE>         - Name: Subtract with Borrow
+                                    Type: 8086+
+
+                                    Description: This instruction subtracts
+                                    <SOURCE> from <DEST>, and decrements
+                                    <DEST> by one if the carry flag is set,
+                                    storing the result in <DEST>.
+
+                                    Basically, <DEST> = <DEST> - <SOURCE> - CF
+
+                                    EG: SBB   AX, BX
+
+
+   ş SHL <DEST>, <VALUE>         - Name: Shift Left
+                                   Type: 8086+
+
+                                   Description: This instruction shifts <DEST>
+                                   left by <VALUE>.  I'm not going to go into
+                                   the theory behind shifts again.  If you
+                                   are unsure as to what this instruction
+                                   does, please refer to Tutorial Four.
+
+                                   EG: SHL   AX, 5
+
+
+   ş SHR <DEST>, <VALUE>         - Name: Shift Right
+                                   Type: 8086+
+
+                                   Description: This instruction shifts <DEST>
+                                   right by <VALUE>.  Please refer to
+                                   Tutorial Four for the theory behind shifts.
+
+                                   EG: SHR   DX, 1
+
+
+   ş STC                         - Name: Set Carry Flag
+                                   Type: 8086+
+
+                                   Description: This instruction assigns the
+                                   value of the carry flag to one.
+
+                                   EG: STC
+
+
+   ş STD                         - Name: Set Direction Flag
+                                   Type: 8086+
+
+                                   Description: This instruction sets the
+                                   value of the carry flag to one.  This
+                                   instructs all string operations to
+                                   decrement the index registers.
+
+                                   EG: STD
+                                       REP STOSB   ; DI is being decremented
+
+
+   ş STI                         - Name: Set Interrupt Flag
+                                   Type: 8086+
+
+                                   Description: This instruction sets the
+                                   value of the interrupt flag to one, thus
+                                   allowing hardware interrupts to occur.
+
+                                   EG: CLI      ; Stop interrupts
+                                       ...      ; Perform crucial function
+                                       STI      ; Enable interrupts
+
+
+   ş STOS                        - Name: Store String
+                                   Type: 8086+
+
+                                   Description: This instruction exists in the
+                                   following forms:
+
+                                   STOSB      - Store a byte       - AL
+                                   STOSW      - Store a word       - AX
+                                   STOSD      - Store a doubleword - EAX
+
+                                   The instructions write the current contents
+                                   of the accumulator to the memory location
+                                   pointed to by ES:DI.  It then increments
+                                   or decrements DI according to the operand
+                                   used, and the value in the direction flag.
+
+                                   EG: MOV   AX, 0A000h
+                                       MOV   ES, AX
+                                       MOV   AL, 03h
+                                       MOV   DI, 0
+                                       STOSB           ; Store 03 at ES:DI,
+                                                       ; which just happens
+                                       ; to be at the top of the screen in
+                                       ; mode 13h
+
+
+   ş SUB <DEST>, <SOURCE>        - Name: Subtract
+                                   Type: 8086+
+
+                                   Description: This instruction subtracts
+                                   <SOURCE> from <DEST>, storing the result
+                                   in <DEST>.
+
+                                   EG: SUB   ECX, 12
+
+
+   ş TEST <DEST>, <SOURCE>       - Name: Test Bits
+                                   Type: 8086+
+
+                                   Description: This instruction performs a
+                                   bit-by-bit AND operation on <SOURCE> and
+                                   <DEST>.  The result is reflected in the
+                                   flags, and they are set as the would be
+                                   after an AND operation.
+
+                                   EG: TEST   AL, 0Fh   ; Check to see if any
+                                                        ; bits set in the low
+                                                        ; nibble of AL
+
+
+   ş XCHG <VALUE1>, <VALUE2>     - Name: Exchange
+                                   Type: 8086+
+
+                                   Description: This instruction exchanges the
+                                   values in <VLAUE1> and <VALUE2>.
+
+                                   EG: XCHG   AX, BX
+
+
+   ş XOR <DEST>, <SOURCE>        - Name: Exclusive Boolean OR
+                                   Type: 8086+
+
+                                   Description: This instruction performs a
+                                   bit-by-bit exclusive OR operation on
+                                   <SOURCE> and <DEST>.  The operation is
+                                   defined as follows:
+
+                                   XOR   0, 0    = 0
+                                   XOR   0, 1    = 1
+                                   XOR   1, 0    = 1
+                                   XOR   1, 1    = 0
+
+                                   EG: XOR   AX, BX
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Phew!  What a lot there are, and we only covered the basic ones!  You are
+not expected to understand each and every one of them though.  You probably
+saw words like 'Two's Complement', and thought - "What the hell does that
+mean?".
+
+Do not worry about them for now.  We'll continue at our usual pace, and
+introduce the new instructions above one by one, explaining them as we go.  If
+you already understand them now, then this is an added bonus.  You will also
+notice that there were a lot of 8086 instructions above.  There are actually
+very few instances where it is necessary to use a 386 or 486 instruction,
+let alone Pentium instructions.
+
+Anyway, before we press on with the VGA, I'll just list the speed at which
+each of the above instructions execute at, so you can use this to gauge how
+fast your Assembler routines are.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ Instruction      386 Clock Ticks      486 Clock Ticks
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    ADC                  2                     1
+    ADD                  2                     1
+    AND                  2                     1
+    BT                   3                     3
+    CALL                 7+m                   3
+    CBW                  3                     3
+    CLC                  2                     2
+    CLD                  2                     2
+    CLI                  5                     3
+    CMC                  2                     2
+    CMP                  2                     1
+    CWD                  2                     3
+    DEC                  2                     1
+    DIV                  -                     -
+        - Byte           9-14                  13-18
+        - Word           9-22                  13-26
+        - DWord          9-38                  13-42
+    IN                   12/13                 14
+    INC                  2                     1
+    INT                  depends               depends
+    Jcc                  -                     -
+        - Branch         7+m                   3
+        - No Branch      3                     1
+    JMP                  7+m                   3
+    LAHF                 2                     3
+    LEA                  2                     1
+    LOOP                 11                    6
+    Lseg                 7                     6
+    MOV                  2                     1
+    MUL                  -                     -
+        - Byte           9-14                  13-18
+        - Word           9-22                  13-26
+        - DWord          9-38                  13-42
+    NEG                  2                     1
+    NOT                  2                     1
+    OR                   2                     1
+    OUT                  10/11                 16
+    POP                  4                     1
+    POPA                 24                    9
+    POPF                 5                     9
+    PUSH                 2                     1
+    PUSHA                18                    11
+    PUSHF                4                     4
+    REP                  depends               depends
+    RET                  10+m                  5
+    ROL                  3                     3
+    ROR                  3                     3
+    SAHF                 3                     2
+    SBB                  2                     1
+    SHL                  3                     3
+    SHR                  3                     3
+    STC                  2                     2
+    STD                  2                     2
+    STI                  3                     5
+    STOS                 4                     5
+    SUB                  2                     1
+    TEST                 2                     1
+    XCHG                 3                     3
+    XOR                  2                     1
+
+ Note: m = Number of components in next instruction executed.
+
+Ugh, I never want to see another clock-tick again! Now, on with the fun stuff
+- the VGA!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+You've probably noticed by now that your video card has more than 256K of RAM.
+(If you haven't, then these tutorials are probably not for you.)  Even if
+you have only 256K of RAM, like my old 386, you'll still be able to get
+into mode 13h - 320x200x256.  However, this raises some questions.
+
+Multiply 320 by 200 and you'll notice that you only need 64,000 bytes of
+memory to store a single screen.  (The VGA actually gives us 64K, which is
+65,536 bytes for the unaware.)  What happened to the remaining 192K or so?
+
+Well, the VGA is actually arranged in bitplanes, like this:
+
+
+                     ÚÄÄÄÄÄÄÄÄ3ÄÄÄÄÄÄÄ¿
+                   ÚÄÁÄÄÄÄÄÄ2ÄÄÄÄÄÄÄ¿ ³
+                 ÚÄÁÄÄÄÄÄÄ1ÄÄÄÄÄÄÄ¿ ³ ³
+               ÚÄÁÄÄÄÄÄÄ0ÄÄÄÄÄÄÄ¿ ³ ³ ³
+               ³                ³ ³ ³ ³
+               ³                ³ ³ ³ ³
+               ³     64,000     ³ ³ ÃÄÙ
+               ³                ³ ÃÄÙ
+               ³                ÃÄÙ
+               ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+Each plane being 64,000 bytes long.  Here's how it works:
+
+ A pixel at 0, 0 is mapped in plane 0 at offset 0;
+ A pixel at 1, 0 is mapped in plane 1 at offset 0;
+ A pixel at 2, 0 is mapped in plane 2 at offset 0;
+ A pixel at 3, 0 is mapped in plane 3 at offset 0;
+ A pixel at 4, 0 is mapped in plane 0 at offset 1   ... and so on ...
+
+Because of the pixels being chained across all four planes, it is impossible
+to use multiple pages in mode 13h without having to resort to using a
+virtual screen, or something similar.
+
+The automatic mapping of the pixels is handled completely by the video card,
+so you can blindly work away without even knowing about the four bitplanes if
+you wish.
+
+We'll go onto how we can get around this, by entering a special display mode,
+known as Mode X, later, but for now, let's just see what we can do in plain
+old mode 13h.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³                      DRAWING LINES                       ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+We've gone a little over the size that I'd planned to go to for this tutorial,
+and I had intended to cover Bresenham's Line Algorithm, but that'll have to
+wait till next week.  However, I will cover how to draw a simple horizontal
+line in Assembler.
+
+
+  An Assembler Horizontal Line Routine:
+ ---------------------------------------
+
+First we'll need to point ES to the VGA.
+
+This should do the trick:
+
+   MOV   AX, 0A000h
+   MOV   ES, AX
+
+Now, we'll need to read the X1, X2 and Y values into registers, so something
+like this should work:
+
+   MOV   AX, X1    ; AX now equals the X1 value
+   MOV   BX, Y     ; BX now equals the Y  value
+   MOV   CX, X2    ; CX now equals the X2 value
+
+It will be necessary to work out how long the line is, so we'll use CX to
+store this, seeing as:  i) CX already holds the X2 value, and  ii) we'll be
+using a REP instruction, which will use CX as a counter.
+
+   SUB   CX, AX    ; CX = X2 - X1
+
+Now we'll need to work out what DI will be for the very first pixel we'll be
+plotting, so we'll use what we did in the PutPixel routine:
+
+   MOV   DI, AX    ; DI = X1
+   MOV   DX, BX    ; DX = Y
+   SHL   BX, 8     ; Shift Y left 8
+   SHL   DX, 6     ; Shift Y left 6
+   ADD   DX, BX    ; DX = Y SHL 8 + Y SHL 6
+   ADD   DI, DX    ; DI = Y x 320 + X
+
+We have the offset of the first pixel now, so all we have to do is put the
+color we want to draw in, in AL, and use STOSB to plot the rest of the line.
+
+   MOV   AL, Color ; Move the color to plot with into AL
+   REP   STOSB     ; Plot CX pixels
+
+Note that we used STOSB because it will increment DI for us, thus saving
+a lot of MOV's and INC's.  Now, depending on what language you'll use to
+implement this in, you'll get something like:
+
+
+   void Draw_Horizontal_Line(int x1, int x2, int y, char color);
+   {
+   asm {
+      mov   ax, 0xa000
+      mov   es, ax        ; Point ES to the VGA
+
+      mov   ax, x1        ; AX = X1
+      mov   bx, y         ; BX = Y
+      mov   cx, x2        ; CX = X2
+
+      sub   cx, ax        ; CX = Difference of X2 and X1
+
+      mov   di, ax        ; DI = X1
+      mov   dx, bx        ; DX = Y
+      shl   bx, 8         ; Y SHL 8
+      shl   dx, 6         ; Y SHL 6
+      add   dx, bx        ; DX = Y SHL 8 + Y SHL 6
+      add   di, dx        ; DI = Offset of first pixel
+
+      mov   al, color     ; Put the color to plot in AL
+      rep   stosb         ; Draw the line
+      }
+   }
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+We'll now we've covered how to draw a simple horizontal line.  The above
+routine isn't blindingly fast, but it isn't all that bad either.  Just
+changing the calculation of DI part to look like the fast PutPixel I gave out
+in Tutorial Two would probably double the speed of this routine.
+
+My own horizontal line routine is probably about 4 to 5 times as fast as this
+one, so in the future, I'll show you how to optimize this one fully.  Next
+week we'll also cover how to get and set the palette, and how we can draw
+circles.  I'm sorry it didn't make it into this tutorial, but this one sort of
+grew a bit...
+
+
+ THINGS TO DO:
+---------------
+
+   1) Write a vertical line routine based on the one above.  Clue: You'll
+      need to increment DI by 320 at some stage.
+
+   2) Go over the list of Assembler instructions, and learn as many as you
+      can.
+
+   3) Have a look at the Starfield I wrote, and try to fix the bugs in it.
+      See what you can do with it.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Sorry again that I didn't include the things I said I would last week, but
+as I said, the tutorial just grew, and I'm a bit behind with some other
+projects I'm supposed to be working on.
+
+
+Next week's tutorial _will_ include:
+
+   ş Line algorithms and examples;
+   ş A circle algorithm;
+   ş The palette;
+   ş Something else that you ought to know...
+
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+See you next week!
+
+- Adam.

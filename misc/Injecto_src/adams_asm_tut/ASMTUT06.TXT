@@ -1,0 +1,517 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                        PART VI                         º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.3
+Date     :  13-04-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Hello again, Assembler coders.  This edition is a little late, but I had
+a lot of other things to finish, and I'm working on a game of my own now.
+It's a strategy game, like Warlords II, and I think I'm going to have to
+write most of the code for it in 640x480, not my beloved 320x200 - but I may
+change my mind.  Heck, the amount of games I started writing but never got
+around to finishing is pretty large, so this one may not get all that far.
+
+Anyway, I said we'd be having a look at some line/circle routines this week,
+so here we go...
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Last week we came up with the following horizontal line routine -
+
+   mov   ax, 0A000h
+   mov   es, ax          ; Point ES to the VGA
+
+   mov   ax, X1
+   mov   bx, Y           ; BX = Y
+   mov   cx, X2          ; CX = X2
+
+   sub   cx, ax          ; CX = Difference of X2 and X1
+
+   mov   di, ax          ; DI = X1
+   mov   dx, bx          ; DX = Y
+   shl   bx, 8           ; Y SHL 8
+   shl   dx, 6           ; Y SHL 6
+   add   dx, bx          ; DX = Y SHL 8 + Y SHL 6
+   add   di, dx          ; DI = Offset of first pixel
+
+   mov   al, color       ; Put the color to plot in AL
+   rep   stosb           ; Draw the line
+
+
+Now although this routine was much faster than the BGI routines, (or whatever
+your compiler provides), it could be improved upon greatly.  If we go through
+the routine with the list of clock ticks provided in the last tutorial, you'll
+see that it chews up quite a few.
+
+I'll leave optimization up to you for now, (we'll get onto that in a later
+tutorial), but either replacing the STOSB with MOV ES:[DI], AL or STOSW will
+speed things up quite a bit.  Don't forget that if you decide to use a loop,
+to whack words onto the VGA, you will have to decrement CX by one.
+
+Now, lets get on to a vertical line.  We'll have to calculate the offset of
+the first pixel as we did with the horizontal line routine, so something like
+this should do:
+
+
+   mov   ax, 0A000h      ; Put the VGA segment into AX
+   mov   es, ax          ; Point ES to the VGA
+
+   mov   ax, Y1          ; Move the first Y value into AX
+   shl   ax, 6           ; Y x 2 to the power 6
+   mov   di, ax          ; Move the new Y value into DI
+   shl   ax, 2           ; Now we have Y = Y x 320
+   add   di, ax          ; Add that value onto DI
+   add   di, X           ; Add the X value onto DI
+
+
+Now a bit of basic housekeeping...
+
+
+   mov   cx, Y2          ; Store Y2 in CX
+   mov   al, Color       ; Store the color to plot with in AL
+   sub   cx, Y1          ; CX = vertical length of line
+
+
+And now the final loop...
+
+
+Plot:
+   mov   es:[di], al     ; Put the a pixel at the current offset
+   add   di, 320         ; Move down to the next row
+   dec   cx              ; Decrement CX by one
+   jnz   Plot            ; If CX <> 0, then keep on plotting
+
+
+Not a fantastic routine, but it's pretty good all the same.  Note how it was
+possible to perform a comparison after DEC CX.  This is an extremely useful
+concept, so don't forget that it is possible.
+
+Have a play around with the code, and try and speed it up.  Try other methods
+of finding the offset, or different methods of flow control.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Now, that was the easy stuff.  We are now going to have a look at a line
+routine capable of drawing diagonal lines.
+
+The following routine was picked up from SWAG, author unknown, and is an
+ideal routine to demonstrate a line algorithm.  It is in great need of
+optimization, so this can be a task for you - if you wish.  Some of the
+points needing addressing are:
+
+   1) Whoever wrote it had never heard of XCHG - this would save quite a
+      few clock ticks;
+
+   2) It makes one of the great sins of unoptimized code - it will say, move
+      a value to AX, and then perform an operation involving AX in the next
+      instruction, thus incurring a penalty cycle.  (We'll talk about this
+      next week).
+
+   3) It works with BYTES not WORDS, so the speed of writing to the VGA could
+      be doubled if words were used.
+
+   4) And the biggest sin of all, it uses a MUL to find the offset.  Try using
+      shifts or an exchange to speed things up.
+
+Anyway, I put the comments in, and I feel that it is fairly self explanatory
+as it is, so I won't go over how it works.  You should be able to pick that
+up for yourself.  Work through the routine, and see how the gradient for the
+line is worked out.
+
+
+Procedure Line(X1, Y1, X2, Y2 : Word; Color : Byte);   Assembler;
+
+Var
+   DeX          : Integer;
+   DeY          : Integer;
+   IncF         : Integer;
+
+Asm     { Line }
+   mov   ax, [X2]      { Move X2 into AX                                    }
+   sub   ax, [X1]      { Get the horiz length of the line -  X2 - X1        }
+   jnc   @Dont1        { Did X2 - X1 yield a negative result?               }
+   neg   ax            { Yes, so make the horiz length positive             }
+
+@Dont1:
+   mov   [DeX], ax     { Now, move the horiz length of line into DeX        }
+   mov   ax, [Y2]      { Move Y2 into AX                                    }
+   sub   ax, [Y1]      { Subtract Y1 from Y2, giving the vert length        }
+   jnc   @Dont2        { Was it negative?                                   }
+   neg   ax            { Yes, so make it positive                           }
+
+@Dont2:
+   mov   [DeY], ax     { Move the vert length into DeY                      }
+   cmp   ax, [DeX]     { Compare the vert length to horiz length            }
+   jbe   @OtherLine    { If vert was <= horiz length then jump              }
+
+   mov   ax, [Y1]      { Move Y1 into AX                                    }
+   cmp   ax, [Y2]      { Compare Y1 to Y2                                   }
+   jbe   @DontSwap1    { If Y1 <= Y2 then jump, else...                     }
+   mov   bx, [Y2]      { Put Y2 in BX                                       }
+   mov   [Y1], bx      { Put Y2 in Y1                                       }
+   mov   [Y2], ax      { Move Y1 into Y2                                    }
+                       { So after all that.....                             }
+                       { Y1 = Y2 and Y2 = Y1                                }
+
+   mov   ax, [X1]      { Put X1 into AX                                     }
+   mov   bx, [X2]      { Put X2 into BX                                     }
+   mov   [X1], bx      { Put X2 into X1                                     }
+   mov   [X2], ax      { Put X1 into X2                                     }
+
+@DontSwap1:
+   mov   [IncF], 1     { Put 1 in IncF, ie, plot another pixel              }
+   mov   ax, [X1]      { Put X1 into AX                                     }
+   cmp   ax, [X2]      { Compare X1 with X2                                 }
+   jbe   @SkipNegate1  { If X1 <= X2 then jump, else...                     }
+   neg   [IncF]        { Negate IncF                                        }
+
+@SkipNegate1:
+   mov   ax, [Y1]      { Move Y1 into AX                                    }
+   mov   bx, 320       { Move 320 into BX                                   }
+   mul   bx            { Multiply 320 by Y1                                 }
+   mov   di, ax        { Put the result into DI                             }
+   add   di, [X1]      { Add X1 to DI, and tada - offset in DI              }
+   mov   bx, [DeY]     { Put DeY in BX                                      }
+   mov   cx, bx        { Put DeY in CX                                      }
+   mov   ax, 0A000h    { Put the segment to plot in, in AX                  }
+   mov   es, ax        { ES points to the VGA                               }
+   mov   dl, [Color]   { Put the color to use in DL                         }
+   mov   si, [DeX]     { Point SI to DeX                                    }
+
+@DrawLoop1:
+   mov   es:[di], dl   { Put the color to plot with, DL, at ES:DI           }
+   add   di, 320       { Add 320 to DI, ie, next line down                  }
+   sub   bx, si        { Subtract DeX from BX, DeY                          }
+   jnc   @GoOn1        { Did it yield a negative result?                    }
+   add   bx, [DeY]     { Yes, so add DeY to BX                              }
+   add   di, [IncF]    { Add the amount to increment by to DI               }
+
+@GoOn1:
+   loop  @DrawLoop1    { No negative result, so plot another pixel          }
+   jmp   @ExitLine     { We're all done, so outta here!                     }
+
+@OtherLine:
+   mov   ax, [X1]      { Move X1 into AX                                    }
+   cmp   ax, [X2]      { Compare X1 to X2                                   }
+   jbe   @DontSwap2    { Was X1 <= X2 ?                                     }
+   mov   bx, [X2]      { No, so move X2 into BX                             }
+   mov   [X1], bx      { Move X2 into X1                                    }
+   mov   [X2], ax      { Move X1 into X2                                    }
+   mov   ax, [Y1]      { Move Y1 into AX                                    }
+   mov   bx, [Y2]      { Move Y2 into BX                                    }
+   mov   [Y1], bx      { Move Y2 into Y1                                    }
+   mov   [Y2], ax      { Move Y1 into Y2                                    }
+
+@DontSwap2:
+   mov   [IncF], 320   { Move 320 into IncF, ie, next pixel is on next row  }
+   mov   ax, [Y1]      { Move Y1 into AX                                    }
+   cmp   ax, [Y2]      { Compare Y1 to Y2                                   }
+   jbe   @SkipNegate2  { Was Y1 <= Y2 ?                                     }
+   neg   [IncF]        { No, so negate IncF                                 }
+
+@SkipNegate2:
+   mov   ax, [Y1]      { Move Y1 into AX                                    }
+   mov   bx, 320       { Move 320 into BX                                   }
+   mul   bx            { Multiply AX by 320                                 }
+   mov   di, ax        { Move the result into DI                            }
+   add   di, [X1]      { Add X1 to DI, giving us the offset                 }
+   mov   bx, [DeX]     { Move DeX into BX                                   }
+   mov   cx, bx        { Move BX into CX                                    }
+   mov   ax, 0A000h    { Move the address of the VGA into AX                }
+   mov   es, ax        { Point ES to the VGA                                }
+   mov   dl, [Color]   { Move the color to plot with in DL                  }
+   mov   si, [DeY]     { Move DeY into SI                                   }
+
+@DrawLoop2:
+   mov   es:[di], dl   { Put the byte in DL at ES:DI                        }
+   inc   di            { Increment DI by one, the next pixel                }
+   sub   bx, si        { Subtract SI from BX                                }
+   jnc   @GoOn2        { Did it yield a negative result?                    }
+   add   bx, [DeX]     { Yes, so add DeX to BX                              }
+   add   di, [IncF]    { Add IncF to DI                                     }
+
+@GoOn2:
+   loop  @DrawLoop2    { Keep on plottin'                                   }
+
+@ExitLine:
+                       { All done!                                          }
+End;
+
+
+I don't think I made any mistakes with the commenting, but I am pretty tired,
+and I haven't handy any caffeine for days - let alone hours, so if you spot a
+mistake - please let me know.
+
+I was going to include a Circle algorithm, but I couldn't get mine to work
+in Assembler - all the floating point math might have something to do with
+it.  I could include one written in a high level language, but this is meant
+to be an Assembler tutorial, not a graphics one.  However, if enough people
+shout for one...
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³              THE INS AND OUTS OF IN AND OUT              ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+IN and OUT are a very important part of Assembler coding.  They allow you to
+directly send/receive data from any of the PC's 65,536 hardware ports, or
+registers.  The basic syntax is as follows:
+
+
+   ş IN <ACCUMULATOR>, <PORT>     - Name: Input from I/O port
+                                    Type: 8086+
+
+                                    Description: This instruction reads a
+                                    value from one of the 65536 hardware ports
+                                    into the specified accumulator.
+
+                                    AX and AL are commonly used for input
+                                    ports, and DX is commonly used to
+                                    identify the port.
+
+                                    EG: IN    AX, 72h
+
+                                        MOV   DX, 3C7h
+                                        IN    AL, DX
+
+
+   ş OUT <PORT>, <ACCUMULATOR>    - Name: Output to Port
+                                    Type: 8086+
+
+                                    Description: This instruction outputs the
+                                    value in the accumulator to <PORT>.  Using
+                                    the DX register to pass the port to OUT,
+                                    you may access up to 65,536 ports.
+
+                                    EG: MOV   DX, 378h
+                                        OUT   DX, AX
+
+
+Okay, that wasn't very helpful, as it didn't tell you much about how to use
+it - let alone what to use it for.  Well, if you intend to work with the VGA
+much, you'll have to be able to program its internal registers.  Similar to
+the registers that you've been working with up until now, you can think of
+changing them just like interrupts, except:  1) You pass the value to the
+port, and that's it;  and  2) It is pretty near instantaneous.
+
+As an example, we'll cover how to set and get the palette by directly
+controlling the VGA's hardware.
+
+
+Now, the VGA has a lot of registers, but the next three you'd better get to
+know pretty well:
+
+   ş 03C7h       - PEL Address Register (Read)
+                   Sets the palette in read mode
+
+   ş 03C8h       - PEL Address Register (Write)
+                   Sets the palette in write mode
+
+   ş 03C9h       - PEL Data Register (Read/Write)
+                   Read in, or write 3 RGB values, every 3rd write, the
+                   index, or color you are setting, is incremented by one.
+
+What all this means is -
+
+If we were to set a color's RGB value, we'd send the value of the color we
+wanted to change to 03C8h, then read in 3 values from 03C9h.  In Assembler,
+we'd do this:
+
+   mov   dx, 03C8h        ; Put the DAC read register in DX
+   mov   al, [Color]      ; Put the color's value in AL
+   out   dx, al           ; Send AL to port DX
+   inc   dx               ; Now use port 03C9h
+   mov   al, [R]          ; Put the new RED value in AL
+   out   dx, al           ; Send AL to port DX
+   mov   al, [G]          ; Put the new GREEN value in AL
+   out   dx, al           ; Send AL to port DX
+   mov   al, [B]          ; Put the new BLUE value in AL
+   out   dx, al           ; Send AL to port DX
+
+And that would do things nicely.  To read the palette, we'd do this:
+
+   mov   dx, 03C7h        ; Put the DAC write register in DX
+   mov   al, [Color]      ; Put the color's value in AL
+   out   dx, al           ; Send AL to port DX
+   add   dx, 2            ; Now use port 03C9h
+
+   in    al, dx           ; Put the value got from port DX in AL
+   les   di, [R]          ; Point DI to the R variable - this came from Pascal
+   stosb                  ; Store AL in R
+
+   in    al, dx           ; Put the value got from port DX in AL
+   les   di, [G]          ; Point DI to the G variable
+   stosb                  ; Store AL in G
+
+   in    al, dx           ; Put the value got from port DX in AL
+   les   di, [B]          ; Point DI to the B variable
+   stosb                  ; Store AL in B
+
+Note how that routine was coded differently.  This was originally a Pascal
+routine, and as Pascal doesn't like you messing with Pascal variables in
+Assembler, you have to improvise.
+
+If you are working in stand alone Assembler, then you can code this much more
+efficiently, like the first example.  I left the code as it was so those who
+are working with a high-level language can get around a particularly annoying
+problem.
+
+Now you have seen how useful IN and OUT can be.  Directly controlling hardware
+is both fast and efficient.  In the next few weeks, I may include a list of
+some of the most common ports, but if you have a copy of Ralf Brown's
+Interrupt List, (available at X2FTP), you will already have a copy.
+
+
+Note:  You can find a link to Ralf's Interrupt List on my homepage.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ A bit more on the FLAGS register:
+
+
+Now, although we have been using the flags register in almost all our code
+up until this point, I haven't really gone into depth about it.  You can work
+blissfully unaware of the flags, and compare things without knowing what's
+really happening, but if you want to get further into Assembler, you'll
+need to know some more.
+
+Back in Tutorial Three, I gave an extremely simplistic view of the FLAGS
+register.  In reality, the FLAGS, or EFLAGS register is actually a 32-bit
+register, although only bits 0-18 are used.  We really don't need to know any
+of the flags above bit 11 for now, but it's good to know they are there.
+
+
+The EFLAGS register actually looks like this:
+
+18  17  16  15  14  13  12  11  10  09  08  07  06  05  04  03  02  01  00
+AC  VM  RF  --  NT  IO/PL   OF  DF  IF  TF  SF  ZF  --  AF  --  PF  --  CF
+
+
+Now, the flags are as follows:
+
+   ş AC   - Alignment Check (80486)
+   ş VM   - Virtual 8086 Mode
+   ş RF   - Resume Flag
+   ş NT   - Nested Task Flag
+   ş IOPL - I/O Privilege Level - has a value of 0,1,2 or 3 thus 2 bits big
+
+   ş OF   - Overflow Flag
+            This bit is set to ONE if an arithmetic instruction generated a
+            result that was too large or too small to fit in the destination
+            register.
+
+   ş DF   - Direction Flag
+            When set to ZERO, string instructions, such as MOVS, LODS and
+            STOS will increment the memory address they are working on by one.
+            This means that say, DI, will be incremented when you use STOSB
+            to put a pixel at ES:DI.  Setting the bit to ZERO will decrement
+            the memory address after each call.
+
+   ş IF   - Interrupt Enable Flag
+            When this bit is set, the processor will respond to external
+            hardware interrupts.  When the bit is reset, hardware interrupts
+            are ignored.
+
+   ş TF   - Trap Flag
+            When this bit is set, an interrupt will occur immediately after the
+            next instruction executes.  This is generally used in debugging.
+
+   ş SF   - Sign Flag
+            This bit is changed after arithmetic instructions.  The bit
+            receives the high-order bit of the result, and if set to ONE,
+            it indicates that the result of the operation was negative.
+
+   ş ZF   - Zero Flag
+            This bit is set when arithmetic instructions generate a result of
+            zero.
+
+   ş AF   - Auxiliary Carry Flag
+            This bit indicates that a carry out of the low-order nibble of AL
+            occurred in an arithmetic instruction.
+
+   ş PF   - Parity Flag
+            This bit is set to one when an arithmetic instruction results in
+            an even number of 1 bits.
+
+   ş CF   - Carry Flag
+            This bit is set when the result of an arithmetic operation is
+            too large or too small for the destination register or memory
+            address.
+
+
+Now, of all those above, you really won't have to worry too much about most
+of them.  For now, just knowing CF, PF, ZF, SF, IF, DF and OF will be
+sufficient.  I didn't give the first few comments as they are fairly
+technical, and are used mostly in protected mode and complex situations.  You
+shouldn't have to know them.
+
+You can, if you wish, move a copy of the flags into AH with LAHF - (Load AH
+with Flags) - and modify or read individual bits, or change the status of
+bits more easily with CLx and STx.  However you plan to change the flags,
+remember that they can be extremely useful in many situations.
+
+(They can also be very annoying when late at night, lines start drawing
+backwards, and you spend an hour wondering why - then remember that you
+forgot to clear the direction flag!)
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+I think we've covered quite a few important topics in this tutorial.  Brush
+up on the flags, and go over the largish line routine, as it is an excellent
+example of flow control.  Make sure your skills at controlling instruction
+flow are perfected.
+
+Next week I'll try to tie all the topics we've covered over the last few
+weeks together, and present some form of review of all that you've learnt.
+Next week I'll also go into optimization, and how you can speed up all the
+code we've worked with so far.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Next week's tutorial will include:
+
+   ş A review of all you've learnt
+   ş Optimization
+   ş Declaring procedures in Assembler
+   ş Linking your code to C/C++ or Pascal
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+See you next week!
+
+- Adam.

@@ -1,0 +1,381 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                         PART I                         º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.4
+Date     :  16-02-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ What is Assembler?
+--------------------
+
+Assembler has got to be one of my favourite languages to work with.  Not that
+it's an easy language at first, but when you become familiar with it, you'll
+realise just how logical it is.
+
+Assembler is a low-level language which you can use to give you programs added
+speed on slow tasks.  Basically it consists of statements which represent
+machine language instructions, and as it's nearly machine code, it's fast.
+
+In the early days before the 8086 came about, yes, there were humans on the
+Earth back then, :), programming was not an easy task.  When the first
+computers were developed, programming had to be done in machine code which was
+_not_ an easy task, and so Assembler was born.
+
+
+ Why use it?
+-------------
+
+As I said before, Assembler is fast.  It also allows you to speak to the
+machine at hardware level, and gives you much greater control and flexibility
+over the PC.  One of the other advantages of Assembler is that it allows you
+to impress your friends by entering pages of seemingly incomprehensible code.
+Watch them gather round you and be impressed/laugh at your nerdiness?   :)
+
+
+ How did this tutorial come about?
+-----------------------------------
+
+Well, I had a couple of friends who wanted to learn Assembler to speed up
+their Pascal programs, so I gave them some Assembler Tutorials I had.  While
+these tutorials had all the information you'd ever need, they were not written
+for the novice to easily understand, so I decided to write my own.
+
+If you're using this tutorial and find it useful and informative, then please
+mail me.  I appreciate feedback.
+
+
+
+ LESSON 1 - Registers
+----------------------
+
+When you're working with Assembler, you'll have to use registers.  You can
+think of these as variables already defined for you.  The most common are
+listed below:
+
+   ş AX   - the accumulator.  Comprises AH and AL, the high and low bytes
+            of AX.  Commonly used in mathematical and I/O operations.
+
+   ş BX   - the base.  Comprises BH and BL.  Commonly used as a base or
+            pointer register.
+
+   ş CX   - the counter.  Comprises CH and CL.  Used often in loops.
+
+   ş DX   - the displacement, similar to the base register.  Comprises DH and
+            DL.  I think you're getting the pattern now.
+
+These registers are defined as general purpose registers as we can really
+store anything we want in them.  They are also 16-bit registers, meaning that
+we can store a positive integer from 0 to 65535, or a negative integer from
+-32768 to 32768.
+
+Incidently, the matter of the high and low byte of these resgisters has caused
+quite a bit of confusion in the past, so I'll try to give it some explaination
+here.  AX has a range of 0 to FFFFh.  This means that you have a range of
+0 to FFh for AH and AL.  (If you're a little concerned with the hex, don't
+worry.  Next tutorial will cover it.)
+
+Now if we were to store 0A4Ch in AX, AH will contain 0Ah, and AL will contain
+4Ch.  Get the idea?  This is a pretty important concept, and I'll cover it in
+more depth next tute.
+
+
+The segment registers:  - ta da!
+
+These are some other registers which we will not cover for the first few
+tutorials, but will look at in greater depth later.  They are immensely handy,
+but can also be dangerous.
+
+   ş CS - the code segment.  The block of memory where the code is stored.
+          DON'T fool around with this one unless you know what you are doing.
+          I'm not all that sure that you can actually change it - I've never
+          tried.
+
+   ş DS - the data segment.  The area in memory where the data is stored.
+          During block operations when vast blocks of data are moved, this is
+          the segment which the CPU commonly refers to.
+
+   ş ES - the extra segment.  Just another data segment, but this one is
+          commonly used when accessing the video.
+
+   ş SS - no, not the German army.  This is the stack segment, in which the
+          CPU stores return addresses from subroutines.  Take care with this
+          one.  :)
+
+Some others you will commonly use are:
+
+   ş SI - the source index.  Often used in conjuction with block move
+          instructions.  This is a pointer within a segment, usually DS, that
+          is read from by the CPU.
+
+   ş DI - the destination index.  Again, you'll use it a lot.  Another pointer
+          within a segment, often ES, that is written to by the CPU.
+
+   ş BP - the base pointer, used in conjunction with the stack segment.  We
+          won't be using it a lot.
+
+   ş SP - the stack pointer, commonly used with the stack segment.  DON'T fool
+          around with this one until you are sure you know what you are doing.
+
+By now you should understand what registers are.  There are other registers
+too, and things known as flags, but we will not go into these as yet.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+THINGS TO DO:
+
+ 1) Learn the various registers off by heart.
+ 2) Get a calculator that supports hexadecimal - damn handy, or a least an
+    ASCII chart.  That covers 0 - 255, or 0h to FFh.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ LESSON 2 - The 8086 instruction set:
+--------------------------------------
+
+Okay, so you've learnt about registers, but how do you use them, and how do
+you code in Assembler?  Well, first you'll need some instructions.  The
+following instructions can be used on all CPU's from the 8086 up.
+
+   ş MOV <dest>, <value> - MOVE.  This instruction allows you to MOVE a value
+                           into a location in memory.
+
+                           EG: MOV AX, 13h
+
+                           This would move 13h (19 decimal) into the AX
+                           regsister.  So if AX had previously held 0, it
+                           would now hold 13h.
+
+                           THIS ONLY MOVES THE VALUE INTO THE REGISTER, IT
+                           DOES NOT DO ANYTHING.
+
+                           EG: (In Pascal) AX := $13;
+
+   ş INT <number>        - INTERRUPT.  This instruction generates an interupt.
+                           You can think of this as a bit like a procedure.
+
+                           EG: INT 10h
+
+                           Would generate interrupt 10h (16 decimal).  Now
+                           what this would do depends on the contents of the
+                           AH register, among other things.  For instance,
+                           if AX = 13h and interrupt 10h was generated, the
+                           video would be placed into 320x200x256 mode.
+
+                           More accurately:
+
+                           AH would equal 00  - set mode subfunction, and
+                           AL would equal 13h - 320x200x256 graphics mode.
+
+                           However, if AH = 2h, and interrupt 16h was
+                           generated, this would instruct the CPU to check if
+                           a keypress was waiting in the keyboard buffer.
+
+                           If AH = 2h, and BH = 0h and interrupt 10h was
+                           generated, then the CPU would move the cursor to
+                           the X location in DL and the Y location in DH.
+
+                           You can bear in mind, that AH contains the function
+                           to execute, and the other registers may contain any
+                           other data necessary.
+
+                           DO NOT WORRY ABOUT THIS FOR NOW, WE WILL COVER IT
+                           IN GREATER DETAIL LATER.
+
+   ş ADD <dest> <value>  - ADD.  This instruction adds a number to the value
+                           stored in dest.
+
+                           EG: MOV AX, 0h  ; AX now equals 0h
+                               ADD AX, 5h  ; AX now equals 5h
+                               ADD AX, 10h ; AX now equals 15h
+
+                           Pretty simple, huh?
+
+   ş SUB <dest> <value>  - SUBTRACT.  I think you can guess what this does.
+
+                           EG: MOV AX, 13h  ; AX now equals 13h  (19 dec)
+                               SUB AX, 5h   ; AX now equals 0Eh  (14 dec)
+
+   ş DEC <register>      - DECREMENTS something.
+
+                           EG: MOV AX, 13h  ; AX now equals 13h
+                               DEC AX       ; AX now equals 12h
+
+   ş INC <register>      - INCREMENTS something.
+
+                           EG: MOV AX, 13h  ; Take a guess
+                               INC AX       ; AX = AX + 1
+
+   ş JMP <location>      - JUMPS to a location.
+
+                           EG: JMP 020Ah    ; Jump to the instruction at 020Ah
+                               JMP @MyLabel ; Jump to @MyLabel.
+
+                           DON'T WORRY IF THIS IS A LITTLE CONFUSING - IT GETS
+                           WORSE!  THERE ARE 28 DIFFERENT JUMP INSTRUCTIONS TO
+                           LEARN, MAYBE MORE.  WE'LL COVER THEM LATER.
+
+   ş CALL <procedure>    - CALLS a subfunction.
+
+                           EG: Procedure MyProc;
+
+                               Begin   { MyProc }
+                                  { ... }
+                               End;    { MyProc }
+
+                               Begin   { Main }
+                                  Asm
+                                     CALL MyProc   ; Guess what this does!
+                                  End;
+                               End.
+
+                           OR: CALL F6E0h  ; Call subfunction at F6E0h
+
+   ş LOOP <label>        - LOOPS for a period of time.
+
+                           EG: MOV CX, 10h  ; This is why CX is called the
+                                            ; COUNT register.  10h = 16
+
+                               @MyLabel:
+
+                               ; some stuff
+                               ; more stuff
+
+                               LOOP @MyLabel   ; Until CX = 0
+                                               ; Note: CX gets decremented
+                                               ; each time.  Don't DEC it
+                                               ; yourself.
+
+                           ; THIS WOULD LOOP 16 times - thats 10 in hex.
+
+
+   ş LODSB               - Load a byte
+     LODSW               - Load a word
+     STOSB               - Store a byte
+     STOSW               - Store a word
+
+     These instructions are used to put or get something in a location in
+     memory.  The ES:SI register, (remember we talked about this earlier as
+     SI being the source index?),  points to the location we want to get data
+     from, and ES:DI points to where we will be putting information.
+
+     Anyway, imagine that we have the following set-up in memory:
+
+     Memory Location ³ 06 ³ 07 ³ 08 ³ 09 ³ 10 ³ 11 ³ 12
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄ
+     Value           ³ 50 ³ 32 ³ 38 ³ 03 ³ 23 ³ 01 ³ 12
+
+     When we use LODSB or STOSB, it returns or gets a number in AL.  So if
+     ES:SI pointed to 07 and we executed a LODSB instruction, AL would now
+     equal 32.
+
+     Now, if we pointed ES:DI to 11, put say, 50 in the AL register and
+     executed STOSB, then the following would result:
+
+     Memory Location ³ 06 ³ 07 ³ 08 ³ 09 ³ 10 ³ 11 ³ 12
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄ
+     Value           ³ 50 ³ 32 ³ 38 ³ 03 ³ 23 ³ 50 ³ 12
+
+     NOTE:  When we use LODSB/STOSB we use AL.  This is because we will be
+            dealing with an 8-bit number, (a byte) only.  We can store an
+            8-bit number in AL, AH, or AX, but we cannot store a 16-bit
+            number in AH or AL because these are 8-BIT REGISTERS.
+
+            As a result, when we uses LODSW or STOSW, we must use AX and not
+            AL, as we will be getting/putting a 16-bit number.
+
+
+   ş MOVSB - Move a byte
+     MOVSW - Move a word
+
+     As an example we'll get a byte from DS:SI and send it to ES:DI.
+
+     At DS:SI:
+
+     Memory Location ³ 06 ³ 07 ³ 08 ³ 09 ³ 10 ³ 11 ³ 12
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄ
+     Value           ³ 50 ³ 32 ³ 38 ³ 03 ³ 23 ³ 50 ³ 12
+
+
+     At ES:DI:
+
+     Memory Location ³ 06 ³ 07 ³ 08 ³ 09 ³ 10 ³ 11 ³ 12
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄ
+     Value           ³ 10 ³ 11 ³ 20 ³ 02 ³ 67 ³ 00 ³ 12
+
+     If point DS:SI to location 07, point ES:SI to location 11 and
+     execute MOVSB, the stuff at ES:DI will look like:
+
+     At ES:DI:
+
+     Memory Location ³ 06 ³ 07 ³ 08 ³ 09 ³ 10 ³ 11 ³ 12
+     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄ
+     Value           ³ 10 ³ 11 ³ 20 ³ 02 ³ 67 ³ 32 ³ 12
+
+
+     I HOPE YOU GET THE GENERAL IDEA.  HOWEVER, OF COURSE IT ISN'T THAT
+     SIMPLE.  MEMORY LOCATIONS AREN'T ARRANGED IN ARRAY FORM, ALTHOUGH I WISH
+     THEY WERE.  WHEN MOVING/GETTING/PUTTING YOU BE DEALING WITH A SEGMENT/
+     OFFSET LOCATION.
+
+   ş REP - REPEAT for the number of times specified in the CX register.
+           A REP in front of a MOVSB/LODSB/STOSB instruction would cause that
+           instruction to be repeated.  So:
+
+           If CX = 5, and
+           if ES:DI pointed to 1000:1000h,
+
+           then REP STOSB would store what was in the AL register in the
+           location 1000:1000h 5 times.
+
+THINGS TO DO:
+
+1) Memorise all the instructions above - it's not hard and there's not many
+   there.
+
+2) Make sure you understand the theory behind it.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                             COMING UP NEXT WEEK:
+                            ----------------------
+
+           ş Hexadecimal and what it is.
+
+           ş Segments and offsets - we touched on them in this tute.
+
+           ş Some more instructions.
+
+           ş Some sample programs, and code you can use in your programs.
+
+             Maybe a PutPixel, ClrScr, anything I think is useful.
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+- Adam.

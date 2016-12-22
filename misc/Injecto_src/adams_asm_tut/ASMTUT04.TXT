@@ -1,0 +1,583 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                        PART IV                         º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.5
+Date     :  01-03-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Welcome back, budding Assembler coders.  The tutorials seem to be getting
+popular now, and I've had some mail requesting me to cover the VGA so I'll
+give it a go.  This is basically what I've been leading up to in my own
+disjointed way anyhow, as graphics programming is not only rewarding, it's
+also fun too!  Well, I think it's fun.  :)
+
+Firstly though, we must finish off the CMP/JMP stuff, and cover shifts.  When
+you're coding in Assembler, you'll find comparisons, shifts and testing bits
+are very common operations.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ A Comparison Example
+-----------------------
+
+I won't bother going over the following example - it's fairly easy to
+understand and you should get the basic idea anyway.
+
+   DOSSEG
+   .MODEL SMALL
+   .STACK 200h
+   .DATA
+
+FirstString    DB  13, 10, "Is this a great tutorial or what? :) - $"
+SecondString   DB  13, 10, "NO? NO? What do you mean, NO?$"
+ThirdString    DB  13, 10, "Excellent, let's hear you say that again.$"
+FourthString   DB  13, 10, "Just a Y or N will do.$"
+ExitString     DB  13, 10, "Fine, be like that!$"
+
+   .CODE
+
+START:
+   MOV   AX, @DATA                   ; New way of saying:
+   MOV   DS, AX                      ; DS -> SEG data segment
+
+KeepOnGoing:
+   MOV   AH, 9
+   MOV   DX, OFFSET FirstString      ; DX -> OFFSET FirstString
+   INT   21h                         ; Output the first message
+
+   MOV   AH, 0                       ; Get a key - store it in AX
+   INT   16h                         ; AL - ASCII code, AH - scan code
+                                     ; It doesn't echo onto the screen
+                                     ; though, we have to do that ourselves
+
+   PUSH  AX                          ; Here we display the char - note that
+   MOV   DL, AL                      ; we save AX.  Obviously, using AH to
+   MOV   AH, 2                       ; signal to print a string destroys AX
+   INT   21h
+   POP   AX
+
+   CMP   AL, "Y"                     ; Check to see if 'Y' was pressed
+   JNE   HatesTute                   ; If it was, keep going
+
+   MOV   AH, 9                       ; Display the "Excellent..." message
+   MOV   DX, OFFSET ThirdString
+   INT   21h
+   JMP   KeepOnGoing                 ; Go back to the start and begin again
+
+HatesTute:
+   CMP   AL, "N"                     ; Make sure it was 'N' they pressed
+   JE    DontLikeYou                 ; Sadly, it was equal
+
+   MOV   DX, OFFSET FourthString     ; Ask the user to try again
+   MOV   AH, 9
+   INT   21h
+   JMP   KeepOnGoing                 ; Let 'em try
+
+DontLikeYou:
+   MOV   DX, OFFSET SecondString     ; Show the "NO? NO? What..." string
+   MOV   AH, 9
+   INT   21h
+
+   MOV   DX, OFFSET ExitString       ; Show the "Fine, be like that!" string
+   MOV   AH, 9
+   INT   21h
+
+   MOV   AX, 4C00h                   ; Return to DOS
+   INT   21h
+END START
+
+You should understand this example, play around with it and write something
+better.  Those with a "Peter Norton's Guide to..." book or similar,
+experiment with the keyboard subfunctions, and see what other similar GetKey
+combinations exist, or better still, play around with interrupt 10h and
+go into some weird video mode - one which your PC supports! - and use some
+color.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ Shifts
+--------
+
+A simple concept, and one which I should have discussed before, but like I
+said - I have my own disjointed way of going about things.
+
+First you'll need to understand some hexadecimal and binary arithmetic - a
+subject I _should_ have covered before.  I usually use a scientific
+calculator - hey, I always use a calculator, I'm not stupid! - but it is good
+to be able to know how to multiply, add and convert between the various bases.
+
+You also cannot use a calculator in Computing exams, not in Australia anyway.
+
+
+ CONVERTING BINARY TO DECIMAL:
+
+Way back in Tutorial One we looked at what binary numbers look like, so
+imagine I have an eight-bit binary number such as:
+
+ 11001101
+
+What is this in decimal???  There are a number of ways to convert such a
+number, and I use the following, which I believe is probably the easiest:
+
+ ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÑÍÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÍ»
+ º  Binary Number        ³  1  ³  1 ³  0 ³  0 ³  1 ³  1 ³  0 ³  1  º
+ ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÄ¶
+ º                       ³   7 ³  6 ³  5 ³  4 ³  3 ³  2 ³  1 ³  0  º
+ º  Decimal equivalent   ³  2  ³ 2  ³ 2  ³ 2  ³ 2  ³ 2  ³ 2  ³ 2   º
+ ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÄ¶
+ º  Decimal equivalent   ³ 128 ³ 64 ³ 32 ³ 16 ³  8 ³  4 ³  2 ³  1  º
+ ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÄĞÄÄÄÄÄ·
+ º  Decimal value        ³ 128 + 64 +  0 +  0 +  8 +  4 +  0 +  1  = 205 º
+ ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+
+Get the idea?  Note for the last line, it would be more accurate to write:
+
+   1 x 128 + 1 x 64 + 0 x 32 + 0 x 16 + 1 x 8 + 1 x 4 + 0 x 2 + 1 x 1
+ =     128 +     64 +      0 +      0 +     8 +     4 +     0 +     1
+ = 205
+
+Sorry if this is a little confusing, but it is difficult to explain without
+demonstrating.  Here's another example:
+
+ ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÑÍÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÑÍÍÍÍÍ»
+ º  Binary Number        ³  0  ³  1 ³  1 ³  1 ³  1 ³  1 ³  0 ³  0  º
+ ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÄ¶
+ º                       ³   7 ³  6 ³  5 ³  4 ³  3 ³  2 ³  1 ³  0  º
+ º  Decimal equivalent   ³  2  ³ 2  ³ 2  ³ 2  ³ 2  ³ 2  ³ 2  ³ 2   º
+ ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÅÄÄÄÄÄ¶
+ º  Decimal equivalent   ³ 128 ³ 64 ³ 32 ³ 16 ³  8 ³  4 ³  2 ³  1  º
+ ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÁÄÄÄÄÄĞÄÄÄÄÄ·
+ º  Decimal value        ³  0  + 64 + 32 + 16 +  8 +  4 +  0 +  0  = 124 º
+ ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+
+Note:
+
+   ş You can use this technique on 16 or 32-bit words too, just work your way
+     up.  Eg:  After 128, you'd write 256, then 512, 1024 and so on.
+
+   ş You can tell if the decimal equivalent will be odd or even by the first
+     bit.  Eg:  In the above example, the first bit = 0, so the number is
+     EVEN.  In the first example, the first bit is 1, so the number is ODD.
+
+FUN FACT:  In case you didn't already know, bit stands for Binary digIT.  :)
+
+
+ CONVERTING DECIMAL TO BINARY:
+
+This is probably easier than base-2 to base-10.  To find out what 321 would be
+in binary, you'd do the following:
+
+    321                    =    256  X  1
+    321 - 256 = 65         =    128  X  0
+    65                     =     64  X  1
+    65  -  64 = 1          =     32  X  0
+    1                      =     16  X  0
+    1                      =      8  X  0
+    1                      =      4  X  0
+    1                      =      2  X  0
+    1                      =      1  X  1
+
+And you get the binary number - 101000001.  Easy huh?   Let's just try another
+one to make sure we know how:
+
+    198                    =    128  X 1
+    198 - 128 = 70         =     64  X 1
+    70  -  64 =  6         =     32  X 0
+    6                      =     16  X 0
+    6                      =      8  X 0
+    6                      =      4  X 1
+    6   -   4 =  2         =      2  X 1
+    2   -   2 =  0         =      1  X 0
+
+And this gives us - 11000110.  Note how you can check the first digit to see
+if you got your conversion right.  When I wrote the first example, I noticed
+I had made a mistake when I checked the first bit.  On the first example, I
+got 0 - not good for an odd number.  I realised my mistake and corrected the
+example.
+
+
+ CONVERTING HEXADECIMAL TO DECIMAL:
+
+Before we begin, you should know that the hexadecimal number system uses the
+'digits':
+
+   0         =  0 (decimal)  =     0 (binary)
+   1         =  1 (decimal)  =     1 (binary)
+   2         =  2 (decimal)  =    10 (binary)
+   3         =  3 (decimal)  =    11 (binary)
+   4         =  4 (decimal)  =   100 (binary)
+   5         =  5 (decimal)  =   101 (binary)
+   6         =  6 (decimal)  =   110 (binary)
+   7         =  7 (decimal)  =   111 (binary)
+   8         =  8 (decimal)  =  1000 (binary)
+   9         =  9 (decimal)  =  1001 (binary)
+   A         = 10 (decimal)  =  1010 (binary)
+   B         = 11 (decimal)  =  1011 (binary)
+   C         = 12 (decimal)  =  1100 (binary)
+   D         = 13 (decimal)  =  1101 (binary)
+   E         = 14 (decimal)  =  1110 (binary)
+   F         = 15 (decimal)  =  1111 (binary)
+
+You'll commonly hear hexadecimal referred to as hex, or base-16 and it is
+commonly denoted by an 'h' - eg 4C00h, or a '$', eg - $B800.
+
+Working with hexadecimal is not as hard as it may look, and converting back
+and forth is pretty easy.  As an example, we'll convert B800h to decimal:
+
+FUN FACT: B800h is the starting address of the video in text mode for CGA and
+          above display adaptors.  :)
+
+          B    = 4096 x B = 4096 x 11 = 45056
+          8    =  256 x 8 =  256 x  8 =  2048
+          0    =   16 x 0 =   16 x  0 =     0
+          0    =    1 x 0 =    1 x  0 =     0
+
+          So B800h = 45056 + 2048 + 0 + 0
+                   = 47104
+
+          Note:  For hexadecimal numbers greater than FFFFh (65535 decimal),
+                 you merely follow the same procedure as for binary, so for
+                 the fifth hexadecimal digit, you'd multiply it by 65535.
+
+                 Hit 16 X X on your calculator, and keep hitting =.  You'll
+                 see the numbers you'd need to use.  The same applies for
+                 binary.  Eg:  2 X X and = would give you 1, 2, 4, 8, 16...
+                 etc.
+
+Okay, that seemed pretty easy.  I don't even think we need a second example.
+Let's have a crack at:
+
+
+ CONVERTING DECIMAL TO HEXADECIMAL:
+
+Again, the same sort of procedure as the one we followed for binary.  So
+convert 32753 to hexadecimal, you'd do:
+
+
+          32753 / 4096                  =  7 (decimal) = 7h
+
+          32753 - (4096 x 7) = 4081
+
+          4081 /  256                   = 15 (decimal) = Fh
+
+          4081 - (256 x 15)  =  241
+
+          241 / 16                      = 15 (decimal) = Fh
+
+          241 - (16 x 15)    = 1
+
+          1 / 1                         =  1 (decimal) = 1h
+
+
+So eventually we get 7FF1h as our answer.  This is not a particularly nice
+process and requires some explanation.
+
+   1) When you divide 32753 by 4096 you get 7.9963379... We are not interested
+      in the .9963379 rubbish, we just take the 7, as 7 is the highest whole
+      number that we can use.
+
+   2) The remainder left over from the above operation is 4081.  We must now
+      perform the same operation on this, except with 256.  Dividing 4081
+      by 256 gives us 15.941406...  Again, we just take the 15.
+
+   3) Now we have a remainder of 241.  Dividing this by 16 gives us 15.0625.
+      We take the 15, and calculate the remainder.
+
+   4) Our last remainder just happens to be one.  Dividing this by one gives
+      us, you guessed it - one.  YOU SHOULD NOT GET AN ANSWER TO SEVERAL
+      DECIMAL PLACES HERE.  IF YOU HAVE - YOU HAVE DONE THE CALCULATION WRONG.
+
+It's a particularly nasty process, but it works.  I do not use this except
+when I have to - I'm not crazy - I use a scientific calculator, or Windows
+Calculator <shudder> if I must.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay, now we've dealt with the gruesome calculations, you're ready for
+shifts.  There are generally two forms of the shift instruction - SHL (shift
+left) and SHR (shift right).  Basically, all these instructions do is shift
+and expression to the left or right by a number of bits.  Their main
+advantage is their ability to let you replace slow multiplications with much
+faster shifts.  You will find this will speed up pixel/line/circle algorithms
+by an amazing amount.
+
+PC's are becoming faster and faster by the day - a little too fast for my
+liking.  Back in the days of the XT - multiplication was _really_ slow -
+perhaps taking up to four seconds for certain operations.  Not so much of this
+applies today, but it is still a good idea to optimize your code.
+
+When we plot a pixel onto the screen, we have to find the offset for the pixel
+to plot.  Basically, what we do is to multiply the Y location by 320, add the
+X location onto it, and add this to address A000h.
+
+So basically, we get:   A000:Yx320+X
+
+Now, as fast as your wonderful 486 or Pentium machine is, this could be made
+a lot faster.  Lets rewrite that equation above so we use some different
+numbers:
+
+                            8          6
+              Offset = Y x 2   +  Y x 2  + X
+Or:
+              Offset = Y x 256 +  y x 64 + X
+
+Recognise those numbers?  They look an awful lot like the ones we saw in that
+binary-to-decimal conversion table.  However, we are still using
+multiplication.  How can we incorporate shifts into the picture?
+
+What about:
+
+              Offset = Y SHL 8 + Y SHL 6 + X
+
+Now this is a _lot_ faster, as all the computer has to do is shift the number
+left - much better.   Note that shifting to the left INCREASES the number,
+and shifting to the right will DECREASE the number.
+
+Here's an example that may help you if you are still unsure as to what is
+going on.  Let's say that we're working in base-10 - decimal.  Now let's take
+the number 36 as an example.  Shifting this number LEFT by 1, gives us:
+
+  36  +  36                                             = 72
+
+Now SHL 2:
+
+  36  +  36  +  36  +  36                               = 144
+
+And SHL 3:
+  36 +  36   +  36  +  36  +  36  +  36  +  36  +  36   = 288
+
+Notice the numbers forming?  There were 2 36's with SHL 1, 4 36's with SHL 2
+and 8 36's with SHL 3.  Following this pattern, it would be fair to assume
+that 36 SHL 4 will equal 36 x 16.
+
+Note however, what is really happening.   If you were to work out the binary
+value of 36, which looks like this: 100100, and then shifted 36 LEFT by two,
+you'd get 144, or 10010000.  All the CPU actually does it stick a few extra
+1's and 0's in a location in memory.
+
+
+As another example, take the binary number 1000101.  If we were to shift it
+LEFT 3, we'd end up with:
+
+        1 0 0 0 1 0 1
+          <---------- SHL 3
+  1 0 0 0 1 0 1 0 0 0
+
+Now lets shift the number 45 RIGHT 2.  In binary this is 101101.  Hence:
+
+        1 0 1 1 0 1
+        SHR 2 ---->
+            1 0 1 1
+
+Notice what has occurred?  It is much easier for the CPU to just move some
+bits around, (approximately 2 clock ticks), rather than to multiply a number
+out.  (Can get to around 133 clock ticks).
+
+We will be using shifts a lot when programming the VGA, so make sure you
+understand the concepts behind them.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³            PROGRAMMING THE VGA IN ASSEMBLER              ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+I have received quite a bit of mail asking me to cover the VGA.  So for all
+those who asked, we'll be spending most of our time, but not all, on
+programming the VGA.  After all, doesn't everyone want to code graphics?
+
+When we talk about programming the VGA, we are generally talking about mode
+13h, or one of its tweaked relatives.  In standard VGA this is the _only_ way
+to use 256 colors, and it's probably one of the easiest modes to use too.
+If you've ever tried experimenting with SVGA, you'll understand the nightmare
+it is for the programmer in supporting all the different SVGA cards that
+exist - except if you use VESA that is, which we'll discuss another time.  The
+great thing about standard mode 13h is you know that just about every VGA card
+in existence will support it.  People today often ignore mode 13h, thinking
+the resolution to be too grainy by today's standards, but don't forget that
+Duke Nukem, DOOM, DOOM II, Halloween Harry and most of the Apogee games use
+this mode to achieve some great effects.
+
+The great thing about mode 13h - that's 320x200x256 in case you were unaware,
+is that accessing VGA RAM is incredibly easy.  As 320 x 200 only equals
+64,000, it is quite possible to fit the entire screen into one 64K segment -
+leaving out the hell of planes, (or should that be plains of Hell?), and
+masking registers.
+
+The bad news is that standard mode 13h really only gives you one page to use,
+seriously hampering scrolling and page-flipping.  We'll later cover how to
+get into your own modes - and mode X which will avoid these problems.
+
+
+So, how do you get into the standard mode 13h?
+
+The answer is simple.  We use interrupt 10h - video interrupt, and call
+subfunction 00h - set mode.  In Pascal, you could declare a procedure like
+this:
+
+Procedure Init300x200;   Assembler;
+
+Asm     { Init300x200 }
+   mov   ah, 00h         { Set video mode }
+   mov   al, 13h         { Use mode 13h   }
+   int   10h             { Do it          }
+End;    { Init300x200 }
+
+
+You may also see:
+
+   mov   ax, 13h
+   int   10h
+
+This is perfectly correct, and probably saves one clock tick by not putting
+00h in AH and then 13h in AL, but it is more correct to use the first
+example.
+
+
+Okay, so we're in mode 13h, but what can we actually do in it, other than look
+at a blank screen?  We could go back to text mode by using:
+
+   mov   ah, 00h
+   mov   al, 03h
+   int   10h
+
+but that's a little dull.  Why not plot a pixel?
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+There are a number of ways you could get a pixel on the screen.  The easiest
+way in Assembler is to use interrupts.  You do it like this in Pascal:
+
+Procedure PutPixel(X, Y : Integer; Color : Byte);   Assembler;
+
+Asm     { PutPixel }
+   mov   ah, 0Ch        { Draw pixel subfunction        }
+   mov   al, [Color]    { Move the color to plot in AL  }
+   mov   cx, [X]        { Move the X value into CX      }
+   mov   dx, [Y]        { Move the Y value into DX      }
+   mov   bx, 1h         { BX = 1, page 1                }
+   int   10h            { Plot it                       }
+End;    { PutPixel }
+
+
+However, even though this is in Assembler, it isn't particularly speedy.  Why
+you ask?  Because it uses interrupts.  Interrupts are fine for getting in and
+out of video modes, turning the cursor on and off, etc... but not for
+graphics.
+
+You can think of interrupts like an answering machine.  "The CPU is busy right
+now, but if you leave your subfunction after the tone - we'll get back to
+you."
+
+Not good.  Let's use that technique we discussed earlier during shifts.  What
+we want to do is put the value of the color we want to plot into the VGA
+directly.  To do this, we'll need to move the address of the VGA into ES,
+and calculate the offset of the pixel we want to plot.  An example of this
+is shown below:
+
+Procedure PutPixel(X, Y : Integer; Color : Byte);   Assembler;
+
+Asm     { PutPixel }
+   mov   ax, 0A000h     { Move the segment of the VGA into AX,   }
+   mov   es, ax         { and now into ES                        }
+   mov   bx, [X]        { Move the X value into BX               }
+   mov   dx, [Y]        { Move the Y value into DX               }
+   mov   di, bx         { Move X into DI                         }
+   mov   bx, dx         { Move Y into BX                         }
+   shl   dx, 8          { In this part we use shifts to multiply }
+   shl   bx, 6          { Y by 320                               }
+   add   dx, bx         { Now here we add X onto the above,      }
+   add   di, dx         { giving us DI = Y x 320 + X             }
+   mov   al, [Color]    { Put the color to plot into AL          }
+   stosb                { Put the byte, AL, at ES:DI             }
+End;    { PutPixel }
+
+This procedure is fast enough to begin with, though I gave out a much faster
+one a few tutorials ago which uses a pretty ingenious technique to get DI.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay, I think that's enough for this week.  Have a play with the PutPixel
+routines and see what you can do with them.  For those with a "Peter Norton's
+Guide to..." book, see what other procedures you can make using interrupts.
+
+
+ THINGS TO DO:
+
+    1) We covered a lot in this tutorial, and some important concepts were
+       in it.  Make sure you are comfortable with the comparisons, because
+       we'll get into testing bits soon.
+
+    2) Make sure you understand the binary -> decimal, decimal -> binary,
+       decimal -> hex and hex -> decimal stuff.  Make yourself some example
+       sums and test your answers with Windows Calculator.
+
+    3) You _must_ understand shifts.  If you are still having problems,
+       make some expressions up on paper, and test your answers with a program
+       such as:
+
+       Begin   { Main }
+          WriteLn(45 SHL 6);
+          ReadLn;
+       End.    { Main }
+
+       and/or Windows Calculator.
+
+    4) Have a look at the VGA stuff, and make sure you have grasped the theory
+       behind it, because next week we're really going to go into it in
+       depth.
+
+Next week I'll also try to give some C/C++ examples as well as the Pascal ones
+for all you C programmers out there.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Next tutorial will cover:
+
+   ş How the VGA is arranged
+   ş How we can draw lines and circles
+   ş Getting and setting the palette in Assembler
+   ş Fades
+   ş Some C/C++ examples
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+See you next week!
+
+- Adam.
+
+" I _never_ write code with bugs, I just add some unintentional features! "

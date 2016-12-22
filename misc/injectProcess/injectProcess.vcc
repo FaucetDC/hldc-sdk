@@ -1,0 +1,47 @@
+; CLW file contains information for the MFC ClassWizard
+
+[General Info]
+Version=1
+LastClass=CInjectProcessDlg
+LastTemplate=CDialog
+NewFileInclude1=#include "stdafx.h"
+NewFileInclude2=#include "injectProcess.h"
+
+ClassCount=3
+Class1=CInjectProcessApp
+Class2=CInjectProcessDlg
+
+ResourceCount=4
+Resource2=IDR_MAINFRAME
+Resource3=IDD_INJECTPROCESS_DIALOG
+Resource4=IDD_INJECTPROCESS_DIALOG (German (Germany))
+
+[CLS:CInjectProcessApp]
+Type=0
+HeaderFile=injectProcess.h
+ImplementationFile=injectProcess.cpp
+Filter=N
+
+[CLS:CInjectProcessDlg]
+Type=0
+HeaderFile=injectProcessDlg.h
+ImplementationFile=injectProcessDlg.cpp
+Filter=D
+BaseClass=CDialog
+VirtualFilter=dWC
+
+
+[DLG:IDD_INJECTPROCESS_DIALOG]
+Type=1
+ControlCount=3
+Control1=IDOK,button,1342242817
+Control2=IDCANCEL,button,1342242816
+Control3=IDC_STATIC,static,1342308352
+Class=CInjectProcessDlg
+
+[DLG:IDD_INJECTPROCESS_DIALOG (German (Germany))]
+Type=1
+Class=?
+ControlCount=1
+Control1=IDC_BUTTON1,button,1342242816
+

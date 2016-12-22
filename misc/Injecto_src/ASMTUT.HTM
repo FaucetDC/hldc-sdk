@@ -1,0 +1,1582 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0044)http://thsun1.jinr.ru/~alvladim/man/asm.html -->
+<HTML><HEAD>
+<META http-equiv=Content-Type content="text/html; charset=windows-1256">
+<META content="MSHTML 5.50.4134.600" name=GENERATOR></HEAD>
+<BODY bgColor=#ffffff>
+<CENTER><FONT color=#0000ff size=+2>Assembly Language Tutor:</FONT><BR>Converted 
+to HTML by: <B><A href="mailto:c027319@mail.idt.net">Cameron 
+Buschardt</A></B></CENTER>
+<HR>
+
+<P>University of Guadalajara <BR>Information Sistems General 
+Coordination.<BR>Culture and Entertainment Web
+<CENTER></CENTER><BR><BR>June 12th 1995<BR>Copyright(C)1995-1996<BR><BR>This is 
+an introduction for people who want to programming in assembler 
+language.<BR><BR>Copyright (C) 1995-1996, Hugo Perez Perez. Anyone may reproduce 
+this document, in whole or in part, provided that: (1) any copy or republication 
+of the entire document must show University od Guadalajara as<BR>the source, and 
+must include this notice; and (2) any other use of this material must reference 
+this manual and University of Guadalajara, and the fact that the material is 
+copyright by Hugo Perez and is used by permission. <BR><BR>Assembler 
+Tutorial<BR>1996 Edition<BR>
+<P></P>
+<HR>
+
+<P>Table of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#1">1 Introduction</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2">2 Basic Concepts</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3">3 Assembler 
+programming</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4">4 
+Assembler language instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5">5 Interruptions and file 
+managing</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#6">6 
+Macros and procedures</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#7">7 Program 
+examples</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=1>1 
+Introduction</B></FONT><BR><BR>Table of contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#1.1">1.1 What's new in the 
+Assembler material</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#1.2">1.2 
+Presentation</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#1.3">1.3 Why learn Assembler 
+language</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#1.4">1.4 
+We need your opinion</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=1.1>1.1 What's new in the Assembler material</B></FONT><BR><BR>After of one 
+year that we've released the first Assembler material on-line.<BR>We've received 
+a lot of e-mail where each people talk about different<BR>aspects about this 
+material. We've tried to put these comments and<BR>suggestions in this update 
+assembler material. We hope that this new Assembler material release reach to 
+all people that they interest to learn the most important language for IBM 
+PC.<BR><BR>In this new assembler release includes:<BR><BR>A complete chapter 
+about how to use debug program<BR>More example of the assembler material<BR>Each 
+section of this assembler material includes a link file to Free<BR>On-line of 
+Computing by Dennis Howe<BR>Finally, a search engine to look for any topic or 
+item related with this updated material.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=1.2>1.2 Presentation</B></FONT><BR><BR>The document you are 
+looking at, has the primordial function of introducing<BR>you to assembly 
+language programming, and it has been thought for those<BR>people who have never 
+worked with this language.<BR><BR>The tutorial is completely focused towards the 
+computers that function with<BR>processors of the x86 family of Intel, and 
+considering that the language<BR>bases its functioning on the internal resources 
+of the processor, the<BR>described examples are not compatible with any other 
+architecture.<BR><BR>The information was structured in units in order to allow 
+easy access to<BR>each of the topics and facilitate the following of the 
+tutorial.<BR><BR>In the introductory section some of the elemental concepts 
+regarding<BR>computer systems are mentioned, along with the concepts of the 
+assembly<BR>language itself, and continues with the tutorial 
+itself.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=1.3>1.3 Why learn 
+assembler language</B></FONT><BR><BR>The first reason to work with assembler is 
+that it provides the opportunity<BR>of knowing more the operation of your PC, 
+which allows the development of<BR>software in a more consistent 
+manner.<BR><BR>The second reason is the total control of the PC which you can 
+have with<BR>the use of the assembler.<BR><BR>Another reason is that the 
+assembly programs are quicker, smaller, and have<BR>larger capacities than ones 
+created with other languages.<BR><BR>Lastly, the assembler allows an ideal 
+optimization in programs, be it on<BR>their size or on their 
+execution.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=1.4>1.4 We need 
+your opinion</B></FONT><BR><BR>Our goal is offers you easier way to learn 
+yourself assembler language. You send us your comments or suggestions about this 
+96' edition. Any comment will be welcome.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=2>2 Basic Concepts</B></FONT><BR><BR>Table of 
+Contents<BR><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.1">2.1 
+Basic description of a computer system.</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2">2.2 Assembler language 
+Basic concepts</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3">2.3 Using debug 
+program</A><BR><BR><FONT color=#ff00ff size=+1><B><A name=2.1>2.1 Basic 
+description of a computer system. </B></FONT><BR><BR>This section has the 
+purpose of giving a brief outline of the main<BR>components of a computer system 
+at a basic level, which will allow the user<BR>a greater understanding of the 
+concepts which will be dealt with throughout<BR>the tutorial.<BR><BR><BR>Table 
+of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.1.1">2.1.1 Central 
+Processor</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.1.2">2.1.2 Central 
+Memory</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.1.3">2.1.3 
+Input and Output Units</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.1.4">2.1.4 Auxiliary Memory 
+Units</A><BR><BR>Computer System.<BR><BR>We call computer system to the complete 
+configuration of a computer,<BR>including the peripheral units and the system 
+programming which make it a<BR>useful and functional machine for a determined 
+task.<BR><BR><FONT color=#ff00ff size=+1><B><A name=2.1.1>2.1.1 Central 
+Processor.</B></FONT><BR><BR>This part is also known as central processing unit 
+or CPU, which in turn is<BR>made by the control unit and the arithmetic and 
+logic unit. Its<BR>functions consist in reading and writing the contents of the 
+memory cells,<BR>to forward data between memory cells and special registers, and 
+decode and<BR>execute the instructions of a program. The processor has a series 
+of memory<BR>cells which are used very often and thus, are part of the CPU. 
+These cells<BR>are known with the name of registers. A processor may have one or 
+two<BR>dozen of these registers. The arithmetic and logic unit of the 
+CPU<BR>realizes the operations related with numeric and symbolic 
+calculations.<BR>Typically these units only have capacity of performing very 
+elemental<BR>operations such as: the addition and subtraction of two whole 
+numbers,<BR>whole number multiplication and division, handling of the registers' 
+bits<BR>and the comparison of the content of two registers. Personal computers 
+can<BR>be classified by what is known as word size, this is, the quantity of 
+bits<BR>which the processor can handle at a time.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=2.1.2>2.1.2 Central Memory.</B></FONT><BR><BR>It is a group 
+of cells, now being fabricated with semi-conductors, used for<BR>general 
+processes, such as the execution of programs and the storage of<BR>information 
+for the operations.<BR><BR>Each one of these cells may contain a numeric value 
+and they have the<BR>property of being addressable, this is, that they can 
+distinguish one<BR>from another by means of a unique number or an address for 
+each cell.<BR><BR>The generic name of these memories is Random Access Memory or 
+RAM. The main disadvantage of this type of memory is that the integrated 
+circuits lose<BR>the information they have stored when the electricity flow is 
+interrupted.<BR>This was the reason for the creation of memories whose 
+information is not<BR>lost when the system is turned off. These memories receive 
+the name of Read<BR>Only Memory or ROM.<BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=2.1.3>2.1.3 Input and Output Units.</B></FONT><BR><BR>In order for a 
+computer to be useful to us it is necessary that the<BR>processor communicates 
+with the exterior through interfaces which allow the<BR>input and output of 
+information from the processor and the memory. Through<BR>the use of these 
+communications it is possible to introduce information to<BR>be processed and to 
+later visualize the processed data.<BR><BR>Some of the most common input units 
+are keyboards and mice. The most<BR>common output units are screens and 
+printers.<BR><BR><FONT color=#ff00ff size=+1><B><A name=2.1.4>2.1.4 Auxiliary 
+Memory Units.</B></FONT><BR><BR>Since the central memory of a computer is 
+costly, and considering today's<BR>applications it is also very limited. Thus, 
+the need to create practical and<BR>economical information storage systems 
+arises. Besides, the central memory<BR>loses its content when the machine is 
+turned off, therefore making it<BR>inconvenient for the permanent storage of 
+data.<BR><BR>These and other inconvenience give place for the creation of 
+peripheral<BR>units of memory which receive the name of auxiliary or secondary 
+memory. Of<BR>these the most common are the tapes and magnetic discs.<BR><BR>The 
+stored information on these magnetic media means receive the name of files. A 
+file is made of a variable number of registers, generally of a fixed<BR>size; 
+the registers may contain information or programs.<BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=2.2>2.2 Assembler language Basic concepts 
+</B></FONT><BR><BR><BR>Table of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.1">2.2.1 Information in 
+the computers</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.2">2.2.2 Data 
+representation methods</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=2.2.1>2.2.1 Information in the computers</B></FONT><BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.1.1">2.2.1.1 Information 
+units</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.1.2">2.2.1.2 Numeric 
+systems</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.1.3">2.2.1.3 Converting 
+binary numbers to decimal</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.1.4">2.2.1.4 Converting 
+decimal numbers to binary</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.2.1.5">2.2.1.5 Hexadecimal 
+system</A><BR><BR><FONT color=#ff00ff size=+1><B><A name=2.2.1.1>2.2.1.1 
+Information Units</B></FONT><BR><BR>In order for the PC to process information, 
+it is necessary that this<BR>information be in special cells called registers. 
+The registers are groups of 8 or 16 flip-flops.<BR><BR>A flip-flop is a device 
+capable of storing two levels of voltage, a low<BR>one, regularly 0.5 volts, and 
+another one, commonly of 5 volts. The low<BR>level of energy in the flip-flop is 
+interpreted as off or 0, and the high<BR>level as on or 1. These states are 
+usually known as bits, which are the<BR>smallest information unit in a 
+computer.<BR><BR>A group of 16 bits is known as word; a word can be divided in 
+groups of 8<BR>bits called bytes, and the groups of 4 bits are called 
+nibbles.<BR><BR><FONT color=#ff00ff size=+1><B><A name=2.2.1.2>2.2.1.2 Numeric 
+systems</B></FONT><BR><BR>The numeric system we use daily is the decimal system, 
+but this system is<BR>not convenient for machines since the information is 
+handled codified in<BR>the shape of on or off bits; this way of codifying takes 
+us to the necessity<BR>of knowing the positional calculation which will allow us 
+to express a<BR>number in any base where we need it.<BR><BR>It is possible to 
+represent a determined number in any base through the<BR>following 
+formula:<BR><BR><BR><BR><BR>Where n is the position of the digit beginning from 
+right to left and<BR>numbering from zero. D is the digit on which we operate and 
+B is the used<BR>numeric base.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=2.2.1.3>2.2.1.3 converting binary numbers to 
+decimals</B></FONT><BR><BR>When working with assembly language we come on the 
+necessity of converting<BR>numbers from the binary system, which is used by 
+computers, to the decimal<BR>system used by people.<BR><BR>The binary system is 
+based on only two conditions or states, be it on(1) or<BR>off(0), thus its base 
+is two.<BR><BR>For the conversion we can use the positional value 
+formula:<BR><BR>For example, if we have the binary number of 10011, we take each 
+digit from<BR>right to left and multiply it by the base, elevated to the new 
+position<BR>they are:<BR><BR>Binary: 1 1 0 0 1<BR><BR>Decimal: 1*2^0 + 1*2^1 + 
+0*2^2 + 0*2^3 + 1*2^4<BR><BR>= 1 + 2 + 0 + 0 + 16 = 19 decimal.<BR><BR>The ^ 
+character is used in computation as an exponent symbol and the *<BR>character is 
+used to represent multiplication.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=2.2.1.4>2.2.1.4 Converting decimal numbers to 
+binary</B></FONT><BR><BR>There are several methods to convert decimal numbers to 
+binary; only one<BR>will be analyzed here. Naturally a conversion with a 
+scientific calculator<BR>is much easier, but one cannot always count with one, 
+so it is convenient<BR>to at least know one formula to do it.<BR><BR>The method 
+that will be explained uses the successive division of two,<BR>keeping the 
+residue as a binary digit and the result as the next number 
+to<BR>divide.<BR><BR>Let us take for example the decimal number of 
+43.<BR><BR>43/2=21 and its residue is 1<BR><BR>21/2=10 and its residue is 
+1<BR><BR>10/2=5 and its residue is 0<BR><BR>5/2=2 and its residue is 
+1<BR><BR>2/2=1 and its residue is 0<BR><BR>1/2=0 and its residue is 
+1<BR><BR>Building the number from the bottom , we get that the binary result 
+is<BR>101011<BR><BR><FONT color=#ff00ff size=+1><B><A name=2.2.1.5>2.2.1.5 
+Hexadecimal system</B></FONT><BR><BR>On the hexadecimal base we have 16 digits 
+which go from 0 to 9 and from the<BR>letter A to the F, these letters represent 
+the numbers from 10 to 15. Thus<BR>we count 0,1,2,3,4,5,6,7,8,9,A,B,C,D,E, and 
+F.<BR><BR>The conversion between binary and hexadecimal numbers is easy. The 
+first<BR>thing done to do a conversion of a binary number to a hexadecimal is 
+to<BR>divide it in groups of 4 bits, beginning from the right to the left. In 
+case<BR>the last group, the one most to the left, is under 4 bits, the 
+missing<BR>places are filled with zeros.<BR><BR>Taking as an example the binary 
+number of 101011, we divide it in 4 bits<BR>groups and we are left 
+with:<BR><BR>10;1011<BR><BR>Filling the last group with zeros (the one from the 
+left):<BR><BR>0010;1011<BR><BR>Afterwards we take each group as an independent 
+number and we consider its<BR>decimal value:<BR><BR>0010=2;1011=11<BR><BR>But 
+since we cannot represent this hexadecimal number as 211 because it<BR>would be 
+an error, we have to substitute all the values greater than 9 by<BR>their 
+respective representation in hexadecimal, with which we obtain:<BR><BR>2BH, 
+where the H represents the hexadecimal base.<BR><BR>In order to convert a 
+hexadecimal number to binary it is only necessary to<BR>invert the steps: the 
+first hexadecimal digit is taken and converted to<BR>binary, and then the 
+second, and so on.<BR><BR><FONT color=#ff00ff size=+1><B><A name=2.2.2>2.2.2 
+Data representation methods in a computer.</B></FONT><BR><BR>2.2.2.1.ASCII 
+code<BR>2.2.2.2 BCD method<BR>2.2.2.3 Floating point representation<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=2.2.2.1>2.2.2.1 ASCII 
+code</B></FONT><BR><BR>ASCII is an acronym of American Standard Code for 
+Information Interchange.<BR>This code assigns the letters of the alphabet, 
+decimal digits from 0 to 9<BR>and some additional symbols a binary number of 7 
+bits, putting the 8th bit<BR>in its off state or 0. This way each letter, digit 
+or special character<BR>occupies one byte in the computer memory.<BR><BR>We can 
+observe that this method of data representation is very inefficient<BR>on the 
+numeric aspect, since in binary format one byte is not enough to<BR>represent 
+numbers from 0 to 255, but on the other hand with the ASCII code<BR>one byte may 
+represent only one digit. Due to this inefficiency, the ASCII<BR>code is mainly 
+used in the memory to represent text.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=2.2.2.2>2.2.2.2 BCD Method</B></FONT><BR><BR>BCD is an 
+acronym of Binary Coded Decimal. In this notation groups of 4<BR>bits are used 
+to represent each decimal digit from 0 to 9. With this method<BR>we can 
+represent two digits per byte of information.<BR><BR>Even when this method is 
+much more practical for number representation in<BR>the memory compared to the 
+ASCII code, it still less practical than the<BR>binary since with the BCD method 
+we can only represent digits from 0 to 99.<BR>On the other hand in binary format 
+we can represent all digits from 0 to<BR>255.<BR><BR>This format is mainly used 
+to represent very large numbers in mercantile<BR>applications since it 
+facilitates operations avoiding mistakes.<BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=2.2.2.3>2.2.2.3 Floating point 
+representation</B></FONT><BR><BR>This representation is based on scientific 
+notation, this is, to represent a<BR>number in two parts: its base and its 
+exponent.<BR><BR>As an example, the number 1234000, can be represented as 
+1.123*10^6, in<BR>this last notation the exponent indicates to us the number of 
+spaces that<BR>the decimal point must be moved to the right to obtain the 
+original result.<BR><BR>In case the exponent was negative, it would be 
+indicating to us the number<BR>of spaces that the decimal point must be moved to 
+the left to obtain the<BR>original result.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=2.3>2.3 Using Debug program </B></FONT><BR><BR>Table of 
+Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.1">2.3.1 Program creation 
+process</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.2">2.3.2 CPU 
+registers</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.3">2.3.3 Debug 
+program</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.4">2.3.4 Assembler 
+structure</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.5">2.3.5 Creating basic 
+assembler program</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.6">2.3.6 Storing and 
+loading the programs</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#2.3.7">2.3.7 More debug 
+program examples</A><BR><BR><FONT color=#ff00ff size=+1><B><A name=2.31>2.31 
+Program creation process</B></FONT><BR><BR>For the creation of a program it is 
+necessary to follow five steps:<BR><BR>Design of the algorithm, stage the 
+problem to be solved is<BR>established and the best solution is proposed, 
+creating squematic<BR>diagrams used for the better solution proposal.<BR>Coding 
+the algorithm, consists in writing the program in some<BR>programming language; 
+assembly language in this specific case, taking<BR>as a base the proposed 
+solution on the prior step.<BR>Translation to machine language, is the creation 
+of the object<BR>program, in other words, the written program as a sequence of 
+zeros and<BR>ones that can be interpreted by the processor.<BR>Test the program, 
+after the translation the program into<BR>machine language, execute the program 
+in the computer machine.<BR>The last stage is the elimination of detected faults 
+on the<BR>program on the test stage. The correction of a fault normally 
+requires<BR>the repetition of all the steps from the first or 
+second.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=2.3.2>2.3.2 CPU 
+Registers</B></FONT><BR><BR>The CPU has 4 internal registers, each one of 16 
+bits. The first four, AX,<BR>BX, CX, and DX are general use registers and can 
+also be used as 8 bit<BR>registers, if used in such a way it is necessary to 
+refer to them for<BR>example as: AH and AL, which are the high and low bytes of 
+the AX register.<BR>This nomenclature is also applicable to the BX, CX, and DX 
+registers.<BR><BR>The registers known by their specific names:<BR><BR>AX 
+Accumulator<BR>BX Base register<BR>CX Counting register<BR>DX Data 
+register<BR>DS Data segment register<BR>ES Extra segment register<BR>SS Battery 
+segment register<BR>CS Code segment register<BR>BP Base pointers register<BR>SI 
+Source index register<BR>DI Destiny index register<BR>SP Battery pointer 
+register<BR>IP Next instruction pointer register<BR>F Flag register<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=2.3.3>2.3.3 Debug program</B></FONT><BR><BR>To 
+create a program in assembler two options exist, the first one is to use<BR>the 
+TASM or Turbo Assembler, of Borland, and the second one is to use 
+the<BR>debugger - on this first section we will use this last one since it 
+is<BR>found in any PC with the MS-DOS, which makes it available to any user 
+who<BR>has access to a machine with these characteristics.<BR><BR>Debug can only 
+create files with a .COM extension, and because of the<BR>characteristics of 
+these kinds of programs they cannot be larger that 64<BR>kb, and they also must 
+start with displacement, offset, or 0100H memory<BR>direction inside the 
+specific segment.<BR><BR>Debug provides a set of commands that lets you perform 
+a number of useful<BR>operations:<BR><BR>A Assemble symbolic instructions into 
+machine code<BR>D Display the contents of an area of memory<BR>E Enter data into 
+memory, beginning at a specific location<BR>G Run the executable program in 
+memory<BR>N Name a program<BR>P Proceed, or execute a set of related 
+instructions<BR>Q Quit the debug program<BR>R Display the contents of one or 
+more registers<BR>T Trace the contents of one instruction<BR>U Unassembled 
+machine code into symbolic code<BR>W Write a program onto disk<BR><BR>It is 
+possible to visualize the values of the internal registers of the CPU<BR>using 
+the Debug program. To begin working with Debug, type the following<BR>prompt in 
+your computer:<BR><BR>C:/&gt;Debug [Enter]<BR><BR>On the next line a dash will 
+appear, this is the indicator of Debug, at<BR>this moment the instructions of 
+Debug can be introduced using the 
+following<BR>command:<BR><BR>-r[Enter]<BR><BR>AX=0000 BX=0000 CX=0000 DX=0000 
+SP=FFEE BP=0000 SI=0000 DI=0000<BR>DS=0D62 ES=0D62 SS=0D62 CS=0D62 IP=0100 NV EI 
+PL NZ NA PO NC<BR>0D62:0100 2E CS:<BR>0D62:0101 803ED3DF00 CMP BYTE PTR 
+[DFD3],00 CS:DFD3=03<BR><BR>All the contents of the internal registers of the 
+CPU are displayed; an<BR>alternative of viewing them is to use the "r" command 
+using as a parameter<BR>the name of the register whose value wants to be seen. 
+For example:<BR><BR>-rbx<BR>BX 0000<BR>:<BR><BR>This instruction will only 
+display the content of the BX register and the<BR>Debug indicator changes from 
+"-" to ":"<BR><BR>When the prompt is like this, it is possible to change the 
+value of the<BR>register which was seen by typing the new value and [Enter], or 
+the old<BR>value can be left by pressing [Enter] without typing any other 
+value.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=2.3.4>2.3.4 Assembler 
+structure</B></FONT><BR><BR>In assembly language code lines have two parts, the 
+first one is the name<BR>of the instruction which is to be executed, and the 
+second one are the<BR>parameters of the command. For example:<BR>add ah 
+bh<BR><BR>Here "add" is the command to be executed, in this case an addition, 
+and<BR>"ah" as well as "bh" are the parameters.<BR><BR>For example:<BR><BR>mov 
+al, 25<BR><BR>In the above example, we are using the instruction mov, it means 
+move the<BR>value 25 to al register.<BR><BR>The name of the instructions in this 
+language is made of two, three or<BR>four letters. These instructions are also 
+called mnemonic names or<BR>operation codes, since they represent a function the 
+processor will<BR>perform.<BR><BR>Sometimes instructions are used as 
+follows:<BR><BR>add al,[170]<BR><BR>The brackets in the second parameter 
+indicate to us that we are going to<BR>work with the content of the memory cell 
+number 170 and not with the 170<BR>value, this is known as direct 
+addressing.<BR><BR><FONT color=#ff00ff size=+1><B><A name=2.3.5>2.3.5 Creating 
+basic assembler program</B></FONT><BR><BR>The first step is to initiate the 
+Debug, this step only consists of typing<BR>debug[Enter] on the operative system 
+prompt.<BR><BR>To assemble a program on the Debug, the "a" (assemble) command is 
+used;<BR>when this command is used, the address where you want the assembling 
+to<BR>begin can be given as a parameter, if the parameter is omitted 
+the<BR>assembling will be initiated at the locality specified by CS:IP, 
+usually<BR>0100h, which is the locality where programs with .COM extension must 
+be<BR>initiated. And it will be the place we will use since only Debug can 
+create<BR>this specific type of programs.<BR><BR>Even though at this moment it 
+is not necessary to give the "a" command a<BR>parameter, it is recommendable to 
+do so to avoid problems once the CS:IP<BR>registers are used, therefore we 
+type:<BR><BR>a 100[enter]<BR>mov ax,0002[enter]<BR>mov bx,0004[enter]<BR>add 
+ax,bx[enter]<BR>nop[enter][enter]<BR><BR>What does the program do?, move the 
+value 0002 to the ax register, move the<BR>value 0004 to the bx register, add 
+the contents of the ax and bx registers,<BR>the instruction, no operation, to 
+finish the program.<BR><BR>In the debug program. After to do this, appear on the 
+screen some like the<BR>follow lines:<BR><BR>C:\&gt;debug<BR>-a 100<BR>0D62:0100 
+mov ax,0002<BR>0D62:0103 mov bx,0004<BR>0D62:0106 add ax,bx<BR>0D62:0108 
+nop<BR>0D62:0109<BR><BR>Type the command "t" (trace), to execute each 
+instruction of this program,<BR>example:<BR><BR>-t<BR><BR>AX=0002 BX=0000 
+CX=0000 DX=0000 SP=FFEE BP=0000 SI=0000 DI=0000<BR>DS=0D62 ES=0D62 SS=0D62 
+CS=0D62 IP=0103 NV EI PL NZ NA PO NC<BR>0D62:0103 BB0400 MOV BX,0004<BR><BR>You 
+see that the value 2 move to AX register. Type the command "t" 
+(trace),<BR>again, and you see the second instruction is 
+executed.<BR><BR>-t<BR><BR>AX=0002 BX=0004 CX=0000 DX=0000 SP=FFEE BP=0000 
+SI=0000 DI=0000<BR>DS=0D62 ES=0D62 SS=0D62 CS=0D62 IP=0106 NV EI PL NZ NA PO 
+NC<BR>0D62:0106 01D8 ADD AX,BX<BR><BR>Type the command "t" (trace) to see the 
+instruction add is executed, you<BR>will see the follow 
+lines:<BR><BR>-t<BR><BR>AX=0006 BX=0004 CX=0000 DX=0000 SP=FFEE BP=0000 SI=0000 
+DI=0000<BR>DS=0D62 ES=0D62 SS=0D62 CS=0D62 IP=0108 NV EI PL NZ NA PE 
+NC<BR>0D62:0108 90 NOP<BR><BR>The possibility that the registers contain 
+different values exists, but AX<BR>and BX must be the same, since they are the 
+ones we just modified.<BR><BR>To exit Debug use the "q" (quit) 
+command.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=2.3.6>2.3.6 Storing 
+and loading the programs</B></FONT><BR><BR>It would not seem practical to type 
+an entire program each time it is<BR>needed, and to avoid this it is possible to 
+store a program on the disk,<BR>with the enormous advantage that by being 
+already assembled it will not be<BR>necessary to run Debug again to execute 
+it.<BR><BR>The steps to save a program that it is already stored on memory 
+are:<BR><BR>Obtain the length of the program subtracting the final 
+address<BR>from the initial address, naturally in hexadecimal system.<BR>Give 
+the program a name and extension.<BR>Put the length of the program on the CX 
+register.<BR>Order Debug to write the program on the disk.<BR><BR>By using as an 
+example the following program, we will have a clearer idea<BR>of how to take 
+these steps:<BR><BR>When the program is finally assembled it would look like 
+this:<BR><BR>0C1B:0100 mov ax,0002<BR>0C1B:0103 mov bx,0004<BR>0C1B:0106 add 
+ax,bx<BR>0C1B:0108 int 20<BR>0C1B:010A<BR><BR>To obtain the length of a program 
+the "h" command is used, since it will<BR>show us the addition and subtraction 
+of two numbers in hexadecimal. To<BR>obtain the length of ours, we give it as 
+parameters the value of our<BR>program's final address (10A), and the program's 
+initial address (100). The<BR>first result the command shows us is the addition 
+of the parameters and the<BR>second is the subtraction.<BR><BR>-h 10a 
+100<BR>020a 000a<BR><BR>The "n" command allows us to name the program.<BR><BR>-n 
+test.com<BR><BR>The "rcx" command allows us to change the content of the CX 
+register to the<BR>value we obtained from the size of the file with "h", in this 
+case 000a,<BR>since the result of the subtraction of the final address from the 
+initial<BR>address.<BR><BR>-rcx<BR>CX 0000<BR>:000a<BR><BR>Lastly, the "w" 
+command writes our program on the disk, indicating how many<BR>bytes it 
+wrote.<BR><BR>-w<BR>Writing 000A bytes<BR><BR>To save an already loaded file two 
+steps are necessary:<BR><BR>Give the name of the file to be loaded.<BR>Load it 
+using the "l" (load) command.<BR><BR>To obtain the correct result of the 
+following steps, it is necessary that<BR>the above program be already 
+created.<BR><BR>Inside Debug we write the following:<BR><BR>-n 
+test.com<BR>-l<BR>-u 100 109<BR>0C3D:0100 B80200 MOV AX,0002<BR>0C3D:0103 BB0400 
+MOV BX,0004<BR>0C3D:0106 01D8 ADD AX,BX<BR>0C3D:0108 CD20 INT 20<BR><BR>The last 
+"u" command is used to verify that the program was loaded on<BR>memory. What it 
+does is that it disassembles the code and shows it<BR>disassembled. The 
+parameters indicate to Debug from where and to where 
+to<BR>disassemble.<BR><BR>Debug always loads the programs on memory on the 
+address 100H, otherwise<BR>indicated.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=3>3 Assembler programming </B></FONT><BR><BR>Table of 
+Contents<BR><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.1">3.1 
+Building Assembler programs</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.2">3.2 Assembly 
+process</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.3">3.3 
+More assembler programs</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.4">3.4 Types of 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.5">3.5 Click here to get 
+more assembler programs</A><BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=3.1>3.1 Building Assembler programs</B></FONT><BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.1.1">3.1.1 Needed 
+software</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.1.2">3.1.2 Assembler 
+Programming</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=3.1.1>3.1.1 
+Needed software</B></FONT><BR><BR>In order to be able to create a program, 
+several tools are needed:<BR><BR>First an editor to create the source program. 
+Second a compiler, which is<BR>nothing more than a program that "translates" the 
+source program into an<BR>object program. And third, a linker that generates the 
+executable program<BR>from the object program.<BR><BR>The editor can be any text 
+editor at hand, and as a compiler we will use<BR>the TASM macro assembler from 
+Borland, and as a linker we will use the<BR>Tlink program.<BR><BR>The extension 
+used so that TASM recognizes the source programs in assembler<BR>is .ASM; once 
+translated the source program, the TASM creates a file with<BR>the .OBJ 
+extension, this file contains an "intermediate format" of the<BR>program, called 
+like this because it is not executable yet but it is not a<BR>program in source 
+language either anymore. The linker generates, from a<BR>.OBJ or a combination 
+of several of these files, an executable program,<BR>whose extension usually is 
+.EXE though it can also be .COM, depending of<BR>the form it was 
+assembled.<BR><BR><FONT color=#ff00ff size=+1><B><A name=3.1.2>3.1.2 Assembler 
+Programming</B></FONT><BR><BR>To build assembler programs using TASM programs is 
+a different program<BR>structure than from using debug program.<BR><BR>It's 
+important to include the following assembler directives:<BR><BR>.MODEL 
+SMALL<BR>Assembler directive that defines the memory model to use in the 
+program<BR><BR>.CODE<BR>Assembler directive that defines the program 
+instructions<BR><BR>.STACK<BR>Assembler directive that reserves a memory space 
+for program instructions<BR>in the stack<BR><BR>END<BR>Assembler directive that 
+finishes the assembler program<BR><BR>Let's program<BR><BR>First step<BR><BR>use 
+any editor program to create the source file. Type the following 
+lines:<BR><BR>first example<BR><BR>; use ; to put comments in the assembler 
+program<BR>.MODEL SMALL; memory model<BR>.STACK; memory space for program 
+instructions in the stack<BR>.CODE; the following lines are program 
+instructions<BR>mov ah,1h; moves the value 1h to register ah<BR>mov cx,07h;moves 
+the value 07h to register cx<BR>int 10h;10h interruption<BR>mov ah,4ch;moves the 
+value 4 ch to register ah<BR>int 21h;21h interruption<BR>END; finishes the 
+program code<BR><BR>This assembler program changes the size of the computer 
+cursor.<BR><BR>Second step<BR><BR>Save the file with the following name: 
+examp1.asm<BR>Don't forget to save this in ASCII format.<BR><BR>Third 
+step<BR><BR>Use the TASM program to build the object 
+program.<BR><BR>Example:<BR><BR>C:\&gt;tasm exam1.asm<BR>Turbo Assembler Version 
+2.0 Copyright (c) 1988, 1990 Borland International<BR><BR>Assembling file: 
+exam1.asm<BR>Error messages: None<BR>Warning messages: None<BR>Passes: 
+1<BR>Remaining memory: 471k<BR><BR>The TASM can only create programs in .OBJ 
+format, which are not executable<BR>by themselves, but rather it is necessary to 
+have a linker which generates<BR>the executable code.<BR><BR>Fourth 
+step<BR><BR>Use the TLINK program to build the executable program 
+example:<BR><BR>C:\&gt;tlink exam1.obj<BR>Turbo Link Version 3.0 Copyright (c) 
+1987, 1990 Borland International<BR><BR>C:\&gt;<BR><BR>Where exam1.obj is the 
+name of the intermediate program, .OBJ. This<BR>generates a file directly with 
+the name of the intermediate program and the<BR>.EXE extension.<BR><BR>Fifth 
+step<BR><BR>Execute the executable 
+program<BR><BR>C:\&gt;exam1[enter]<BR><BR>Remember, this assembler program 
+changes the size of the cursor.<BR><BR>Assembly 
+process.<BR><BR>Segments<BR>Table of symbols<BR><BR>SEGMENTS<BR><BR>The 
+architecture of the x86 processors forces to the use of memory segments<BR>to 
+manage the information, the size of these segments is of 64kb.<BR><BR>The reason 
+of being of these segments is that, considering that the maximum<BR>size of a 
+number that the processor can manage is given by a word of 16<BR>bits or 
+register, it would not be possible to access more than 65536<BR>localities of 
+memory using only one of these registers, but now, if the<BR>PC's memory is 
+divided into groups or segments, each one of 65536<BR>localities, and we use an 
+address on an exclusive register to find each<BR>segment, and then we make each 
+address of a specific slot with two<BR>registers, it is possible for us to 
+access a quantity of 4294967296 bytes<BR>of memory, which is, in the present 
+day, more memory than what we will see<BR>installed in a PC.<BR><BR>In order for 
+the assembler to be able to manage the data, it is necessary<BR>that each piece 
+of information or instruction be found in the area that<BR>corresponds to its 
+respective segments. The assembler accesses this<BR>information taking into 
+account the localization of the segment, given by<BR>the DS, ES, SS and CS 
+registers and inside the register the address of the<BR>specified piece of 
+information. It is because of this that when we create a<BR>program using the 
+Debug on each line that we assemble, something like 
+this<BR>appears:<BR><BR>1CB0:0102 MOV AX,BX<BR><BR>Where the first number, 1CB0, 
+corresponds to the memory segment being used,<BR>the second one refers to the 
+address inside this segment, and the<BR>instructions which will be stored from 
+that address follow.<BR>The way to indicate to the assembler with which of the 
+segments we will<BR>work with is with the .CODE, .DATA and .STACK 
+directives.<BR><BR>The assembler adjusts the size of the segments taking as a 
+base the number<BR>of bytes each assembled instruction needs, since it would be 
+a waste of<BR>memory to use the whole segments. For example, if a program only 
+needs 10kb<BR>to store data, the data segment will only be of 10kb and not the 
+64kb it<BR>can handle.<BR><BR>SYMBOLS CHART<BR><BR>Each one of the parts on code 
+line in assembler is known as token, for<BR>example on the code line:<BR><BR>MOV 
+AX,Var<BR><BR>we have three tokens, the MOV instruction, the AX operator, and 
+the VAR<BR>operator. What the assembler does to generate the OBJ code is to read 
+each<BR>one of the tokens and look for it on an internal "equivalence" chart 
+known<BR>as the reserved words chart, which is where all the mnemonic meanings 
+we<BR>use as instructions are found.<BR><BR>Following this process, the 
+assembler reads MOV, looks for it on its chart<BR>and identifies it as a 
+processor instruction. Likewise it reads AX and<BR>recognizes it as a register 
+of the processor, but when it looks for the Var<BR>token on the reserved words 
+chart, it does not find it, so then it looks<BR>for it on the symbols chart 
+which is a table where the names of the<BR>variables, constants and labels used 
+in the program where their addresses<BR>on memory are included and the sort of 
+data it contains, are found.<BR><BR>Sometimes the assembler comes on a token 
+which is not defined on the<BR>program, therefore what it does in these cased is 
+to pass a second time by<BR>the source program to verify all references to that 
+symbol and place it on<BR>the symbols chart.There are symbols which the 
+assembler will not find since <BR>they do not belong to that segment and the 
+program does not know in what part <BR>of the memory it will find that segment, 
+and at this time the linker comes <BR>into action, which will create the 
+structure necessary for the loader so <BR>that the segment and the token be 
+defined when the program is loaded and<BR>before it is executed.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=3.3>3.3 More assembler 
+programs</B></FONT><BR><BR>Another example<BR><BR>first step<BR><BR>use any 
+editor program to create the source file. Type the following 
+lines:<BR><BR>;example11<BR>.model small<BR>.stack<BR>.code<BR>mov ah,2h ;moves 
+the value 2h to register ah<BR>mov dl,2ah ;moves de value 2ah to register 
+dl<BR>;(Its the asterisk value in ASCII format)<BR>int 21h ;21h 
+interruption<BR>mov ah,4ch ;4ch function, goes to operating system<BR>int 21h 
+;21h interruption<BR>end ;finishes the program code<BR><BR>second 
+step<BR><BR>Save the file with the following name: exam2.asm<BR>Don't forget to 
+save this in ASCII format.<BR><BR>third step<BR><BR>Use the TASM program to 
+build the object program.<BR><BR>C:\&gt;tasm exam2.asm<BR>Turbo Assembler 
+Version 2.0 Copyright (c) 1988, 1990 Borland International<BR>Assembling file: 
+exam2.asm<BR>Error messages: None<BR>Warning messages: None<BR>Passes: 
+1<BR>Remaining memory: 471k<BR><BR>fourth step<BR><BR>Use the TLINK program to 
+build the executable program<BR><BR>C:\&gt;tlink exam2.obj<BR>Turbo Link Version 
+3.0 Copyright (c) 1987, 1990 Borland International<BR><BR>C:\&gt;<BR><BR>fifth 
+step<BR><BR>Execute the executable 
+program<BR><BR>C:\&gt;ejem11[enter]<BR>*<BR>C:\&gt;<BR><BR>This assembler 
+program shows the asterisk character on the computer screen<BR><BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=3.4>3.4 Types of 
+instructions.</B></FONT><BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.4.1">3.4.1 Data 
+movement</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.4.2">3.4.2 Logic and 
+arithmetic operations</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#3.4.3">3.4.3 Jumps, loops and 
+procedures</A><BR><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=3.4.1>3.4.1 
+Data movement</B></FONT><BR><BR>In any program it is necessary to move the data 
+in the memory and in the CPU<BR>registers; there are several ways to do this: it 
+can copy data in the<BR>memory to some register, from register to register, from 
+a register to a<BR>stack, from a stack to a register, to transmit data to 
+external devices as<BR>well as vice versa.<BR><BR>This movement of data is 
+subject to rules and restrictions. The following<BR>are some of them:<BR><BR>*It 
+is not possible to move data from a memory locality to another<BR>directly; it 
+is necessary to first move the data of the origin locality to a<BR>register and 
+then from the register to the destiny locality.<BR><BR>*It is not possible to 
+move a constant directly to a segment register; it<BR>first must be moved to a 
+register in the CPU.<BR><BR>It is possible to move data blocks by means of the 
+movs instructions, which<BR>copies a chain of bytes or words; movsb which copies 
+n bytes from a<BR>locality to another; and movsw copies n words from a locality 
+to another.<BR>The last two instructions take the values from the defined 
+addresses by<BR>DS:SI as a group of data to move and ES:DI as the new 
+localization of the<BR>data.<BR><BR>To move data there are also structures 
+called batteries, where the data is<BR>introduced with the push instruction and 
+are extracted with the pop<BR>instruction.<BR>In a stack the first data to be 
+introduced is the last one we can take,<BR>this is, if in our program we use 
+these instructions:<BR><BR>PUSH AX<BR>PUSH BX<BR>PUSH CX<BR><BR>To return the 
+correct values to each register at the moment of taking them<BR>from the stack 
+it is necessary to do it in the following order:<BR><BR>POP CX<BR>POP BX<BR>POP 
+AX<BR><BR>For the communication with external devices the out command is used to 
+send<BR>information to a port and the in command to read the information 
+received<BR>from a port.<BR><BR>The syntax of the out command is:<BR><BR>OUT 
+DX,AX<BR><BR>Where DX contains the value of the port which will be used for 
+the<BR>communication and AX contains the information which will be 
+sent.<BR><BR>The syntax of the in command is:<BR><BR>IN AX,DX<BR><BR>Where AX is 
+the register where the incoming information will be kept and DX<BR>contains the 
+address of the port by which the information will arrive.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=3.4.2>3.4.2 Logic and arithmetic 
+operations</B></FONT><BR><BR>The instructions of the logic operations are: and, 
+not, or and xor. These<BR>work on the bits of their operators.<BR>To verify the 
+result of the operations we turn to the cmp and test<BR>instructions.<BR>The 
+instructions used for the algebraic operations are: to add, to<BR>subtract sub, 
+to multiply mul and to divide div.<BR><BR>Almost all the comparison instructions 
+are based on the information<BR>contained in the flag register. Normally the 
+flags of this register which<BR>can be directly handled by the programmer are 
+the data direction flag DF,<BR>used to define the operations about chains. 
+Another one which can also be <BR>handled is the IF flag by means of the sti and 
+cli instructions, to activate<BR>and deactivate the interruptions.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=3.4.3>3.4.3 Jumps, loops and 
+procedures</B></FONT><BR><BR>The unconditional jumps in a written program in 
+assembler language are given<BR>by the jmp instruction; a jump is to moves the 
+flow of the execution of<BR>a program by sending the control to the indicated 
+address.<BR><BR>A loop, known also as iteration, is the repetition of a process 
+a certain<BR>number of times until a condition is fulfilled. These loops are 
+used<BR><BR><FONT color=#ff00ff size=+1><B><A name=4>4 Assembler language 
+Instructions</B></FONT><BR><BR><BR>Table of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.1">4.1 Transfer 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.2">4.2 Loading 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.3">4.3 Stack 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.4">4.4 Logic 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.5">4.5 Arithmetic 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.6">4.6 Jump 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.7">4.7 Instructions for 
+cycles: loop</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.8">4.8 Counting 
+Instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.9">4.9 Comparison 
+Instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.10">4.10 Flag 
+Instructions</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=4.1>4.1 
+Transfer instructions</B></FONT><BR><BR>They are used to move the contents of 
+the operators. Each instruction can<BR>be used with different modes of 
+addressing.<BR><BR>MOV<BR>MOVS (MOVSB) (MOVSW)<BR><BR>MOV 
+INSTRUCTION<BR><BR>Purpose: Data transfer between memory cells, registers and 
+the accumulator.<BR><BR>Syntax:<BR><BR>MOV Destiny, Source<BR><BR>Where Destiny 
+is the place where the data will be moved and Source is the<BR>place where the 
+data is.<BR><BR>The different movements of data allowed for this instruction 
+are:<BR><BR>*Destiny: memory. Source: accumulator<BR>*Destiny: accumulator. 
+Source: memory<BR>*Destiny: segment register. Source: 
+memory/register<BR>*Destiny: memory/register. Source: segment 
+register<BR>*Destiny: register. Source: register<BR>*Destiny: register. Source: 
+memory<BR>*Destiny: memory. Source: register<BR>*Destiny: register. Source: 
+immediate data<BR>*Destiny: memory. Source: immediate 
+data<BR><BR>Example:<BR><BR>MOV AX,0006h<BR>MOV BX,AX<BR>MOV AX,4C00h<BR>INT 
+21H<BR><BR>This small program moves the value of 0006H to the AX register, then 
+it<BR>moves the content of AX (0006h) to the BX register, and lastly it moves 
+the<BR>4C00h value to the AX register to end the execution with the 4C option 
+of<BR>the 21h interruption.<BR><BR><BR>MOVS (MOVSB) (MOVSW) 
+Instruction<BR><BR>Purpose: To move byte or word chains from the source, 
+addressed by SI, to<BR>the destiny addressed by 
+DI.<BR><BR>Syntax:<BR><BR>MOVS<BR><BR>This command does not need parameters 
+since it takes as source address the<BR>content of the SI register and as 
+destination the content of DI. The<BR>following sequence of instructions 
+illustrates this:<BR><BR>MOV SI, OFFSET VAR1<BR>MOV DI, OFFSET 
+VAR2<BR>MOVS<BR><BR>First we initialize the values of SI and DI with the 
+addresses of the VAR1<BR>and VAR2 variables respectively, then after executing 
+MOVS the content of<BR>VAR1 is copied onto VAR2.<BR><BR>The MOVSB and MOVSW are 
+used in the same way as MOVS, the first one moves one byte and the second one 
+moves a word.<BR><BR><FONT color=#ff00ff size=+1><B><A name=4.2>4.2 Loading 
+instructions</B></FONT><BR><BR>They are specific register instructions. They are 
+used to load bytes or<BR>chains of bytes onto a register.<BR><BR>LODS (LODSB) 
+(LODSW)<BR>LAHF<BR>LDS<BR>LEA<BR>LES<BR>LODS (LODSB) (LODSW) 
+INSTRUCTION<BR><BR>Purpose: To load chains of a byte or a word into the 
+accumulator.<BR><BR>Syntax:<BR><BR>LODS<BR><BR>This instruction takes the chain 
+found on the address specified by SI,<BR>loads it to the AL (or AX) register and 
+adds or subtracts , depending on<BR>the state of DF, to SI if it is a bytes 
+transfer or if it is a words<BR>transfer.<BR><BR>MOV SI, OFFSET 
+VAR1<BR>LODS<BR><BR>The first line loads the VAR1 address on SI and the second 
+line takes the<BR>content of that locality to the AL register.<BR><BR>The LODSB 
+and LODSW commands are used in the same way, the first one loads a byte and the 
+second one a word (it uses the complete AX register).<BR><BR>LAHF 
+INSTRUCTION<BR><BR>Purpose: It transfers the content of the flags to the AH 
+register.<BR><BR>Syntax:<BR><BR>LAHF<BR><BR>This instruction is useful to verify 
+the state of the flags during the<BR>execution of our program.<BR><BR>The flags 
+are left in the following order inside the register:<BR><BR>SF ZF ?? AF ?? PF ?? 
+CF<BR><BR>LDS INSTRUCTION<BR><BR>Purpose: To load the register of the data 
+segment<BR><BR>Syntax:<BR><BR>LDS destiny, source<BR><BR>The source operator 
+must be a double word in memory. The word associated<BR>with the largest address 
+is transferred to DS, in other words it is taken as<BR>the segment address. The 
+word associated with the smaller address is the<BR>displacement address and it 
+is deposited in the register indicated as<BR>destiny.<BR><BR>LEA 
+INSTRUCTION<BR><BR>Purpose: To load the address of the source 
+operator<BR><BR>Syntax:<BR><BR>LEA destiny, source<BR><BR>The source operator 
+must be located in memory, and its displacement is<BR>placed on the index 
+register or specified pointer in destiny.<BR><BR>To illustrate one of the 
+facilities we have with this command let us write<BR>an equivalence:<BR><BR>MOV 
+SI,OFFSET VAR1<BR><BR>Is equivalent to:<BR><BR>LEA SI,VAR1<BR><BR>It is very 
+probable that for the programmer it is much easier to create<BR>extensive 
+programs by using this last format.<BR><BR>LES INSTRUCTION<BR><BR>Purpose: To 
+load the register of the extra segment<BR><BR>Syntax:<BR><BR>LES destiny, 
+source<BR><BR>The source operator must be a double word operator in memory. The 
+content<BR>of the word with the larger address is interpreted as the segment 
+address<BR>and it is placed in ES. The word with the smaller address is 
+the<BR>displacement address and it is placed in the specified register on 
+the<BR>destiny parameter.<BR><BR>4.3 Stack instructions<BR><BR>These 
+instructions allow the use of the stack to store or retrieve 
+data.<BR><BR>POP<BR>POPF<BR>PUSH<BR>PUSHF<BR><BR><BR>POP 
+INSTRUCTION<BR><BR>Purpose: It recovers a piece of information from the 
+stack<BR><BR>Syntax:<BR><BR>POP destiny<BR><BR>This instruction transfers the 
+last value stored on the stack to the<BR>destiny operator, it then increases by 
+2 the SP register. This increase is<BR>due to the fact that the stack grows from 
+the highest<BR>memory segment address to the lowest, and the stack only works 
+with words,<BR>2 bytes, so then by increasing by two the SP register, in reality 
+two are<BR>being subtracted from the real size of the stack.<BR><BR>POPF 
+INSTRUCTION<BR><BR>Purpose: It extracts the flags stored on the 
+stack<BR><BR>Syntax:<BR><BR>POPF<BR><BR>This command transfers bits of the word 
+stored on the higher part of the<BR>stack to the flag register.<BR><BR>The way 
+of transference is as follows:<BR><BR>BIT FLAG<BR><BR>0 CF<BR>2 PF<BR>4 AF<BR>6 
+ZF<BR>7 SF<BR>8 TF<BR>9 IF<BR>10 DF<BR>11 OF<BR><BR>These localities are the 
+same for the PUSHF command.<BR><BR>Once the transference is done the SP register 
+is increased by 2,<BR>diminishing the size of the stack.<BR><BR>PUSH 
+INSTRUCTION<BR><BR>Purpose: It places a word on the 
+stack.<BR><BR>Syntax:<BR><BR>PUSH source<BR><BR>The PUSH instruction decreases 
+by two the value of SP and then transfers<BR>the content of the source operator 
+to the new resulting address on the<BR>recently modified register.<BR><BR>The 
+decrease on the address is due to the fact that when adding values to<BR>the 
+stack, this one grows from the greater to the smaller segment 
+address,<BR>therefore by subtracting 2 from the SP register what we do is to 
+increase<BR>the size of the stack by two bytes, which is the only quantity 
+of<BR>information the stack can handle on each input and output of 
+information.<BR><BR>PUSHF INSTRUCTION<BR><BR>Purpose: It places the value of the 
+flags on the stack.<BR><BR>Syntax:<BR><BR>PUSHF<BR><BR>This command decreases by 
+2 the value of the SP register and then the<BR>content of the flag register is 
+transferred to the stack, on the address<BR>indicated by SP.<BR><BR>The flags 
+are left stored in memory on the same bits indicated on the 
+POPF<BR>command.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=4.4>4.4 Logic 
+instructions</B></FONT><BR><BR>They are used to perform logic operations on the 
+operators.<BR><BR>AND<BR>NEG<BR>NOT<BR>OR<BR>TEST<BR>XOR<BR><BR><BR>AND 
+INSTRUCTION<BR><BR>Purpose: It performs the conjunction of the operators bit by 
+bit.<BR><BR>Syntax:<BR><BR>AND destiny, source<BR><BR>With this instruction the 
+"y" logic operation for both operators is carried<BR>out:<BR><BR>Source Destiny 
+| Destiny<BR>-----------------------------<BR>1 1 | 1<BR>1 0 | 0<BR>0 1 | 0<BR>0 
+0 | 0<BR><BR>The result of this operation is stored on the destiny 
+operator.<BR><BR>NEG INSTRUCTION<BR><BR>Purpose: It generates the complement to 
+2.<BR><BR>Syntax:<BR><BR>NEG destiny<BR><BR>This instruction generates the 
+complement to 2 of the destiny operator and<BR>stores it on the same operator. 
+<BR><BR>For example, if AX stores the value of 1234H, then:<BR><BR>NEG 
+AX<BR><BR>This would leave the EDCCH value stored on the AX register.<BR><BR>NOT 
+INSTRUCTION<BR><BR>Purpose: It carries out the negation of the destiny operator 
+bit by bit.<BR><BR>Syntax:<BR><BR>NOT destiny<BR><BR>The result is stored on the 
+same destiny operator.<BR><BR>OR INSTRUCTION<BR><BR>Purpose: Logic inclusive 
+OR<BR><BR>Syntax:<BR><BR>OR destiny, source<BR><BR>The OR instruction carries 
+out, bit by bit, the logic inclusive disjunction<BR>of the two 
+operators:<BR><BR>Source Destiny | 
+Destiny<BR>-----------------------------------<BR>1 1 | 1<BR>1 0 | 1<BR>0 1 | 
+1<BR>0 0 | 0<BR><BR><BR>TEST INSTRUCTION<BR><BR>Purpose: It logically compares 
+the operators <BR><BR>Syntax:<BR><BR>TEST destiny, source<BR><BR>It performs a 
+conjunction, bit by bit, of the operators, but differing from<BR>AND, this 
+instruction does not place the result on the destiny operator, it<BR>only has 
+effect on the state of the flags.<BR><BR>XOR INSTRUCTION<BR><BR>Purpose: OR 
+exclusive<BR><BR>Syntax:<BR><BR>XOR destiny, source Its function is to perform 
+the logic exclusive<BR>disjunction of the two operators bit by 
+bit.<BR><BR>Source Destiny | Destiny<BR>-----------------------------------<BR>1 
+1 | 0<BR>0 0 | 1<BR>0 1 | 1<BR>0 0 | 0<BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=4.5>4.5 Arithmetic instructions</B></FONT><BR><BR>They are used to perform 
+arithmetic operations on the 
+operators.<BR><BR>ADC<BR>ADD<BR>DIV<BR>IDIV<BR>MUL<BR>IMUL<BR>SBB<BR>SUB<BR><BR><BR>ADC 
+INSTRUCTION<BR><BR>Purpose: Cartage addition<BR><BR>Syntax:<BR><BR>ADC destiny, 
+source<BR><BR>It carries out the addition of two operators and adds one to the 
+result in<BR>case the CF flag is activated, this is in case there is 
+carried.<BR><BR>The result is stored on the destiny operator.<BR><BR>ADD 
+INSTRUCTION<BR><BR>Purpose: Addition of the operators.<BR><BR>Syntax:<BR><BR>ADD 
+destiny, source<BR><BR>It adds the two operators and stores the result on the 
+destiny operator.<BR><BR>DIV INSTRUCTION<BR><BR>Purpose: Division without 
+sign.<BR><BR>Syntax:<BR><BR>DIV source<BR><BR>The divider can be a byte or a 
+word and it is the operator which is given<BR>the instruction.<BR><BR>If the 
+divider is 8 bits, the 16 bits AX register is taken as dividend and<BR>if the 
+divider is 16 bits the even DX:AX register will be taken as<BR>dividend, taking 
+the DX high word and AX as the low.<BR><BR>If the divider was a byte then the 
+quotient will be stored on the AL<BR>register and the residue on AH, if it was a 
+word then the quotient is<BR>stored on AX and the residue on DX.<BR><BR>IDIV 
+INSTRUCTION<BR><BR>Purpose: Division with sign.<BR><BR>Syntax:<BR><BR>IDIV 
+source<BR><BR>It basically consists on the same as the DIV instruction, and the 
+only<BR>difference is that this one performs the operation with sign.<BR><BR>For 
+its results it used the same registers as the DIV instruction.<BR><BR>MUL 
+INSTRUCTION<BR><BR>Purpose: Multiplication with sign.<BR><BR>Syntax:<BR><BR>MUL 
+source<BR><BR>The assembler assumes that the multiplicand will be of the same 
+size as the<BR>multiplier, therefore it multiplies the value stored on the 
+register given<BR>as operator by the one found to be contained in AH if the 
+multiplier is 8<BR>bits or by AX if the multiplier is 16 bits.<BR>When a 
+multiplication is done with 8 bit values, the result is stored on<BR>the AX 
+register and when the multiplication is with 16 bit values the<BR>result is 
+stored on the even DX:AX register.<BR><BR>IMUL INSTRUCTION<BR><BR>Purpose: 
+Multiplication of two whole numbers with sign.<BR><BR>Syntax:<BR><BR>IMUL 
+source<BR><BR>This command does the same as the one before, only that this one 
+does take<BR>into account the signs of the numbers being multiplied.<BR><BR>The 
+results are kept in the same registers that the MOV instruction uses.<BR><BR>SBB 
+INSTRUCTION<BR><BR>Purpose: Subtraction with cartage.<BR><BR>Syntax:<BR><BR>SBB 
+destiny, source<BR><BR>This instruction subtracts the operators and subtracts 
+one to the result if<BR>CF is activated. The source operator is always 
+subtracted from the destiny.<BR><BR>This kind of subtraction is used when one is 
+working with 32 bits<BR>quantities.<BR><BR>SUB INSTRUCTION<BR><BR>Purpose: 
+Subtraction.<BR><BR>Syntax:<BR><BR>SUB destiny, source<BR><BR>It subtracts the 
+source operator from the destiny.<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.6">4.6 Jump 
+instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.7">4.7 Instructions for 
+cycles: loop</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.8">4.8 Counting 
+Instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.9">4.9 Comparison 
+Instructions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#4.10">4.10 Flag 
+Instructions</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=4.6>4.6 Jump 
+instructions</B></FONT><BR><BR>They are used to transfer the flow of the process 
+to the indicated<BR>operator.<BR><BR>JMP<BR>JA (JNBE)<BR>JAE (JNBE)<BR>JB 
+(JNAE)<BR>JBE (JNA)<BR>JE (JZ)<BR>JNE (JNZ)<BR>JG (JNLE)<BR>JGE (JNL)<BR>JL 
+(JNGE)<BR>JLE (JNG)<BR>JC<BR>JNC<BR>JNO<BR>JNP (JPO)<BR>JNS<BR>JO<BR>JP 
+(JPE)<BR>JS<BR><BR>JMP INSTRUCTION<BR><BR>Purpose: Unconditional 
+jump.<BR><BR>Syntax:<BR><BR>JMP destiny<BR><BR>This instruction is used to 
+deviate the flow of a program without taking<BR>into account the actual 
+conditions of the flags or of the data.<BR><BR>JA (JNBE) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump.<BR><BR>Syntax:<BR><BR>JA 
+Label<BR><BR>After a comparison this command jumps if it is or jumps if it is 
+not<BR>down or if not it is the equal.<BR><BR>This means that the jump is only 
+done if the CF flag is deactivated or if<BR>the ZF flag is deactivated, that is 
+that one of the two be equal to zero.<BR><BR>JAE (JNB) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump.<BR><BR>Syntax:<BR><BR>JAE 
+label<BR><BR>It jumps if it is or it is the equal or if it is not 
+down.<BR><BR>The jump is done if CF is deactivated.<BR><BR>JB (JNAE) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump.<BR><BR>Syntax:<BR><BR>JB 
+label<BR><BR>It jumps if it is down, if it is not , or if it is the 
+equal.<BR><BR>The jump is done if CF is activated.<BR><BR>JBE (JNA) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump.<BR><BR>Syntax:<BR><BR>JBE 
+label<BR><BR>It jumps if it is down, the equal, or if it is not .<BR><BR>The 
+jump is done if CF is activated or if ZF is activated, that any of them<BR>be 
+equal to 1.<BR><BR>JE (JZ) INSTRUCTION<BR><BR>Purpose: Conditional 
+jump.<BR><BR>Syntax:<BR><BR>JE label<BR><BR>It jumps if it is the equal or if it 
+is zero.<BR><BR>The jump is done if ZF is activated.<BR><BR>JNE (JNZ) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump.<BR><BR>Syntax:<BR><BR>JNE 
+label<BR><BR>It jumps if it is not equal or zero.<BR><BR>The jump will be done 
+if ZF is deactivated.<BR><BR>JG (JNLE) INSTRUCTION<BR><BR>Purpose: Conditional 
+jump, and the sign is taken into account.<BR><BR>Syntax:<BR><BR>JG 
+label<BR><BR>It jumps if it is larger, if it is not larger or equal.<BR><BR>The 
+jump occurs if ZF = 0 or if OF = SF.<BR><BR>JGE (JNL) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, and the sign is taken into 
+account.<BR><BR>Syntax:<BR><BR>JGE label<BR><BR>It jumps if it is larger or less 
+than, or equal to.<BR><BR>The jump is done if SF = OF<BR><BR><BR>JL (JNGE) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, and the sign is taken into 
+account.<BR><BR>Syntax:<BR><BR>JL label<BR><BR>It jumps if it is less than or if 
+it is not larger than or equal to.<BR><BR>The jump is done if SF is different 
+than OF.<BR><BR>JLE (JNG) INSTRUCTION<BR><BR>Purpose: Conditional jump, and the 
+sign is taken into account.<BR><BR>Syntax:<BR><BR>JLE label<BR><BR>It jumps if 
+it is less than or equal to, or if it is not larger.<BR><BR>The jump is done if 
+ZF = 1 or if SF is defferent than OF.<BR><BR>JC INSTRUCTION<BR><BR>Purpose: 
+Conditional jump, and the flags are taken into account.<BR><BR>Syntax:<BR><BR>JC 
+label<BR><BR>It jumps if there is cartage.<BR><BR>The jump is done if CF = 
+1<BR><BR>JNC INSTRUCTION<BR><BR>Purpose: Conditional jump, and the state of the 
+flags is taken into<BR>account.<BR><BR>Syntax:<BR><BR>JNC label<BR><BR>It jumps 
+if there is no cartage.<BR><BR>The jump is done if CF = 0.<BR><BR>JNO 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, and the state of the flags is 
+taken into<BR>account.<BR><BR>Syntax:<BR><BR>JNO label<BR><BR>It jumps if there 
+is no overflow.<BR><BR>The jump is done if OF = 0.<BR><BR>JNP (JPO) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, and the state of the flags is 
+taken into<BR>account.<BR><BR>Syntax:<BR><BR>JNP label<BR><BR>It jumps if there 
+is no parity or if the parity is uneven.<BR><BR>The jump is done if PF = 
+0.<BR><BR>JNS INSTRUCTION<BR><BR>Purpose: Conditional jump, and the state of the 
+flags is taken into<BR>account.<BR><BR>Syntax:<BR><BR>JNP label<BR><BR>It jumps 
+if the sign is deactivated.<BR><BR>The jump is done if SF = 0.<BR><BR><BR><BR>JO 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, and the state of the flags is 
+taken into<BR>account.<BR><BR>Syntax:<BR><BR>JO label<BR><BR>It jumps if there 
+is overflow.<BR><BR>The jump is done if OF = 1.<BR><BR>JP (JPE) 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, the state of the flags is taken 
+into account.<BR><BR>Syntax:<BR><BR>JP label<BR><BR>It jumps if there is parity 
+or if the parity is even.<BR><BR>The jump is done if PF = 1.<BR><BR>JS 
+INSTRUCTION<BR><BR>Purpose: Conditional jump, and the state of the flags is 
+taken into<BR>account.<BR><BR>Syntax:<BR><BR>JS label<BR><BR>It jumps if the 
+sign is on.<BR><BR>The jump is done if SF = 1.<BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=4.7>4.7 Instructions for cycles:loop</B></FONT><BR><BR>They 
+transfer the process flow, conditionally or unconditionally, to a<BR>destiny, 
+repeating this action until the counter is 
+zero.<BR><BR>LOOP<BR>LOOPE<BR>LOOPNE<BR><BR><BR><BR>LOOP 
+INSTRUCTION<BR><BR>Purpose: To generate a cycle in the 
+program.<BR><BR>Syntax:<BR><BR>LOOP label<BR><BR>The loop instruction decreases 
+CX on 1, and transfers the flow of the<BR>program to the label given as operator 
+if CX is different than 1.<BR><BR>LOOPE INSTRUCTION<BR><BR>Purpose: To generate 
+a cycle in the program considering the state of ZF.<BR><BR>Syntax:<BR><BR>LOOPE 
+label<BR><BR>This instruction decreases CX by 1. If CX is different to zero and 
+ZF is<BR>equal to 1, then the flow of the program is transferred to the 
+label<BR>indicated as operator.<BR><BR>LOOPNE INSTRUCTION<BR><BR>Purpose: To 
+generate a cycle in the program, considering the state of 
+ZF.<BR><BR>Syntax:<BR><BR>LOOPNE label<BR><BR>This instruction decreases one 
+from CX and transfers the flow of the<BR>program only if ZF is different to 
+0.<BR><BR><FONT color=#ff00ff size=+1><B><A name=4.8>4.8 Counting 
+instructions</B></FONT><BR><BR>They are used to decrease or increase the content 
+of the counters.<BR><BR>DEC<BR>INC<BR><BR>DEC INSTRUCTION<BR><BR>Purpose: To 
+decrease the operator.<BR><BR>Syntax:<BR><BR>DEC destiny<BR><BR>This operation 
+subtracts 1 from the destiny operator and stores the new<BR>value in the same 
+operator. <BR><BR><BR>INC INSTRUCTION<BR><BR>Purpose: To increase the 
+operator.<BR><BR>Syntax:<BR><BR>INC destiny The instruction adds 1 to the 
+destiny operator and keeps the<BR>result in the same destiny 
+operator.<BR><BR><FONT color=#ff00ff size=+1><B><A name=4.9>4.9 Comparison 
+instructions</B></FONT><BR><BR>They are used to compare operators, and they 
+affect the content of the<BR>flags.<BR><BR>CMP<BR>CMPS (CMPSB) 
+(CMPSW)<BR><BR><BR>CMP INSTRUCTION<BR><BR>Purpose: To compare the 
+operators.<BR><BR>Syntax:<BR><BR>CMP destiny, source<BR><BR>This instruction 
+subtracts the source operator from the destiny operator<BR>but without this one 
+storing the result of the operation, and it only<BR>affects the state of the 
+flags.<BR><BR><BR>CMPS (CMPSB) (CMPSW) INSTRUCTION<BR><BR>Purpose: To compare 
+chains of a byte or a word.<BR><BR>Syntax:<BR><BR>CMP destiny, 
+source<BR><BR>With this instruction the chain of source characters is subtracted 
+from the<BR>destiny chain.<BR><BR>DI is used as an index for the extra segment 
+of the source chain, and SI as<BR>an index of the destiny chain.<BR><BR>It only 
+affects the content of the flags and DI as well as SI 
+are<BR>incremented.<BR><BR><FONT color=#ff00ff size=+1><B><A name=4.10>4.10 Flag 
+instructions</B></FONT><BR><BR>They directly affect the content of the 
+flags.<BR><BR>CLC<BR>CLD<BR>CLI<BR>CMC<BR>STC<BR>STD<BR>STI<BR><BR><BR><BR>CLC 
+INSTRUCTION<BR><BR>Purpose: To clean the cartage 
+flag.<BR><BR>Syntax:<BR><BR>CLC<BR><BR>This instruction turns off the bit 
+corresponding to the cartage flag, or in<BR>other words it puts it on 
+zero.<BR><BR>CLD INSTRUCTION<BR><BR>Purpose: To clean the address 
+flag.<BR><BR>Syntax:<BR><BR>CLD<BR><BR>This instruction turns off the 
+corresponding bit to the address flag.<BR><BR>CLI INSTRUCTION<BR><BR>Purpose: To 
+clean the interruption flag.<BR><BR>Syntax:<BR><BR>CLI<BR><BR>This instruction 
+turns off the interruptions flag, disabling this way<BR>those maskarable 
+interruptions.<BR><BR>A maskarable interruptions is that one whose functions are 
+deactivated when<BR>IF=0.<BR><BR>CMC INSTRUCTION<BR><BR>Purpose: To complement 
+the cartage flag.<BR><BR>Syntax:<BR><BR>CMC<BR><BR>This instruction complements 
+the state of the CF flag, if CF = 0 the<BR>instructions equals it to 1, and if 
+the instruction is 1 it equals it to 0.<BR><BR>We could say that it only 
+"inverts" the value of the flag.<BR><BR>STC INSTRUCTION<BR><BR>Purpose: To 
+activate the cartage flag.<BR><BR>Syntax:<BR><BR>STC<BR><BR>This instruction 
+puts the CF flag in 1.<BR><BR>STD INSTRUCTION<BR><BR>Purpose: To activate the 
+address flag.<BR><BR>Syntax:<BR><BR>STD<BR><BR>The STD instruction puts the DF 
+flag in 1.<BR><BR>STI INSTRUCTION<BR><BR>Purpose: To activate the interruption 
+flag.<BR><BR>Syntax:<BR><BR>STI<BR><BR>The instruction activates the IF flag, 
+and this enables the maskarable<BR>external interruptions ( the ones which only 
+function when IF = 1).<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=5>5 
+Interruptions and file managing </B></FONT><BR><BR>Table of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.1">5.1 Internal hardware 
+interruptions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.2">5.2 External hardware 
+interruptions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.3">5.3 Software 
+interruptions</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.4">5.4 Most Common 
+interruptions</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=5.1>5.1 
+Internal hardware interruptions</B></FONT><BR><BR>Internal interruptions are 
+generated by certain events which come during<BR>the execution of a 
+program.<BR><BR>This type of interruptions are managed on their totality by the 
+hardware<BR>and it is not possible to modify them.<BR><BR>A clear example of 
+this type of interruptions is the one which actualizes<BR>the counter of the 
+computer internal clock, the hardware makes the call to<BR>this interruption 
+several times during a second in order to maintain the<BR>time to 
+date.<BR><BR>Even though we cannot directly manage this interruption, since we 
+cannot<BR>control the time dating by means of software, it is possible to use 
+its<BR>effects on the computer to our benefit, for example to create a 
+"virtual<BR>clock" dated continuously thanks to the clock's internal counter. We 
+only<BR>have to write a program which reads the actual value of the counter and 
+to<BR>translates it into an understandable format for the user.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=5.2>5.2 External hardware 
+interruptions</B></FONT><BR><BR>External interruptions are generated by 
+peripheral devices, such as<BR>keyboards, printers, communication cards, etc. 
+They are also generated by<BR>coprocessors. It is not possible to deactivate 
+external interruptions.<BR><BR>These interruptions are not sent directly to the 
+CPU, but rather they are<BR>sent to an integrated circuit whose function is to 
+exclusively handle this<BR>type of interruptions. The circuit, called PIC8259A, 
+is controlled by the<BR>CPU using for this control a series of communication 
+ways called paths.<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=5.3>5.3 
+Software interruptions</B></FONT><BR><BR>Software interruptions can be directly 
+activated by the assembler invoking<BR>the number of the desired interruption 
+with the INT instruction.<BR><BR>The use of interruptions helps us in the 
+creation of programs, and by using<BR>them our programs are shorter, it is 
+easier to understand them and they<BR>usually have a better performance mostly 
+due to their smaller size.<BR><BR>This type of interruptions can be separated in 
+two categories: the<BR>operative system DOS interruptions and the BIOS 
+interruptions.<BR><BR>The difference between the two is that the operative 
+system interruptions<BR>are easier to use but they are also slower since these 
+interruptions make<BR>use of the BIOS to achieve their goal, on the other hand 
+the BIOS<BR>interruptions are much faster but they have the disadvantage that 
+since<BR>they are part of the hardware, they are very specific and can 
+vary<BR>depending even on the brand of the maker of the circuit.<BR><BR>The 
+election of the type of interruption to use will depend solely on 
+the<BR>characteristics you want to give your program: speed, using the BIOS 
+ones,<BR>or portability, using the ones from the DOS.<BR><BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=5.4>5.4 Most common 
+interruptions</B></FONT><BR><BR>Table of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.4.1">5.4.1 Int 21H (DOS 
+interruption) Multiple calls to DOS functions.</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.4.2">5.4.2 Int 10H (BIOS 
+interruption) Video input/output.</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.4.3">5.4.3 Int 16H (BIOS 
+interruption) Keyboard input/output.</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.4.4">5.4.4 Int 17H (BIOS 
+interruption) Printer input/output.</A><BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=5.41>5.41 21H Interruption</B></FONT><BR>Purpose: To call on 
+diverse DOS functions.<BR><BR>Syntax:<BR><BR>Int 21H<BR><BR>Note: When we work 
+in TASM program is necessary to specify that the value we<BR>are using is 
+hexadecimal.<BR><BR>This interruption has several functions, to access each one 
+of them it is<BR>necessary that the function number which is required at the 
+moment of<BR>calling the interruption is in the AH register.<BR><BR>Functions to 
+display information to the video.<BR><BR>02H Exhibits output<BR>09H Chain 
+Impression (video)<BR>40H Writing in device/file<BR><BR>Functions to read 
+information from the keyboard.<BR><BR>01H Input from the keyboard<BR>0AH Input 
+from the keyboard using buffer<BR>3FH Reading from device/file<BR><BR>Functions 
+to work with files.<BR><BR>In this section only the specific task of each 
+function is exposed, for a<BR>reference about the concepts used, refer to unit 
+7, titled : "Introduction<BR>to file handling".<BR><BR>FCB Method<BR><BR>0FH 
+Open file<BR>14H Sequential reading<BR>15H Sequential writing<BR>16H Create 
+file<BR>21H Random reading<BR>22H Random writing<BR><BR>Handles<BR><BR>3CH 
+Create file<BR>3DH Open file<BR>3EH Close file driver<BR>3FH Reading from 
+file/device<BR>40H Writing in file/device<BR>42H Move pointer of reading/writing 
+in file<BR><BR>02H FUNCTION<BR><BR>Use:<BR><BR>It displays one character to the 
+screen.<BR><BR>Calling registers:<BR><BR>AH = 02H<BR>DL = Value of the character 
+to display.<BR><BR>Return registers:<BR><BR>None.<BR><BR>This function displays 
+the character whose hexadecimal code corresponds to<BR>the value stored in the 
+DL register, and no register is modified by using<BR>this command.<BR><BR>The 
+use of the 40H function is recommended instead of this function.<BR><BR>09H 
+FUNCTION<BR><BR>Use:<BR><BR>It displays a chain of characters on the 
+screen.<BR><BR>Call registers:<BR><BR>AH = 09H<BR>DS:DX = Address of the 
+beginning of a chain of characters.<BR><BR>Return 
+registers:<BR><BR>None.<BR><BR>This function displays the characters, one by 
+one, from the indicated<BR>address in the DS:DX register until finding a $ 
+character, which is<BR>interpreted as the end of the chain.<BR><BR>It is 
+recommended to use the 40H function instead of this one.<BR><BR>40H 
+FUNCTION<BR><BR>Use:<BR><BR>To write to a device or a file.<BR><BR>Call 
+registers:<BR><BR>AH = 40H<BR>BX = Path of communication<BR>CX = Quantity of 
+bytes to write<BR>DS:DX = Address of the beginning of the data to 
+write<BR><BR>Return registers:<BR><BR>CF = 0 if there was no mistake<BR><BR>AX = 
+Number of bytes written<BR><BR>CF = 1 if there was a mistake<BR><BR>AX = Error 
+code<BR><BR>The use of this function to display information on the screen is 
+done by<BR>giving the BX register the value of 1 which is the preassigned value 
+to the<BR>video by the operative system MS-DOS.<BR><BR>01H 
+FUNCTION<BR><BR>Use:<BR><BR>To read a keyboard character and to display 
+it.<BR><BR>Call registers<BR><BR>AH = 01H<BR><BR>Return registers:<BR><BR>AL = 
+Read character<BR><BR>It is very easy to read a character from the keyboard with 
+this function,<BR>the hexadecimal code of the read character is stored in the AL 
+register. In<BR>case it is an extended register the AL register will contain the 
+value of 0<BR>and it will be necessary to call on the function again to obtain 
+the code<BR>of that character.<BR><BR>0AH FUNCTION<BR><BR>Use:<BR><BR>To read 
+keyboard characters and store them on the buffer.<BR><BR>Call 
+registers:<BR><BR>AH = 0AH<BR>DS:DX = Area of storage address<BR>BYTE 0 = 
+Quantity of bytes in the area<BR>BYTE 1 = Quantity of bytes read<BR>from BYTE 2 
+till BYTE 0 + 2 = read characters<BR><BR>Return 
+characters:<BR><BR>None.<BR><BR>The characters are read and stored in a 
+predefined space on memory. The<BR>structure of this space indicate that in the 
+first byte are indicated how<BR>many characters will be read. On the second byte 
+the number of characters<BR>already read are stored, and from the third byte on 
+the read characters are<BR>written.<BR><BR>When all the indicated characters 
+have been stored the speaker sounds and<BR>any additional character is ignored. 
+To end the capture of the chain it is<BR>necessary to hit [ENTER].<BR><BR>3FH 
+FUNCTION<BR><BR>Use:<BR><BR>To read information from a device or 
+file.<BR><BR>Call registers:<BR><BR>AH = 3FH<BR>BX = Number assigned to the 
+device<BR>CX = Number of bytes to process<BR>DS:DX = Address of the storage 
+area<BR><BR>Return registers:<BR><BR>CF = 0 if there is no error and AX = number 
+of read bytes.<BR>CF = 1 if there is an error and AX will contain the error 
+code.<BR><BR>0FH FUNCTION<BR><BR>Use:<BR><BR>To open an FCB file<BR><BR>Call 
+registers:<BR><BR>AH = 0FH<BR>DS:DX = Pointer to an FCB<BR><BR>Return 
+registers:<BR><BR>AL = 00H if there was no problem, otherwise it returns to 
+0FFH<BR><BR>14H FUNCTION<BR><BR>Use:<BR><BR>To sequentially read an FCB 
+file.<BR><BR>Call registers:<BR><BR>AH = 14H<BR>DS:DX = Pointer to an FCB 
+already opened.<BR><BR>Return registers:<BR><BR>AL = 0 if there were no errors, 
+otherwise the corresponding error code will be returned: 1 error at the end of 
+the file, 2 error on the FCB structure and 3 pa<BR><BR>What this function does 
+is that it reads the next block of information from<BR>the address given by 
+DS:DX, and dates this register.<BR><BR>15H FUNCTION<BR><BR>Use:<BR><BR>To 
+sequentially write and FCB file.<BR><BR>Call registers:<BR><BR>AH = 15H<BR>DS:DX 
+= Pointer to an FCB already opened.<BR><BR>Return registers:<BR><BR>AL = 00H if 
+there were no errors, otherwise it will contain the error code: 1 full disk or 
+read-only file, 2 error on the formation or on the specification of<BR><BR>The 
+15H function dates the FCB after writing the register to the 
+present<BR>block.<BR><BR>16H FUNCTION<BR><BR>Use:<BR><BR>To create an FCB file. 
+Call registers:<BR><BR>AH = 16H<BR>DS:DX = Pointer to an already opened 
+FCB.<BR><BR>Return registers:<BR><BR>AL = 00H if there were no errors, otherwise 
+it will contain the 0FFH value.<BR><BR>It is based on the information which 
+comes on an FCB to create a file on a<BR>disk.<BR><BR>21H 
+FUNCTION<BR><BR>Use:<BR><BR>To read in an random manner an FCB file.<BR><BR>Call 
+registers:<BR><BR>AH = 21H<BR>DS:DX = Pointer to and opened FCB.<BR><BR>Return 
+registers:<BR><BR>A = 00H if there was no error, otherwise AH will contain the 
+code of the error: 1 if it is the end of file, 2 if there is an FCB 
+specification error and 3 if<BR><BR>This function reads the specified register 
+by the fields of the actual block<BR>and register of an opened FCB and places 
+the information on the DTA, Disk<BR>Transfer Area.<BR><BR>22H 
+FUNCTION<BR><BR>Use:<BR><BR>To write in an random manner an FCB 
+file.<BR><BR>Call registers:<BR><BR>AH = 22H<BR>DS:DX = Pointer to an opened 
+FCB.<BR><BR>Return registers:<BR><BR>AL = 00H if there was no error, otherwise 
+it will contain the error code: 1 if the disk is full or the file is an only 
+read and 2 if there is an error on the<BR><BR>It writes the register specified 
+by the fields of the actual block and<BR>register of an opened FCB. It writes 
+this information from the content of<BR>the DTA.<BR><BR>3CH 
+FUNCTION<BR><BR>Use:<BR><BR>To create a file if it does not exist or leave it on 
+0 length if it exists,<BR>Handle.<BR><BR>Call registers:<BR><BR>AH = 3CH<BR>CH = 
+File attribute<BR>DS:DX = Pointer to an ASCII specification.<BR><BR>Return 
+registers:<BR>CF = 0 and AX the assigned number to handle if there is no error, 
+in case there is, CF <BR>ill be 1 and AX will contain the error code: 3 path not 
+found, 4 there<BR>This function substitutes the 16H function. The name of the 
+file is<BR>specified on an ASCII chain, which has as a characteristic being 
+a<BR>conventional chain of bytes ended with a 0 character.<BR><BR>The file 
+created will contain the attributes defined on the CX register in<BR>the 
+following manner:<BR><BR>Value Attributes<BR>00H Normal<BR>02H Hidden<BR>04H 
+System<BR>06H Hidden and of system<BR><BR>The file is created with the reading 
+and writing permissions. It is not<BR>possible to create directories using this 
+function.<BR><BR>3DH FUNCTION<BR><BR>Use:<BR><BR>It opens a file and returns a 
+handle.<BR><BR>Call registers:<BR><BR>AH = 3DH<BR>AL = manner of access<BR>DS:DX 
+= Pointer to an ASCII specification<BR><BR>Return registers:<BR><BR>CF = 0 and 
+AX = handle number if there are no errors, otherwise CF = 1 and <BR>AX = error 
+code: 01H if the function is not valid, 02H if the file was not found, 
+03<BR><BR>The returned handled is 16 bits.<BR><BR>The access code is specified 
+in the following way:<BR><BR>BITS<BR>7 6 5 4 3 2 1<BR><BR>. . . . 0 0 0 Only 
+reading<BR>. . . . 0 0 1 Only writing<BR>. . . . 0 1 0 Reading/Writing<BR>. . . 
+x . . . RESERVED<BR><BR>3EH FUNCTION<BR><BR>Use:<BR><BR>Close file 
+(handle).<BR><BR>Call registers:<BR><BR>AH = 3EH<BR>BX = Assigned 
+handle<BR><BR>Return registers:<BR><BR>CF = 0 if there were no mistakes, 
+otherwise CF will be 1 and AX will contain the error code: 06H if the handle is 
+invalid.<BR><BR>This function dates the file and frees the handle it was 
+using.<BR><BR>3FH FUNCTION<BR><BR>Use:<BR><BR>To read a specific quantity of 
+bytes from an open file and store them on a<BR>specific buffer.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=5.4.2>5.4.2 10h 
+Interruption</B></FONT><BR><BR>Purpose: To call on diverse BIOS video 
+function<BR><BR>Syntax:<BR><BR>Int 10H<BR><BR>This interruption has several 
+functions, all of them control the video<BR>input/output, to access each one of 
+them it is necessary that the function<BR>number which is required at the moment 
+of calling the interruption is in<BR>the Ah register.<BR><BR>In this tutorial we 
+will see some functions of the 10h interruption.<BR><BR>Common functions of the 
+10h interruption<BR><BR>02H Function, select the cursor position<BR>09H 
+Function, write attribute and character of the cursor<BR>0AH Function, write a 
+character in the cursor position<BR>0EH Function, Alphanumeric model of the 
+writing characters<BR><BR>02h Function<BR><BR>Use:<BR><BR>Moves the cursor on 
+the computer screen using text model.<BR><BR>Call registers:<BR><BR>AH = 
+02H<BR><BR>BH = Video page where the cursor is positioned.<BR><BR>DH = 
+row<BR><BR>DL = Column<BR><BR>Return Registers:<BR><BR>None.<BR><BR>The cursor 
+position is defined by its coordinates, starting from the<BR>position 0,0 to 
+position 79,24. This means from the left per computer<BR>screen corner to right 
+lower computer screen. Therefore the numeric values<BR>that the DH and DL 
+registers get in text model are: from 0 to 24 for rows<BR>and from 0 to 79 for 
+columns.<BR><BR>09h Function<BR><BR>Use:<BR><BR>Shows a defined character 
+several times on the computer screen with a<BR>defined attribute, starting with 
+the actual cursor position.<BR><BR>Call registers:<BR><BR>AH = 09H<BR>AL = 
+Character to display<BR>BH = Video page, where the character will display 
+it;<BR>BL = Attribute to use<BR>number of repetition.<BR><BR>Return 
+registers:<BR><BR>None<BR><BR>This function displays a character on the computer 
+screen several times,<BR>using a specified number in the CX register but without 
+changing the cursor<BR>position on the computer screen.<BR><BR>0Ah 
+Function<BR><BR>Use:<BR><BR>Displays a character in the actual cursor 
+position.<BR><BR>Call registers:<BR><BR>AH = 0AH<BR>AL = Character to 
+display<BR>BH = Video page where the character will display it<BR>BL = Color to 
+use (graphic mode only).<BR>CX = number of repetitions<BR><BR>Return 
+registers:<BR><BR>None.<BR><BR>The main difference between this function and the 
+last one is that this one<BR>doesn't allow modifications on the attributes 
+neither does it change the<BR>cursor position.<BR><BR>0EH 
+Function<BR><BR>Use:<BR><BR>Displays a character on the computer screen dates 
+the cursor position.<BR><BR>Call registers:<BR><BR>AH = 0EH<BR>AL = Character to 
+display<BR>BH = Video page where the character will display it<BR>BL = Color to 
+use (graphic mode only).<BR><BR>Return registers:<BR><BR>None<BR><BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=5.4.3>5.4.3 16H 
+interruption</B></FONT><BR><BR>We will see two functions of the 16 h 
+interruption, these functions are<BR>called by using the AH 
+register.<BR><BR>Functions of the 16h interruption<BR><BR>00H Function, reads a 
+character from the keyboard.<BR>01H Function, reads the keyboard 
+state.<BR><BR>00H Function Use:<BR><BR>Reads a character from the 
+keyboard.<BR><BR>Call registers:<BR><BR>AH = 00H<BR><BR>Return 
+registers:<BR><BR>AH = Scan code of the keyboard<BR>AL = ASCII value of the 
+character<BR><BR>When we use this interruption, the program executing is halted 
+until a<BR>character is typed, if this is an ASCII value; it is stored in the 
+Ah<BR>register, Else the scan code is stored in the AL register and the 
+AH<BR>register contents the value 00h.<BR><BR>The proposal of the scan code is 
+to use it with the keys without ASCII<BR>representation as [ALT][CONTROL], the 
+function keys and so on.<BR><BR>01h function<BR><BR>Use:<BR><BR>Reads the 
+keyboard state<BR><BR>Call registers:<BR><BR>AH = 01H<BR><BR>Return 
+registers:<BR><BR>If the flag register is zero, this means, there is information 
+on the<BR>buffer memory, else, there is no information in the buffer 
+memory.<BR>Therefore the value of the Ah register will be the value key stored 
+in the<BR>buffer memory.<BR><BR><BR>5.4.4 17H Interruption<BR><BR>Purpose: 
+Handles the printer input/output.<BR><BR>Syntax:<BR><BR>Int 17H<BR><BR>This 
+interruption is used to write characters on the printer, sets printer<BR>and 
+reads the printer state.<BR><BR>Functions of the 16h interruptions<BR><BR>00H 
+Function, prints value ASCII out<BR>01H Function, sets printer <BR>02H Function, 
+the printer state<BR><BR>00H Function<BR><BR>Use:<BR><BR>Writes a character on 
+the printer.<BR><BR>Call registers:<BR><BR>AH = 00H<BR>AL = Character to 
+print.<BR>DX = Port to use.<BR><BR>Return registers:<BR><BR>AH = Printer device 
+state.<BR><BR>The port to use is in the DX register, the different values are: 
+LPT1 = 0,<BR>LPT2 = 1, LPT3 = 2 ...<BR><BR>The printer device state is coded bit 
+by bit as follows:<BR><BR>BIT 1/0 
+MEANING<BR>----------------------------------------<BR>0 1 The waited time is 
+over<BR>1 -<BR>2 -<BR>3 1 input/output error<BR>4 1 Chosen printer<BR>5 1 
+out-of-paper<BR>6 1 communication recognized<BR>7 1 The printer is ready to 
+use<BR><BR>1 and 2 bits are not relevant<BR><BR>Most BIOS sport 3 parallel 
+ports, although there are BIOS which sport 4<BR>parallel ports.<BR><BR>01h 
+Function<BR><BR>Use:<BR><BR>Sets parallel port.<BR><BR>Call registers:<BR><BR>AH 
+= 01H<BR>DX = Port to use<BR><BR>Return registers:<BR><BR>AH = Printer status 
+<BR><BR>Port to use is defined in the DX register, for example: LPT=0, LPT2=1, 
+and<BR>so on.<BR><BR>The state of the printer is coded bit by bit as 
+follows:<BR><BR>BIT 1/0 MEANING<BR>----------------------------------------<BR>0 
+1 The waited time is over<BR>1 -<BR>2 -<BR>3 1 input/output error<BR>4 1 Chosen 
+printer<BR>5 1 out-of-paper<BR>6 1 communication recognized<BR>7 1 The printer 
+is ready to use<BR><BR>1 and 2 bits are not relevant<BR><BR>Most BIOS sport 3 
+parallel ports, although there are BIOS which sport 4<BR>parallel 
+ports.<BR><BR>02h Function<BR><BR>Uses:<BR><BR>Gets the printer 
+status.<BR><BR>Call registers:<BR><BR>AH = 01H<BR>DX = Port to use<BR><BR>Return 
+registers<BR><BR>AH = Printer status.<BR><BR>Port to use is defined in the DX 
+register, for example: LPT=0, LPT2=1, and<BR>so on<BR><BR>The state of the 
+printer is coded bit by bit as follows:<BR><BR>BIT 1/0 
+MEANING<BR>----------------------------------------<BR>0 1 The waited time is 
+over<BR>1 -<BR>2 -<BR>3 1 input/output error<BR>4 1 Chosen printer<BR>5 1 
+out-of-paper<BR>6 1 communication recognized<BR>7 1 The printer is ready to 
+use<BR><BR>1 and 2 bits are not relevant<BR><BR>Most BIOS sport 3 parallel 
+ports, although there are BIOS which sport 4<BR>parallel ports. 
+<BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=5.5>5.5 Ways of working with 
+files</B></FONT><BR><BR>There are two ways to work with files, the first one is 
+by means of file<BR>control blocks or "FCB" and the second one is by means of 
+communication<BR>channels, also known as "handles".<BR><BR>The first way of file 
+handling has been used since the CPM operative<BR>system, predecessor of DOS, 
+thus it assures certain compatibility with very<BR>old files from the CPM as 
+well as from the 1.0 version of the DOS, besides<BR>this method allows us to 
+have an unlimited number of open files at the same<BR>time. If you want to 
+create a volume for the disk the only way to achieve<BR>this is by using this 
+method.<BR><BR>Even after considering the advantages of the FCB, the use of 
+the<BR>communication channels it is much simpler and it allows us a 
+better<BR>handling of errors, besides, since it is much newer it is very 
+probable<BR>that the files created this way maintain themselves compatible 
+through<BR>later versions of the operative system.<BR><BR>For a greater facility 
+on later explanations I will refer to the file<BR>control blocks as FCBs and to 
+the communication channels as handles.<BR><BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=5.6>5.6 FCB method</B></FONT><BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.1">5.6.1 
+Introduction</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.2">5.6.2 Open 
+files</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.3">5.6.3 
+Create a new file</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.4">5.6.4 Sequential 
+writing</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.5">5.6.5 Sequential 
+reading</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.6Random">5.6.6Random 
+reading and writing</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.6.7">5.6.7 Close a 
+file</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=5.6.1>5.6.1 
+Introduction</B></FONT><BR><BR>There are two types of FCB, the normal, whose 
+length is 37 bytes and the<BR>extended one of 44 bytes.<BR>On this tutorial we 
+will only deal with the first type, so from now on when<BR>I refer to an FCB, I 
+am really talking about a 37 bytes FCB.<BR><BR>The FCB is composed of 
+information given by the programmer and by<BR>information which it takes 
+directly from the operative system.<BR>When thesetypes of files are used it is 
+only possible to work on the current<BR>directory since the FCBs do not provide 
+sport for the use of the organization by directories of DOS.<BR><BR>The FCB is 
+formed by the following fields:<BR><BR>POSITION LENGTH MEANING<BR>00H 1 Byte 
+Drive<BR>01H 8 Bytes File name<BR>09H 3 Bytes Extension<BR>0CH 2 Bytes Block 
+number<BR>0EH 2 Bytes Register size<BR>10H 4 Bytes File size<BR>14H 2 Bytes 
+Creation date<BR>16H 2 Bytes Creation hour<BR>18H 8 Bytes Reserved<BR>20H 1 
+Bytes Current register<BR>21H 4 Bytes Random register<BR><BR>To select the work 
+drive the next format is followed: drive A = 1; drive B<BR>= 2; etc. If 0 is 
+used the drive being used at that moment will be taken as<BR>option.<BR><BR>The 
+name of the file must be justified to the left and in case it is<BR>necessary 
+the remaining bytes will have to be filled with spaces, and the<BR>extension of 
+the file is placed the same way.<BR><BR>The current block and the current 
+register tell the computer which register<BR>will be accessed on reading or 
+writing operations. A block is a gro of<BR>128 registers. The first block of the 
+file is the block 0. The first<BR>register is the register 0, therefore the last 
+register of the first block<BR>would be the 127, since the numbering started 
+with 0 and the block can<BR>contain 128 registers in total.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=5.6.2>5.6.2 Opening files</B></FONT><BR><BR>To 
+open an FCB file the 21H interruption, 0FH function is used. The unit,<BR>the 
+name and extension of the file must be initialized before opening it.<BR>The DX 
+register must point to the block. If the value of FFH is returned on<BR>the AH 
+register when calling on the interruption then the file was not<BR>found, if 
+everything came out well a value of 0 will be returned.<BR><BR>If the file is 
+opened then DOS initializes the current block to 0, the size<BR>of the register 
+to 128 bytes and the size of the same and its date are<BR>filled with the 
+information found in the directory.<BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=5.6.3>5.6.3 Creating a new file</B></FONT><BR><BR>For the creation of files 
+the 21H interruption 16H function is used.<BR>DX must point to a control 
+structure whose requirements are that at least<BR>the logic unit, the name and 
+the extension of the file be defined.<BR>In case there is a problem the FFH 
+value will be returned on AL, otherwise<BR>this register will contain a value of 
+0.<BR><BR><FONT color=#ff00ff size=+1><B><A name=5.6.4>5.6.4 Sequential 
+writing</B></FONT><BR><BR>Before we can perform writing to the disk it is 
+necessary to define the<BR>data transfer area using for this end the 1AH 
+function of the 21H<BR>interruption.<BR><BR>The 1AH function does not return any 
+state of the disk nor or the<BR>operation, but the 15H function, which is the 
+one we will use to write to<BR>the disk, does it on the AL register, if this one 
+is equal to zero there<BR>was no error and the fields of the current register 
+and block are dated.<BR><BR><FONT color=#ff00ff size=+1><B><A name=5.6.5>5.6.5 
+Sequential reading</B></FONT><BR><BR>Before anything we must define the file 
+transfer area or DTA.<BR>In order to sequentially read we use the 14H function 
+of the 21H<BR>interruption.<BR>The register to be read is the one which is 
+defined by the current block<BR>and register. The AL register returns to the 
+state of the operation, if AL<BR><BR>contains a value of 1 or 3 it means we have 
+reached the end of the file. A<BR>value of 2 means that the FCB is wrongly 
+structured.<BR>In case there is no error, AL will contain the value of 0 and the 
+fields of<BR>the current block and register are dated.<BR><BR><FONT 
+color=#ff00ff size=+1><B><A name=5.6.6>5.6.6 Random reading and 
+writing</B></FONT><BR><BR>The 21H function and the 22H function of the 21H 
+interruption are the ones<BR>in charge of realizing the random readings and 
+writings respectively.<BR><BR>The random register number and the current block 
+are used to calculate<BR>the relative position of the register to read or 
+write.<BR><BR>The AL register returns the same information for the sequential 
+reading of<BR>writing. The information to be read will be returned on the 
+transfer area<BR>of the disk, likewise the information to be written resides on 
+the DTA.<BR><BR><FONT color=#ff00ff size=+1><B><A name=5.6.7>5.6.7 Closing a 
+file</B></FONT><BR><BR>To close a file we use the 10H function of the 21H 
+interruption.<BR><BR>If after invoking this function, the AL register contains 
+the FFH value,<BR>this means that the file has changed position, the disk was 
+changed or<BR>there is error of disk access.<BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=5.7>5.7 Channels of communication</B></FONT><BR><BR>Table of 
+Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.7.1">5.7.1 Working with 
+handles</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#5.7.2">5.7.2 Functions to use 
+handles</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=5.7.1>5.7.1 
+Working with handles</B></FONT><BR><BR>The use of handles to manage files 
+greatly facilitates the creation of<BR>files and programmer can concentrate on 
+other aspects of the programming<BR>without worrying on details which can be 
+handled by the operative system.<BR>The easy use of the handles consists in that 
+to operate o a file, it is<BR>only necessary to define the name of the same and 
+the number of the handle<BR>to use, all the rest of the information is 
+internally handled by the DOS.<BR><BR>When we use this method to work with 
+files, there is no distinction between<BR>sequential or random accesses, the 
+file is simply taken as a chain of<BR>bytes.<BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=5.7.2>5.7.2 Functions to use handles</B></FONT><BR><BR>The 
+functions used for the handling of files through handles are described<BR>in 
+unit 6: Interruptions, in the section dedicated to the 21H 
+interruption.<BR><BR><FONT color=#ff00ff size=+1><B><A name=6>6 Macros and 
+procedures </B></FONT><BR><BR>table of Contents<BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#6.1">6.1 Procedures</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#6.2">6.2 
+Macros</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=6.1>6.1 
+Procedure</B></FONT><BR><BR>Definition of procedure<BR><BR>A procedure is a 
+collection of instructions to which we can direct the flow<BR>of our program, 
+and once the execution of these instructions is over<BR>control is given back to 
+the next line to process of the code which called<BR>on the 
+procedure.<BR><BR>Procedures help us to create legible and easy to modify 
+programs.<BR><BR>At the time of invoking a procedure the address of the next 
+instruction of<BR>the program is kept on the stack so that, once the flow of the 
+program has<BR>been transferred and the procedure is done, one can return to the 
+next line<BR>of the original program, the one which called the 
+procedure.<BR><BR>Syntax of a Procedure<BR><BR>There are two types of 
+procedures, the intrasegments, which are found on<BR>the same segment of 
+instructions, and the inter-segments which can be<BR>stored on different memory 
+segments.<BR><BR>When the intrasegment procedures are used, the value of IP is 
+stored on the<BR>stack and when the intrasegments are used the value of CS:IP is 
+stored.<BR><BR>To divert the flow of a procedure (calling it), the following 
+directive is<BR>used:<BR><BR>CALL NameOfTheProcedure<BR><BR>The part which make 
+a procedure are:<BR><BR>Declaration of the procedure<BR>Code of the 
+procedure<BR>Return directive<BR>Termination of the procedure<BR><BR>For 
+example, if we want a routine which adds two bytes stored in AH and AL<BR>each 
+one, and keep the addition in the BX register:<BR><BR>Adding Proc Near ; 
+Declaration of the procedure<BR>Mov Bx, 0 ; Content of the procedure<BR>Mov B1, 
+Ah<BR>Mov Ah, 00<BR>Add Bx, Ax<BR>Ret ; Return directive<BR>Add Endp ; End of 
+procedure declaration<BR><BR>On the declaration the first word, Adding, 
+corresponds to the name of out<BR>procedure, Proc declares it as such and the 
+word Near indicates to the MASM<BR>that the procedure is intrasegment. <BR>The 
+Ret directive loads the IP address stored on the stack to return to the original 
+program, lastly, the Add Endp directive indicates the end of the 
+procedure.<BR><BR>To declare an inter segment procedure we substitute the word 
+Near for the<BR>word FAR.<BR><BR>The calling of this procedure is done the 
+following way:<BR><BR>Call Adding<BR><BR>Macros offer a greater flexibility in 
+programming compared to the<BR>procedures, nonetheless, these last ones will 
+still be used.<BR><BR><FONT color=#ff00ff size=+1><B><A name=6.2>6.2 
+Macros</B></FONT><BR><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#6.2.1">6.2.1 Definition of a 
+macro</A><BR><A href="http://thsun1.jinr.ru/~alvladim/man/asm.html#6.2.2">6.2.2 
+Syntax of a macro</A><BR><A 
+href="http://thsun1.jinr.ru/~alvladim/man/asm.html#6.2.3">6.2.3 Macro 
+libraries</A><BR><BR><BR><FONT color=#ff00ff size=+1><B><A name=6.2.1>6.2.1 
+Definition of the macro</B></FONT><BR><BR>A macro is a gro of repetitive 
+instructions in a program which are<BR>codified only once and can be used as 
+many times as necessary.<BR><BR>The main difference between a macro and a 
+procedure is that in the macro<BR>the passage of parameters is possible and in 
+the procedure it is not, this<BR>is only applicable for the TASM - there are 
+other programming languages<BR>which do allow it. At the moment the macro is 
+executed each parameter is<BR>substituted by the name or value specified at the 
+time of the call.<BR><BR>We can say then that a procedure is an extension of a 
+determined program,<BR>while the macro is a module with specific functions which 
+can be used by<BR>different programs.<BR><BR>Another difference between a macro 
+and a procedure is the way of calling<BR>each one, to call a procedure the use 
+of a directive is required, on the<BR>other hand the call of macros is done as 
+if it were an assembler<BR>instruction.<BR><BR><FONT color=#ff00ff size=+1><B><A 
+name=6.2.2>6.2.2 Syntax of a Macro</B></FONT><BR><BR>The parts which make a 
+macro are:<BR><BR>Declaration of the macro<BR>Code of the macro<BR>Macro 
+termination directive<BR><BR>The declaration of the macro is done the following 
+way:<BR><BR>NameMacro MACRO [parameter1, parameter2...]<BR><BR>Even though we 
+have the functionality of the parameters it is possible to<BR>create a macro 
+which does not need them.<BR><BR>The directive for the termination of the macro 
+is: ENDM<BR><BR>An example of a macro, to place the cursor on a determined 
+position on the<BR>screen is:<BR><BR>Position MACRO Row, Column<BR>PUSH 
+AX<BR>PUSH BX<BR>PUSH DX<BR>MOV AH, 02H<BR>MOV DH, Row<BR>MOV DL, Column<BR>MOV 
+BH, 0<BR>INT 10H<BR>POP DX<BR>POP BX<BR>POP AX<BR>ENDM<BR><BR>To use a macro it 
+is only necessary to call it by its name, as if it were<BR>another assembler 
+instruction, since directives are no longer necessary as<BR>in the case of the 
+procedures. Example:<BR><BR>Position 8, 6<BR><BR><FONT color=#ff00ff 
+size=+1><B><A name=6.2.3>6.2.3 Macro Libraries</B></FONT><BR><BR>One of the 
+facilities that the use of macros offers is the creation of<BR>libraries, which 
+are groups of macros which can be included in a program<BR>from a different 
+file.<BR><BR>The creation of these libraries is very simple, we only have to 
+write a<BR>file with all the macros which will be needed and save it as a text 
+file.<BR><BR>To call these macros it is only necessary to use the following 
+instruction<BR>Include NameOfTheFile, on the part of our program where we would 
+normally<BR>write the macros, this is, at the beginning of our program, before 
+the<BR>declaration of the memory model.<BR><BR>The macros file was saved with 
+the name of MACROS.TXT, the<BR>instruction Include would be used the following 
+way:<BR><BR>;Beginning of the program<BR>Include MACROS.TXT<BR>.MODEL 
+SMALL<BR>.DATA<BR>;The data goes here<BR>.CODE<BR>Beginning:<BR>;The code of the 
+program is inserted here<BR>.STACK<BR>;The stack is defined<BR>End 
+beginning<BR>;Our program ends<BR><BR>More debug program examples<BR><BR>In this 
+section we provide you several assembler programs to run in the<BR>debug 
+program. You can execute each assembler program using the "t" (trace) command, 
+to see what each instruction does.<BR><BR>First 
+example<BR><BR>-a0100<BR>297D:0100 MOV AX,0006 ; Puts value 0006 at register 
+AX<BR>297D:0103 MOV BX,0004 ;Puts value 0004 at register BX<BR>297D:0106 ADD 
+AX,BX ;Adds BX to AX contents<BR>297D:0108 INT 20 ;Causes end of the 
+Program<BR><BR>The only thing that this program does is to save two values in 
+two<BR>registers and add the value of one to the other.<BR><BR>Second 
+example<BR><BR>- a100<BR>0C1B:0100 jmp 125 ; Jumps to direction 
+125H<BR>0C1B:0102 [Enter]<BR>- e 102 'Hello, How are you ?' 0d 0a '$'<BR>- 
+a125<BR>0C1B:0125 MOV DX,0102 ; Copies string to DX register<BR>0C1B:0128 MOV 
+CX,000F ; Times the string will be displayed<BR>0C1B:012B MOV AH,09 ; Copies 09 
+value to AH register<BR>0C1B:012D INT 21 ; Displays string<BR>0C1B:012F DEC CX ; 
+Reduces in 1 CX<BR>0C1B:0130 JCXZ 0134 ; If CX is equal to 0 jumps to 
+0134<BR>0C1B:0132 JMP 012D ; Jumps to direction 012D<BR>0C1B:0134 INT 20 ; Ends 
+the program<BR><BR>This program displays on the screen 15 times a character 
+string.<BR><BR>Third example<BR><BR>-a100<BR>297D:0100 MOV AH,01 ;Function to 
+change the cursor<BR>297D:0102 MOV CX,0007 ;Forms the cursor<BR>297D:0105 INT 10 
+;Calls for BIOS<BR>297D:0107 INT 20 ;Ends the program<BR><BR>This program is 
+good for changing the form of the cursor.<BR><BR>Fourth 
+example<BR><BR>-a100<BR>297D:0100 MOV AH,01 ; Funtion 1 (reads 
+keyboard)<BR>297D:0102 INT 21 ; Calls for DOS<BR>297D:0104 CMP AL,0D ; Compares 
+if what is read is a carriage return<BR>297D:0106 JNZ 0100 ; If it is not, reads 
+another character<BR>297D:0108 MOV AH,02 ; Funtion 2 (writes on the 
+screen)<BR>297D:010A MOV DL,AL ; Character to write on AL<BR>297D:010C INT 21 ; 
+Calls for DOS<BR>297D:010E INT 20 ; Ends the program<BR><BR>This program uses 
+DOS 21H interruption. It uses two functions of the same:<BR>the first one reads 
+the keyboard (function 1) and the second one writes on<BR>the screen. It reads 
+the keyboard characters until it finds a carriage<BR>return.<BR><BR>Fifth 
+example<BR><BR>-a100<BR>297D:0100 MOV AH,02 ; Function 2 (writes on the 
+screen)<BR>297D:0102 MOV CX,0008 ; Puts value 0008 on register CX<BR>297D:0105 
+MOV DL,00 ; Puts value 00 on register DL<BR>297D:0107 RCL BL,1 ; Rotates the 
+byte in BL to the left by one bit through the ;carry flag<BR>297D:0109 ADC DL,30 
+; Converts flag register to1<BR>297D:010C INT 21 ; Calls for DOS<BR>297D:010E 
+LOOP 0105 ; Jumps if CX &gt; 0 to direction 0105<BR>297D:0110 INT 20 ; Ends the 
+program<BR><BR>This program displays on the screen a binary number through a 
+conditional<BR>cycle (LOOP) using byte rotation.<BR><BR>Sixth 
+example<BR><BR>-a100<BR>297D:0100 MOV AH,02 ; Function 2 (writes on the 
+screen)<BR>297D:0102 MOV DL,BL ; Puts BL's value on DL<BR>297D:0104 ADD DL,30 ; 
+Adds value 30 to DL<BR>297D:0107 CMP DL,3A ; Compares 3A value with DL's 
+contents without affecting ; its value only modifying the state of the 
+car<BR>297D:010A JL 010F ; jumps if <DIRECTION 010f<br>297D:010C ADD DL,07 ; 
+Adds 07 value on DL<BR>297D:010F INT 21 ; Calls for Dos<BR>297D:0111 INT 20 ; 
+Ends the Program<BR><BR>This program prints a zero value on hex 
+digits<BR><BR>Seventh example<BR><BR>-a100<BR>297D:0100 MOV AH,02 ; Function 2 
+(writes on the screen)<BR>297D:0102 MOV DL,BL ; Puts BL value on DL<BR>297D:0104 
+AND DL,0F ; Carries ANDing numbers bit by bit<BR>297D:0107 ADD DL,30 ; Adds 30 
+to Dl<BR>297D:010A CMP DL,3A ; Compares Dl with 3A<BR>297D:010D JL 0112 ; Jumps 
+if &lt;0112 direction<BR>297D:010F ADD DL, 07 ; Adds 07 to DL<BR>297D:0112 INT 
+21 ; Calls for Dos<BR>297D:0114 INT 20 ;Ends the program<BR><BR>This program is 
+used to print two digit hex numbers.<BR><BR>Eight 
+example<BR><BR>-a100<BR>297D:0100 MOV AH,02 ; Function 2 (writes on the 
+screen)<BR>297D:0102 MOV DL,BL ; Puts BL value on DL<BR>297D:0104 MOV CL,04 ; 
+Puts 04 value on CL<BR>297D:0106 SHR DL,CL ; Moves per four bits of your number 
+to the rightmost ;nibble<BR>297D:0108 ADD DL,30 ; Adds 30 to DL<BR>297D:010B CMP 
+DL,3A ; Compares Dl with 3A<BR>297D:010E JL 0113 ; Jumps if &lt;0113 
+direction<BR>297D:0110 ADD DL,07 ; Adds 07 to DL<BR>297D:0113 INT 21 ; Calls for 
+Dos<BR>297D:0115 INT 20 ; Ends the program<BR><BR>This program works for 
+printing the first of two digit hex numbers<BR><BR>Ninth 
+example<BR><BR>-a100<BR>297D:0100 MOV AH,02 ; Function 2 (writes on the 
+screen)<BR>297D:0102 MOV DL,BL ; Puts BL value on DL<BR>297D:0104 MOV CL,04 ; 
+Puts 04 value on CL<BR>297D:0106 SHR DL,CL ; Moves per four bits of your number 
+to the rightmost ;nibble<BR>297D:0108 ADD DL,30 ; Adds 30 to DL<BR>297D:010B CMP 
+DL,3A ; Compares Dl with 3A<BR>297D:010E JL 0113 ; Jumps if &lt;0113 
+direction<BR>297D:0110 ADD DL,07 ; Adds 07 to DL<BR>297D:0113 INT 21 ; Calls for 
+Dos<BR>297D:0115 MOV DL,BL ; Puts Bl value on DL<BR>297D:0117 AND DL,0F ; 
+Carries ANDing numbers bit by bit<BR>297D:011A ADD DL,30 ; Adds 30 to 
+DL<BR>297D:011D CMP DL,3A ; Compares Dl with 3A<BR>297D:0120 JL 0125 ; Jumps if 
+&lt;125 direction<BR>297D:0122 ADD DL,07 ; Adds 07 to DL<BR>297D:0125 INT 21 ; 
+Calls for Dos<BR>297D:0127 INT 20 ; Ends the Program<BR><BR>This program works 
+for printing the second of two digit hex numbers<BR><BR>Tenth 
+example<BR><BR>-a100<BR>297D:0100 MOV AH,01 ; Function 1 (reads 
+keyboard)<BR>297D:0102 INT 21 ; Calls for Dos<BR>297D:0104 MOV DL,AL ; Puts Al 
+value on DL<BR>297D:0106 SUB DL,30 ; Subtracts 30 from DL<BR>297D:0109 CMP DL,09 
+; Compares DL with 09<BR>297D:010C JLE 0111; Jumps if &lt;= 0111 
+direction<BR>297D:010E SUB DL,07 ; Subtracts 07 from DL<BR>297D:0111 MOV CL,04 ; 
+Puts 04 value on CL register<BR>297D:0113 SHL DL,CL ; It inserts zeros to the 
+right<BR>297D:0115 INT 21 ; Calls for Dos<BR>297D:0117 SUB AL,30 ; Subtracts 30 
+from AL<BR>297D:0119 CMP AL,09 ; Compares AL with 09<BR>297D:011B JLE 011F ; 
+Jumps if &lt;= 011f direction<BR>297D:011D SUB AL,07 ; Subtracts 07 from 
+AL<BR>297D:011F ADD DL,AL ; Adds Al to DL<BR>297D:0121 INT 20 ; Ends the 
+Program<BR><BR>This program can read two digit hex numbers<BR><BR>Eleventh 
+example<BR><BR>-a100<BR>297D:0100 CALL 0200 ; Calls for a procedure<BR>297D:0103 
+INT 20 ;Ends the program<BR><BR>-a200<BR>297D:0200 PUSH DX ; Puts DX value on 
+the stack<BR>297D:0201 MOV AH,08 ; Function 8<BR>297D:0203 INT 21 ; Calls for 
+Dos<BR>297D:0205 CMP AL,30 ; Compares AL with 30<BR>297D:0207 JB 0203 ; Jumps if 
+CF is activated towards 0203 direction<BR>297D:0209 CMP AL,46 ; Compares AL with 
+46<BR>297D:020B JA 0203 ; jumps if 0203 direction<BR>297D:020D CMP AL,39 ; 
+Compares AL with 39<BR>297D:020F JA 021B ; Jumps if 021B direction<BR>297D:0211 
+MOV AH,02 ; Function 2 (writes on the screen)<BR>297D:0213 MOV DL,AL ; Puts Al 
+value on DL<BR>297D:0215 INT 21 ; Calls for Dos<BR>297D:0217 SUB AL,30 ; 
+Subtracts 30 from AL<BR>297D:0219 POP DX ; Takes DX value out of the 
+stack<BR>297D:021A RET ; Returns control to the main program<BR>297D:021B CMP 
+AL,41 ; Compares AL with 41<BR>297D:021D JB 0203 ; Jumps if CF is activated 
+towards 0203 direction<BR>297D:021F MOV AH,02 ; Function 2 (writes on the 
+screen)<BR>297D:022 MOV DL,AL ; Puts AL value on DL<BR>297D:0223 INT 21 ; Calls 
+for Dos<BR>297D:0225 SUB AL,37 ; Subtracts 37 from AL<BR>297D:0227 POP DX ; 
+Takes DX value out of the stack<BR>297D:0228 RET ; Returns control to the main 
+program<BR><BR>This program keeps reading characters until it receives one that 
+can be<BR>converted to a hex number<BR><BR><BR>More Assembler programs examples( 
+using TASM program) <BR><BR>;name of the program:one.asm<BR>;<BR>.model 
+small<BR>.stack<BR>.code<BR>mov AH,1h ;Selects the 1 D.O.S. function<BR>Int 21h 
+;reads character and return ASCII code to register AL<BR>mov DL,AL ;moves the 
+ASCII code to register DL<BR>sub DL,30h ;makes the operation minus 30h to 
+convert 0-9 digit number<BR>cmp DL,9h ;compares if digit number it was between 
+0-9<BR>jle digit1 ;If it true gets the first number digit (4 bits long)<BR>sub 
+DL,7h ;If it false, makes operation minus 7h to convert letter 
+A-F<BR>digit1:<BR>mov CL,4h ;prepares to multiply by 16<BR>shl DL,CL ; 
+multiplies to convert into four bits upper<BR>int 21h ;gets the next 
+character<BR>sub AL,30h ;repeats the conversion operation<BR>cmp AL,9h ;compares 
+the value 9h with the content of register AL<BR>jle digit2 ;If true, gets the 
+second digit number<BR>sub AL,7h ;If no, makes the minus operation 
+7h<BR>digit2:<BR>add DL,AL ;adds the second number digit<BR>mov AH,4CH<BR>Int 
+21h ;21h interruption<BR>End; finishs the program code<BR><BR>This program reads 
+two characters from the keyboard and prints them on the screen.<BR><BR>;name the 
+program:two.asm<BR>.model small<BR>.stack<BR>.code<BR>PRINT_A_J PROC<BR>MOV 
+DL,'A' ;moves the A character to register DL<BR>MOV CX,10 ;moves the decimal 
+value 10 to register cx<BR>;This number value its the time to print out after 
+the A ;character<BR>PRINT_LOOP:<BR>CALL WRITE_CHAR ;Prints A character 
+out<BR>INC DL ;Increases the value of register DL<BR>LOOP PRINT_LOOP ;Loop to 
+print out ten characters<BR>MOV AH,4Ch ;4Ch function of the 21h 
+interruption<BR>INT 21h ;21h interruption<BR>PRINT_A_J ENDP ;Finishes the 
+procedure<BR><BR>WRITE_CHAR PROC<BR>MOV AH,2h ;2h function of the 21 
+interruption<BR>INT 21h ;Prints character out from the register DL<BR>RET 
+;Returns the control to procedure called<BR>WRITE_CHAR ENDP ;Finishes the 
+procedure<BR>END PRINT_A_J ;Finishes the program code<BR><BR>This progrma prints 
+the a character through j character on the screen<BR><BR>;name of the 
+program:three.asm<BR>.model small<BR>.STACK<BR>.code<BR><BR>TEST_WRITE_HEX 
+PROC<BR>MOV DL,3Fh ;moves the value 3Fh to the register DL<BR>CALL WRITE_HEX 
+;Calls the procedure<BR>MOV AH,4CH ;4Ch function<BR>INT 21h ;Returns the control 
+to operating system<BR>TEST_WRITE_HEX ENDP ;Finishes the procedure<BR><BR>PUBLIC 
+WRITE_HEX<BR>;........................................................;<BR>; 
+This procedure converts into hexadecimal number the byte is in the register DL 
+and show the digit number;<BR>;Use:WRITE_HEX_DIGIT 
+;<BR>;........................................................;<BR><BR>WRITE_HEX 
+PROC<BR>PUSH CX ;pushes the value of the register CX to the stack memory<BR>PUSH 
+DX ;pushes the value of the register DX to the stack memory<BR>MOV DH,DL ;moves 
+the value of the register DL to register DH<BR>MOV CX,4 ;moves the value numeric 
+4 to register CX<BR>SHR DL,CL<BR>CALL WRITE_HEX_DIGIT ;shows on the computer 
+screen, the first hexadecimal number<BR>MOV DL,DH ;moves the value of the 
+register DH to the register DL<BR>AND DL,0Fh ;ANDing the upper bit<BR>CALL 
+WRITE_HEX_DIGIT ; shows on the computer screen, the second hexadecimal 
+number<BR>POP DX ;pops the value of the register DX to register DX<BR>POP CX ; 
+pops the value of the register DX to register DX<BR>RET ;Returns the control of 
+the procedure called<BR>WRITE_HEX ENDP<BR><BR>PUBLIC 
+WRITE_HEX_DIGIT<BR>;......................................................................;<BR>; 
+;<BR>; This procedure converts the lower 4 bits of the register DL into 
+hexadecimal ;number and show them in the computer screen ;<BR>;Use: WRITE_CHAR 
+;<BR>;......................................................................;<BR><BR>WRITE_HEX_DIGIT 
+PROC<BR>PUSH DX ;Pushes the value of the register DX in the stack memory<BR>CMP 
+DL,10 ;compares if the bit number is minus than number ten<BR>JAE HEX_LETTER ;No 
+, jumps HEX_LETER<BR>ADD DL,"0" ;yes, it converts into digit number<BR>JMP Short 
+WRITE_DIGIT ;writes the character<BR>HEX_LETTER:<BR>ADD DL,"A"-10 ;converts a 
+character into hexadecimal number<BR>WRITE_DIGIT:<BR>CALL WRITE_CHAR ;shows the 
+character in the computer screen<BR>POP DX ;Returns the initial value of the 
+register DX to register DL<BR>RET ;Returns the control of the procedure 
+called<BR>WRITE_HEX_DIGIT ENDP<BR><BR>PUBLIC 
+WRITE_CHAR<BR>;......................................................................;<BR>;This 
+procedure shows the character in the computer screen using the D.O.S. 
+;<BR>;......................................................................;<BR><BR>WRITE_CHAR 
+PROC<BR>PUSH AX ;pushes the value of the register AX in the stack memory<BR>MOV 
+AH,2 ;2h Function<BR>INT 21h ;21h Interruption<BR>POP AX ;Pops the initial value 
+of the register AX to the register AX<BR>RET ;Returns the control of the 
+procedure called<BR>WRITE_CHAR ENDP<BR><BR>END TEST_WRITE_HEX ;finishes the 
+program code<BR><BR>This program prints a predefined value on the 
+screen<BR><BR><BR>;name of the program:five.asm<BR>.model 
+small<BR>.stack<BR>.code<BR><BR>PRINT_ASCII PROC<BR>MOV DL,00h ;moves the value 
+00h to register DL<BR>MOV CX,255 ;moves the value decimal number 255. this 
+decimal number will be 255 times to print out after the character 
+A<BR>PRINT_LOOP:<BR>CALL WRITE_CHAR ;Prints the characters out<BR>INC DL 
+;Increases the value of the register DL content<BR>LOOP PRINT_LOOP ;Loop to 
+print out ten characters<BR>MOV AH,4Ch ;4Ch function<BR>INT 21h ;21h 
+Interruption<BR>PRINT_ASCII ENDP ;Finishes the procedure<BR><BR>WRITE_CHAR 
+PROC<BR>MOV AH,2h ;2h function to print character out<BR>INT 21h ;Prints out the 
+character in the register DL<BR>RET ;Returns the control to the procedure 
+called<BR>WRITE_CHAR ENDP ;Finishes the procedure<BR><BR>END PRINT_ASCII 
+;Finishes the program code<BR><BR><BR>This program prints the 256 ASCII code on 
+the screen<BR><BR>dosseg<BR>.model small<BR>.stack<BR>.code<BR>write proc 
+<BR>mov ah,2h; <BR>mov dl,2ah; <BR>int 21h<BR>mov ah,4ch<BR>int 21h<BR>write 
+endp<BR><BR>end write<BR><BR>This program prints a defined character using an 
+ASCII code on the screen.<BR><BR><BR>.model small; the name of the program is 
+seven.asm<BR>.stack; <BR>.code; <BR><BR>EEL: MOV AH,01 ; 1 function (reads one 
+character from the keyboard)<BR>INT 21h ; 21h interruption<BR>CMP AL,0Dh ; 
+compares the value with 0dh<BR>JNZ EEL ;jumps if no equal of the label 
+eel<BR>MOV AH,2h ; 2 function (prints the character out on the screen)<BR>MOV 
+DL,AL ;moves the value of the register AL to the register DL<BR>INT 21h ;21 
+interruption<BR>MOV AH,4CH ;4C function (returns the control to the D.O.S. 
+operating system)<BR>INT 21h ;21 interruption<BR><BR>END ;finishes the 
+program<BR><BR>This program reads characters form the keyboard and prints them 
+on the screen until find the return character.<BR><BR><BR></P></A></BODY></HTML>

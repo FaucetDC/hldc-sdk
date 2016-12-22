@@ -1,0 +1,839 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                        PART IX                         º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.0
+Date     :  19-12-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Well, this tutorial really is late out and I feel particularly guilty about
+it.  Nonetheless, I've included yet another demo program with this edition
+so that makes up for it a little bit.
+
+Just a word about last Tutorial Eight's demo program - FIRE!.  After obtaining
+a later version of TASM, I discovered that FIRE! doesn't like compiling all
+that well, so make sure you have the latest revision of Tutorial Eight (V 1.4)
+with the bugfix.  You can always get all the latest revisions of the tutorials
+straight from  ftp.faroc.com.au  in the  /pub/blackcat/programming/tutorials
+directory, and this is highly reccommended.
+
+Anyway, on we go with:
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³                        FILE I/O                          ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Sooner or later, you will want to mess around with files.  All you have
+to bear in mind here is that everything is HANDLE BASED.  Those of you who
+have used or experimented with XMS will realize exactly what I mean by
+handles, but if you don't, then here's a quick summary:
+
+  * You open/create a file.
+  * You get a 16-bit unsigned integer to reference it with.
+
+How hard is that?
+
+
+Note:  Back in the days before DOS 2, you had to use File Control Blocks to
+       reference your files.  (You've probably seen FCBS=xxxx sometime before
+       in CONFIG.SYS files, and this is to support programs that were designed
+       for XT's.)  We can forget all about FCBs now, as they are pretty much
+       obsolete.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+  Opening A File:           ( Interrupt 21H )
+
+   AH     = 3DH
+   AL     = operation type:
+
+            0 = Read only operation;
+            1 = Write only operation;
+            2 = Read/write operation.
+
+   DS:DX  = Filename
+
+
+  Returns:
+
+   If successful, the carry flag is cleared to zero, and the file handle is
+   returned in AX.  However, if something went wrong, the carry flag is set
+   to one, and the error code returned in AX.  For a list of all the error
+   codes, see the table further down.
+
+
+Now, after all that, an example:
+
+
+   .MODEL SMALL
+   .STACK 200H
+   .DATA
+
+      FileName   DB "EXAMPLE.TXT$"
+      Error      DB "Uh oh$"
+
+   .CODE
+
+   START:
+
+      MOV   AX, @DATA               ; Point AX to the data segment
+      MOV   DS, AX                  ; AX --> DX
+      MOV   DX, OFFSET FileName     ; Put offset of the file to open in DX
+      MOV   AH, 3DH                 ; Open file
+      MOV   AL, 00H                 ; Read only
+      INT   21H
+
+      JC    Problem                 ; Something happen?
+
+      ; Here you would get the handle from AX, and do some stuff
+
+      JMP   Done                    ; Nope
+
+   Problem:
+
+      MOV   DX, OFFSET Error        ; Uh oh
+      MOV   AH, 09H
+      INT   21H
+
+   Done:
+
+      MOV   AX, 4C00H               ; Jump back to DOS - closing any open
+      INT   21H                     ; files.  Slack, but we don't know how
+                                    ; to close files yet.
+   END START
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay... simple enough I hope.  Now, suppose we want to create a new file?
+It's just another simple subfunction of interrupt 21H.  This is how you do
+it:
+
+
+  Creating A New File:      ( Interrupt 21H )
+
+   AH     = 3CH
+   CX     = file type:
+
+            0 = Normal file;
+            1 = Read only;
+            2 = Hidden file;
+            4 = System file;
+
+   DS:DX  = Filename
+
+
+  Returns:
+
+   As before, if successful, the carry flag is cleared to zero, and the file
+   handle is returned in AX.  Note that you must watch out for existing files
+   before creating a new file of the same name.  DOS will not check if a file
+   of the same name already exists, and overwrites the old one.
+
+   Before you create a new file - try to open the file first.  If you get
+   error code 2 in AX, (file does not exist), then go ahead and create a new
+   file.  If you don't get error 2, you'll be overwriting an existing file!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+As you should know from experience with high-level languages, you must close
+your files before you end your program.  (Actually, function 4CH closes all
+open files anyway, but that's a slack way of going about things.)  To close
+an open file, you should do this:
+
+
+  Closing A File:           ( Interrupt 21H )
+
+   AH     = 3EH
+   BX     = file handle
+
+
+  Returns:
+
+   Yet again, any errors are reflected in the carry flag and AX.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Finally, error codes.  Just checking CF to see if anything went wrong will
+certainly let us know if anything is amiss, but we'd really like more detail.
+Examining AX after an error is detected is the way to go, and AX could
+contain any one of the following codes:
+
+
+        ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+        º  Error Code  ³ Explanation                                  º
+        ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶
+        º      00H     ³ Unknown error                                º
+        º      01H     ³ Invalid function number                      º
+        º      02H     ³ File not found                               º
+        º      03H     ³ Path not found                               º
+        º      04H     ³ Too many open files                          º
+        º      05H     ³ Access denied                                º
+        º      06H     ³ Invalid handle                               º
+        º      07H     ³ Control blocks destroyed                     º
+        º      08H     ³ Out of memory                                º
+        º      09H     ³ Bad control block address                    º
+        º      0AH     ³ Invalid environment                          º
+        º      0BH     ³ Invalid format                               º
+        º      0CH     ³ Invalid access code                          º
+        º      0DH     ³ Invalid data                                 º
+        º      0EH     ³ Unkown error                                 º
+        º      0FH     ³ Invalid drive                                º
+        º      10H     ³ Cannot remove current directory              º
+        º      11H     ³ Device not the same                          º
+        º      12H     ³ No more files available                      º
+        º      13H     ³ Disk is write-protected                      º
+        º      14H     ³ Bad unit                                     º
+        º      15H     ³ Drive not ready                              º
+        º      16H     ³ Unknown command                              º
+        º      17H     ³ CRC error                                    º
+        º      18H     ³ Bad structure length                         º
+        º      19H     ³ Seek error                                   º
+        º      1AH     ³ Invalid medium                               º
+        º      1BH     ³ Sector not found                             º
+        º      1CH     ³ Printer out **                               º
+        º      1DH     ³ Write error                                  º
+        º      1EH     ³ Read error                                   º
+        º      1FH     ³ General failure                              º
+        ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÏÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+
+
+  ** I know, I don't get it either.  I guess it's in there because DOS treats
+     everything as a file.
+
+Phew!  All courtesy of the good old DOS technical reference.  Some of the
+ones up there were pretty obscure - there's only a few you really need to
+remember.  Some of my *favourites* are:  Sector not found, Seek error and
+CRC error half way through a stack of arjed diskettes.  Gee that brings back
+memories.  :)
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay, so we've seen how to create, open and close files.  Now let's do
+something with 'em.  To read some bytes from a file, you must use function
+3FH.  Assuming you've already opened the file you want to read from, you can
+now use a bit of code like below:
+
+
+   MOV   AH, 3FH                      ; Read byte(s)
+   MOV   BX, Handle                   ; Fileto work on
+   MOV   CX, BytesToRead              ; How much to get
+   MOV   DX, OFFSET WhereToPutThem    ; An array or variable
+   INT   21H
+
+   JC    DidSomethingGoWrong          ; Check for an error
+
+
+If you are having problems grasping any of this - don't worry too much.  Just
+go back over the examples above and see what sense you can make of it.  Next
+tutorial we'll press on with sprites - (and loading them from disk) - so
+you'll get to see a good example.
+
+Okay... now, writing to a file.  Much the same as reading, we now use function
+40H.  Some code to write a byte would look like:
+
+
+   MOV   AH, 40H                      ; Write byte(s)
+   MOV   BX, Handle                   ; Fileto write to
+   MOV   CX, BytesToWrite             ; How much to write
+   MOV   DX, OFFSET WhereToWriteFrom  ; Where the data is coming from
+   INT   21H
+   JC    DidSomethingGoWrong          ; Any errors?
+
+
+Well, that just about concludes file I/O for this tutorial.  Although not a
+major component of Assembly language programming, file I/O is nonetheless
+an important concept to get a grip on.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³              CALLING ASSEMBLER FROM C/C++                ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+I suppose it's about time I covered linking assembler with C.  Personally, I
+prefer doing VGA coding in an Assembler/Pascal combination.  However, C has
+its place, and linking with C is an important aspect we should cover.
+
+
+You should have realized that you can start entering Assembler code into your
+C program like so:
+
+
+   /* Your C code goes here */
+
+   asm  {
+                /*                               */
+                /* Your assembler code goes here */
+                /*                               */
+   }
+
+   /* Your C code resumes here */
+
+
+Now, considering that we can insert Assembler straight into C code, why would
+we bother to write external code?  The answer is fairly simple.  By using
+external routines, we have code that is faster to execute, faster to compile,
+can use some of Turbo Assembler's special features - such as ideal mode, and
+may even be portable to other languages.
+
+Writing external code for C is fairly simple, and is thankfully more easy than
+writing external code for Pascal.  (See Tutorial Seven).  As you noticed back
+in Tutorial seven, we had to declare the code and data segments ourselves
+using the somewhat messy SEGMENT directive.  This is due to the way that
+Pascal likes to organise memory, and there is only one way we can get around
+the problem - we can use the TPASCAL model.  Unfortunately, TPASCAL is an
+antiquated and outdated way of going about things, so we have to put a bit of
+work in.  I'm not going to mention TPASCAL ever again, so we can safely forget
+about the gritty details.
+
+
+Note that none of this applies to us in C - we can quite happily use our nice
+simple assembler skeletons.  There are a few restrictions placed upon us by
+most compilers though:
+
+
+   ş The compiler uses SI and DI to store register variables.  If you have
+     used register variables in your code, remember to push and pop SI and
+     DI in your external code.
+
+   ş The compiler probably will not push and pop CS, DS, SS and BP so ensure
+     that you are careful if you alter any of these registers.
+
+
+Other than those little snippets, there is little else we need to bear in
+mind.  Let's blaze!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Okay... now we're going to write a small external routine and link it to C.
+Let's take a look at a basic skeleton that just puts some text onto the
+screen.
+
+
+   ============================  LIBRARY.ASM  =============================
+
+
+   .MODEL    SMALL
+   .DATA
+
+   Message   DB "Well looky here - we got ourselves some text$"
+
+   .CODE
+
+   PUBLIC    _sample
+
+; ---------------------------------------------------------------------------
+
+;
+; void sample();
+;
+
+_sample      PROC   NEAR        ; Declare a near procedure
+
+   MOV   AH, 00H                ; Set video mode
+   MOV   AL, 03H                ; Mode 03H
+   INT   10H
+
+   MOV   AH, 09H                ; Print a string
+   MOV   DX, OFFSET Message     ; DS:DX <-- Message
+   INT   21H
+
+   RET                          ; Outta here!
+
+_sample      ENDP
+
+END
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Well.... nothing too tricky there.  Now, what about the C code that goes along
+with it?
+
+
+   =============================  EXAMPLE.C ==============================
+
+
+   extern void sample();
+
+   int main()
+   {
+
+      sample();
+      return 0;
+
+   }
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+And to compile the lot, the line below'll do the job.
+
+C:\> TCC EXAMPLE.C LIBRARY.ASM
+
+
+Of course, if you are using another flavour of C then replace TCC with
+whatever command line interpreter you have.  It's also possible to get C to
+recognise variables declared in Assembler, and the following skeleton details
+how this is done:
+
+
+   ============================  LIBRARY.ASM  =============================
+
+
+   .MODEL SMALL
+   .DATA
+
+   PUBLIC _YourVariable      ; Declare an external variable
+
+   _YourVariable  DW 9999    ; Make that variable a word with a value of 9999
+
+   .CODE
+
+   END
+
+
+
+   =============================  EXAMPLE.C ==============================
+
+
+   extern int YourVariable;
+
+   int main()
+   {
+
+      printf("The Assembler external variable is: %d", YourVariable);
+      return(0);
+
+   }
+
+
+Again, compile this with:  TCC EXAMPLE.C LIBRARY.ASM
+
+
+But what about passing parameters to your routines?  We could do this the hard
+way like we did with Pascal, or alternatively we could use the ARG directive.
+
+ARG is brilliant, because it greatly simplifies things -- but it has some
+shortcomings.  Namely, in every routine you need an additional three
+instructions.  If you want speed and don't mind a bit of hard work, work with
+the stack directly like we did in Tutorial Seven.
+
+Here's how you use ARG:
+
+
+   ============================  LIBRARY.ASM  =============================
+
+
+   .MODEL SMALL
+   .DATA
+   .CODE
+
+   PUBLIC _putpixel        ; Declare the external procedure
+
+; ---------------------------------------------------------------------------
+;
+; void putpixel(int x, int y, char color, int location);
+;
+
+_putpixel   PROC NEAR
+
+   ARG   X : Word, Y : Word, Color : Byte, Location : Word
+
+   PUSH  BP                ; Save BP
+   MOV   BP, SP            ; BP *must* equal SP for ARG to work
+
+   MOV   AX, [Location]    ; Parameters can now be accessed easily
+   MOV   ES, AX
+   MOV   BX, [X]
+   MOV   DX, [Y]
+   MOV   DI, BX
+   MOV   BX, DX
+   SHL   DX, 8
+   SHL   BX, 6
+   ADD   DX, BX
+   ADD   DI, DX
+   MOV   AL, [Color]
+   MOV   ES:[DI], AL
+
+   POP   BP                ; BP needs to be restored!
+
+   RET
+
+_putpixel   ENDP
+
+END
+
+
+   =============================  EXAMPLE.C ==============================
+
+
+   extern void putpixel(int x, int y, char color, int location);
+
+   int main()
+   {
+
+      asm {
+         mov   ax, 0x13
+         int   0x10
+      }
+
+      putpixel(100, 100, 12, 0xa000);
+      sleep(2);
+
+      asm {
+         mov   ax, 0x03
+         int   0x10
+      }
+
+      return(0);
+   }
+
+
+
+Not all that tricky, huh?  However, if you choose to write external
+routines because you want the speed Assembler can give, then access the stack
+the hard way.  Those extra pops and pushes can really add up if your putpixel
+routine gets called 320x200 times!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³                AN INTRODUCTION TO MACROS                 ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Macros are one of the most powerful features you have at your disposal when
+you are working with Assembler.  Often you will find yourself repeating the
+same few lines of code over and over again when writing larger programs.  You
+don't want to go to the trouble of creating a procedure -- which would slow
+down the code, but you don't want to keep repeating yourself.
+
+The answer.... MACROS.
+
+
+A macro is just a set of instructions that are given a name by which it will
+be referred to in the code.  You can define a macro like this:
+
+
+   MyMacroName    MACRO
+
+      ;
+      ; Your instructions go here
+      ;
+
+   ENDM           MyMacroName
+
+
+And from then on, whenever you put  MyMacroName  in your code, the
+instructions contained within the macro will be assembled in place of the
+macro name.
+
+
+NOTE:  It is probably best to declare any macros just before you declare the
+       data segment.  For clarity, place all your macros in another text file
+       and then use  INCLUDE <filename>  to include the macros.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Macros may also have parameters, making them especially handy.  For example,
+I have often used DOS function 09H to put a string on the screen.  I could
+make the programs I write more easy to read at first glance by creating the
+following macro:
+
+   PutText  MACRO TextParam
+
+      MOV   AH, 09H                  ; TextParam is the parameter -- NOT
+      MOV   DX, OFFSET TextParam     ; a variable.  Replace TextParam with
+      INT   21H                      ; whatever name you choose.
+
+   ENDM     PutText
+
+
+Then, assuming in the data segment I had declared a string like this:
+
+   AString   DB "This is a string$"
+
+
+I could display that string by writing:
+
+   PutText   AString
+
+
+NOTE:  When you are working with macros, be careful to observe what
+       registers they change.  If in doubt, push and then pop any
+       registers you feel may be affected.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Although that simple macro wasn't really anything special, macros have many
+other uses.  I'm not going to say anything more on macros for now, but I'll
+use them from time to time in future demo programs, and you'll learn other
+techniques you can put to good use.
+
+Anyway, on with what I've been wanting to do:
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³                    THE DEMO PROGRAM                      ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+At first I was going to release this tutorial without a demo program, but
+seeing as I've been a bit too lazy for too long, (and also because a friend of
+mine just made a demo like this), I've decided to include a plasma.
+
+Plasmas can be a bit tricky in places -- it took me a while to get the whole
+thing working properly because of a problem I had with my lookup table.  But
+if you follow the algorithm set out below, you shouldn't have any problems.
+
+
+ *** Before you begin, you'll need FOUR temporary variables in your code. ***
+     In Assembler this can get a bit tricky because you will often find
+     yourself running out of registers.  You could declare some bytes up
+     in the data segment, but it's faster to use registers.  These four
+     temporary variables will only hold numbers between 0 and 255, so
+     they only need to be BYTES.
+
+     In the algorithm, I refer to these temporary variables as Temp1,
+ *** Temp2, Temp3 and Temp4.                                              ***
+
+
+The algorithm looks like this:
+
+
+   ş Create a lookup table
+
+     This is basically just one long sine wave.  You can experiment by using
+     a cosine wave instead, or alter the amplitude of the function you are
+     using.  I created my lookup table using the following expression:
+
+     For W := 1 To 512 Do
+      SinTable[W] := Round(Sin(W / 255 * Pi * 2) * 128);
+
+     (SinTable is an array of 512 BYTES)
+
+
+   ş Initialize the palette
+
+     I personally like to make my palettes after I see the demo running with
+     the standard palette.  That way, by making certain colors dark and others
+     very light, the result is exactly the way I want it.  I've found the best
+     way to do this is to grab the screen when the demo is running with a
+     program like Screen Thief, then load up that picture in a paint program
+     that lets you alter the palette.
+
+     Once you get the palette how you want it, save it to disk as a COL file
+     (if possible) and then write a little program to read in the COL file and
+     write the file so it looks like PLASMA.DAT.
+
+     Remember, Screen Thief is shareware, so if you use it, send the author
+     some money huh?
+
+
+Loop (1):  Before you start plotting the first row, you must:
+
+           * Zero out Temp4;
+           * Decrement Temp3 by two;
+
+             You can experiment with Temp3 -- the larger the number you
+             subtract from it, the faster the plasma will 'move'.
+
+	   You now move onto Loop (2).
+
+
+Loop (2):  At the start of each row you must:
+
+           * Increment Temp4 by one;
+           * Let Temp1 = Sintable[Current row + Temp3];
+           * Let Temp2 = SinTable[Temp4];
+
+           You now move onto Loop (3).
+
+
+Loop (3):  For every pixel on the current row you must:
+
+           * Work out the color of that pixel to be plotted;
+
+             The color value of that pixel is quite simply:
+
+             SinTable[Temp1 + Temp2] + SinTable[Current row + Temp2]
+
+             Unfortunately, this is a little harder to work out in Assembler
+             and ends up taking several lines of code!!
+
+
+           * Increment Temp1 by one;
+           * Increment Temp2 by one;
+
+
+           After doing an entire row, you then loop back to Loop (2).
+
+  Once you have done all the rows (200), you can then loop back to loop (1).
+
+
+
+Of course, you'll also want to put a check for retrace in there, and checking
+to see if someone hit a key would be a good idea!!
+
+
+NOTE:  For those that didn't know, the VGA has a status register that is worth
+       paying particular attention to.  This is register 03DAH, and by
+       checking its various bits we can see what's happening right now with
+       the VGA.
+
+       (For those who want to know exactly what all the other bits are for,
+       you should obtain a copy Ralf Brown's Interrupt List.  This is
+       available from my homepage and contains a complete list of all the
+       interrupts, registers and much more.)
+
+       Anyway, we are only interested in bit four of 03DAH which lets us know
+       is a retrace is in progress.  If we can access the VGA while the
+       electron gun in the monitor is retracing it's path to the top of the
+       screen -- we get fast, flicker-free access.  What's more, because
+       retrace happens every 1/80th of a second ON ALL COMPUTERS, we have a
+       method of locking our demo to a particular speed on all machines.
+
+       To check if retrace is happening, we simply examine bit four.  If bit
+       four is set, a retrace is now in progress.  However, we don't know
+       just how far into a retrace it is and we don't know how much time of
+       flicker-free access we have.  The solution is to check again for a
+       retrace so we can be sure that we are at the START of one.
+
+       I've used a retrace in the code to basically make sure the demo runs
+       at the same speed on all machines.  (More or less anyway).
+
+
+       Also note that my plasma is more of a plasma variant.  You can, and
+       are encouraged to alter the code -- (try incrementing the temp values
+       instead of decrementing, changing the amount the temp values are
+       decremented by or changing the way the color value is found.  Also try
+       changing the palette, because this can make the plasma appear
+       completely different).
+
+       It is possible to create all sorts of effects by only making simple
+       changes, so experiment... be creative!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Well, that just about concludes things for this tutorial.  I'm not exactly
+sure what I'll be putting in Tutorial Ten -- sprites will be covered, but I
+can see the tutorials leaning towards demo effects and how you can code them
+in standalone Assembler.
+
+Until next time,
+
+-- Adam.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+            This is getting a bit old now, but is still amusing:
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+If Operating Systems Were Beers...
+
+
+DOS Beer:  Requires you to use your own can opener, and requires you to read
+           the directions carefully before opening the can.  Originally only
+           came in an 8-oz. can, but now comes in a 16-oz. can.  However, the
+           can is divided into 8 compartments of 2 oz. each, which have to be
+           accessed separately.  Soon to be discontinued, although a lot of
+           people are going to keep drinking it after it's no longer
+           available.
+
+Mac Beer:  At first, came only a 16-oz. can, but now comes in a 32-oz. can.
+           Considered by many to be a "light" beer. All the cans look
+           identical.  When you take one from the fridge, it opens itself.
+           The ingredients list is not on the can. If you call to ask about
+           the ingredients, you are told that "you don't need to know."  A
+           notice on the side reminds you to drag your empties to the
+           trashcan.
+
+3.1 Beer:  The world's most popular. Comes in a 16-oz. can that looks a
+           lot like Mac Beer's.  Requires that you already own a DOS Beer.
+           Claims that it allows you to drink several DOS Beers
+           simultaneously,but in reality you can only drink a few of them,
+           very slowly, especially slowly if you are drinking the Windows Beer
+           at the same time.  Sometimes, for apparently no reason, a can
+           of Windows Beer will explode when you open it..
+
+OS/2 Beer: Comes in a 32-oz can.  Does allow you to drink several DOS Beers
+           simultaneously.  Allows you to drink Windows 3.1 Beer
+           simultaneously too, but somewhat slower. Advertises that its cans
+           won't explode when you open them, even if you shake them up. You
+           never really see anyone drinking OS/2 Beer, but the manufacturer
+           (International Beer Manufacturing) claims that 9 million six-packs
+           have been sold.
+
+95 Beer:   You can't buy it yet, but a lot of people have taste-tested it and
+           claim it's wonderful.  The can looks a lot like Mac Beer's can, but
+           tastes more like Windows 3.1 Beer.  It comes in 32-oz. cans, but
+           when you look inside, the cans only have 16 oz. of beer in them.
+           Most people will probably keep drinking Windows 3.1 Beer until
+           their friends try Windows 95 Beer and say they like it.  The
+           ingredients list, when you look at the small print, has some of the
+           same ingredients that come in DOS beer, even though the
+           manufacturer claims that this is an entirely new brew.
+
+NT Beer:   Comes in 32-oz. cans, but you can only buy it by the truckload.
+           This causes most people to have to go out and buy bigger
+           refrigerators.  The can looks just like Windows 3.1 Beer's, but
+           the company promises to change the can to look just like Windows
+           95 Beer's - after Windows 95 beer starts shipping.  Touted as an
+           "industrial strength" beer, and suggested only for use in bars.
+
+Unix Beer: Comes in several different brands, in cans ranging from 8 oz. to
+           64 oz.  Drinkers of Unix Beer display fierce brand loyalty, even
+           though they claim that all the different brands taste almost
+           identical.  Sometimes the pop-tops break off when you try to open
+           them,  so you have to have your own can opener around for those
+           occasions, in which case you either need a complete set of
+           instructions, or a friend who has been drinking Unix Beer for
+           several years.
+
+VMS Beer:  Requires minimal user interaction, except for popping the top and
+           sipping.  However cans have been known on occasion to explode, or
+           contain extremely un-beer-like contents.

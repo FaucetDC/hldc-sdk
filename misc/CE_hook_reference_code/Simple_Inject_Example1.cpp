@@ -8,6 +8,15 @@ today i'll explain how inject dlls into another process.
 To inject external dlls into the processes we need to use some functions exported from coredll.dll. 
 These functions are documented in Platform Builder but not in SDK so we need to declare them as extern:
 */
+#include <windows.h>
+#include <winbase.h>
+#include <commdlg.h>
+#include <toolhelp_ce.h>
+#include "resource.h"
+#include "SpyControl.h"
+#include "SpyEngine.h"
+#include "SysDecls.h"
+#include "htrace.h"
 
 extern "C"
 {

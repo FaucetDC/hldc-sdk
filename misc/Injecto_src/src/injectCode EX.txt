@@ -1,0 +1,175 @@
+All messages from thread 
+Message 1 in thread 
+From: ac2@gmx.de (ac2@gmx.de)
+Subject: createRemoteThread / Load DLL 
+ 
+  
+View this article only 
+Newsgroups: comp.os.ms-windows.programmer.win32
+Date: 2000/04/18 
+ 
+
+Hi!
+
+Has anyone got an example for the function CreateRemoteThread?
+I also need an example how to load a DLL to another process!
+
+Thanks
+Message 2 in thread 
+From: Andy Lutomirski (Luto@mailandnews.nospam.com)
+Subject: Re: createRemoteThread / Load DLL 
+ 
+  
+View this article only 
+Newsgroups: comp.os.ms-windows.programmer.win32
+Date: 2000/04/19 
+ 
+
+Here it is:
+
+#undef _UNICODE
+#undef UNICODE
+
+#include <windows.h>
+
+typedef HINSTANCE (__stdcall *PLOADLIB)(LPCTSTR);
+
+struct INJDAT
+{
+ _TCHAR dll[MAX_PATH];
+ HINSTANCE hInst;
+ DWORD err;
+
+ PLOADLIB LoadLibrary;
+};
+
+
+static DWORD WINAPI LLProc(LPVOID _pInjDat)
+{
+ struct INJDAT *pDat = (struct INJDAT *)_pInjDat;
+
+ SetLastError(0);
+ pDat->hInst = pDat->LoadLibrary(pDat->dll);
+
+ if(!pDat->hInst)
+  pDat->err = GetLastError();
+ else
+  pDat->err = 0;
+
+ return pDat->err;
+}
+
+static void LLProcEnd() {} // Mark the end
+
+HINSTANCE __stdcall InjectDll(HANDLE hProc, LPCTSTR dll)
+{
+ const unsigned cb = ((unsigned)LLProcEnd) - ((unsigned)LLProc);
+
+ struct INJDAT dat;
+ HINSTANCE hKernel = 0;
+ PVOID pRemoteDat = 0;
+ HANDLE hThread = 0;
+ DWORD id = 0;
+
+ LPTHREAD_START_ROUTINE pRemoteProc = (LPTHREAD_START_ROUTINE)
+	  VirtualAllocEx(
+	  hProc,      // Target process
+	  NULL,      // Let the VMM decide where
+	  cb,       // Size
+	  MEM_COMMIT,     // Commit the memory
+	  PAGE_EXECUTE_READWRITE); // Protections
+
+
+ if(!pRemoteProc) return 0;
+
+ __try {
+
+  if(!WriteProcessMemory(
+   hProc,     // Target process
+   pRemoteProc,   // Source for code
+   LLProc,     // The code
+   cb,      // Code length
+   NULL))     // We don't care
+   return 0;
+
+  // Now fill in a INJDAT
+  strcpy(dat.dll, dll);
+
+  hKernel = LoadLibrary("KERNEL32.DLL");
+  if(!hKernel) return 0;
+
+  dat.LoadLibrary =
+   (PLOADLIB)GetProcAddress(hKernel, "LoadLibrary");
+  if(!dat.LoadLibrary) return 0;
+
+  // Now copy the INJDAT
+  pRemoteDat = VirtualAllocEx(hProc, NULL, sizeof(struct INJDAT), MEM_COMMIT, E_READWRITE);
+  if(!pRemoteDat) return 0;
+
+  if(!WriteProcessMemory(hProc, pRemoteDat, &dat, sizeof(struct INJDAT), NULL))
+     return 0;
+
+
+  // Now spawn the thread
+  hThread = CreateRemoteThread(
+    hProc,     // Target process
+    NULL,     // No security
+    4096 * 16,    // 16 pages of stack
+    pRemoteProc,   // Thread proc
+    pRemoteDat,    // Data
+    0,      // Run NOW
+    &id);
+
+  if(!hThread) return 0;
+
+  // Wait for it!!
+  WaitForSingleObject(hThread, INFINITE);
+
+  // Read the data back out
+  if(!ReadProcessMemory(
+   hProc,     // Target process
+   pRemoteDat,    // Their data
+   &dat,     // Our data
+   sizeof(struct INJDAT), // Size
+   NULL))     // We don't care
+   return 0;
+
+  // Restore the status
+  SetLastError(dat.err);
+  return dat.hInst;
+
+ }
+
+ __finally // Clean up
+ {
+  DWORD lerr = GetLastError();
+
+  if(pRemoteProc) VirtualFreeEx(hProc, pRemoteProc,
+   cb, MEM_RELEASE);
+
+  if(hKernel) CloseHandle(hKernel);
+
+  if(pRemoteDat) VirtualFreeEx(hProc, pRemoteDat,
+   sizeof(struct INJDAT), MEM_RELEASE);
+
+  if(hThread) CloseHandle(hThread);
+
+  SetLastError(lerr);
+ }
+
+ return 0; // Something blew up!!
+}
+
+<ac2@gmx.de> wrote in message news:8dhdjf$7pl0k$1@fu-berlin.de...
+> Hi!
+>
+> Has anyone got an example for the function CreateRemoteThread?
+> I also need an example how to load a DLL to another process!
+>
+> Thanks
+>
+>
+ 
+
+
+©2002 Google

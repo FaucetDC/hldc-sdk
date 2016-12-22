@@ -1,0 +1,863 @@
+
+          ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+          º             Adam's Assembler Tutorial 1.0              ÇÄ¿
+          º                                                        º ³
+          º                        PART VIII                       º ³
+          ÈÍÑÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼ ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Revision :  1.4
+Date     :  28-06-1996
+Contact  :  blackcat@faroc.com.au
+            http://www.faroc.com.au/~blackcat
+
+Note     :  Adam's Assembler Tutorial is COPYRIGHT, and all rights are
+            reserved by the author.  You may freely redistribute only the
+            ORIGINAL archive, and the tutorials should not be edited in any
+            form.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Well, welcome back assembler coders.  This tutorial is _really_ late, and
+would have been a lot later were it not for Bj”rn Svensson, and many others
+like him, who thanks to their determination to get Tutorial 8, persuaded me
+to get this thing written.  Of, course, this means I've probably failed all
+my exams over the past two weeks, but such is life.  :)
+
+Okay, this week we're really going to learn something.  We're going to take a
+much closer look at how we can declare variables, and delve into the world of
+structures.  You'll learn how to create arrays in Assembler, and this concept
+is reinforced with the demo program I included - a fire routine!
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³                                                          ³
+         ³               DATA STRUCTURES IN ASSEMBLER               ³
+         ³                                                          ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Okay, by now you should know that you can use the DB, (Declare Byte) and DW,
+(Declare Word) to create variables.  However, up until now we have been using
+them as you would use the Const declaration in Pascal.  That is, we have been
+using it to assign a byte or word with a value.
+
+EG:
+
+   MyByte DB 10  --  which is the same as  --  Const MyByte : Byte = 10;
+
+
+However, we could just have easily said:
+
+   MyByte DB ?
+
+...and then later on said:
+
+   MOV   MyByte, 10
+
+
+In fact DB is very powerful indeed.  Several tutorials ago when you were
+learning to put strings on the screen, you saw something along the lines of
+this:
+
+   MyString DB 10, 13 "This is a string$"
+
+
+Now the more inquisitive of you would have probably said to yourselves, "Hang
+on... that tutorial guy said that DB declares a BYTE.  How can DB declare a
+string then?"  Well, DB has the ability to reserve space for multiple byte
+values - from 1 to as many bytes as you need.
+
+You may also have wondered what the 10 and 13 before the text stood for.
+Well, dig out your ASCII chart and have a look at character 10 and character
+13.  You'll notice that 10 is Line Feed and 13 is Carriage Return.  Basically,
+it's just like saying:
+
+   MyString := #10 + #13 + 'This is a string';
+
+in Pascal.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Okay, so you've seen how to create variables properly.  But what about
+constants?  Well, in Assembler, constants are known as Equates.  Equates make
+Assembler coding much more easy, and can simplify things greatly.  For
+instance, if I were to have used the following in previous tutorials:
+
+   LF   EQU 10
+   CR   EQU 13
+
+   DB   LF, CR "This is a string$"
+
+
+...people would have got the 10, 13 thing straight away.  However, just to
+make things a little more complicated, there is yet another way that you can
+assign values to identifiers.  You can do things just like you would in BASIC:
+
+   Population  = 4Ch
+   Magnitude   = 0
+
+
+Basically, you can bear the following points in mind:
+
+   ş  Once you use EQU to assign a value to an identifier, you can not change
+      it.
+
+   ş  EQU can be used to define just about any type - including strings.  You
+      cannot, however, do this when you use a '='.  An '=' can only define
+      numeric values.
+
+   ş  You can use EQU almost anywhere in your program.
+
+   ş  Values defined with '=' can be changed.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+And now on with one of the trickier aspects of Assembler coding - structures.
+Structures are not variables themselves, they are a TYPE - basically a
+schematic for a variable.
+
+As an example, if you had the following in Pascal:
+
+   Type
+      Date      = Record;
+         Day    : Byte;
+         Month  : Byte;
+         Year   : Word;
+      End;    { Record }
+
+You could represent this in Assembler as follows:
+
+   Date         STRUC
+      Day       DB ?
+      Month     DB ?
+      Year      DW ?
+   Date         ENDS
+
+
+However, one of the advantages of Assembler is that you can initialize all or
+some of the fields of the structure before you even refer to the structure in
+your code segment.
+
+That structure above could easily be written as:
+
+   Date         STRUC
+      Day       DB ?
+      Month     DB 6
+      Year      DW 1996
+   Date         ENDS
+
+
+Some important points to remember are as follows:
+
+   ş You can declare a structure anywhere in your code, although for good
+     program design, you should really put them in the data segment, unless
+     they will only be used by a subroutine.
+
+   ş Defining a structure does not reserve any bytes of memory.  It is only
+     when you declare a structured variable that memory is allocated.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³         REFERENCING DATA STRUCTURES IN ASSEMBLER         ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Well, you've seen how to define structures, but how do you actually refer to
+them in your code?
+
+All you have to do, is place a few lines like the ones below somewhere in your
+program - preferably in the data segment.
+
+   Date         STRUC
+      Day       DB 19
+      Month     DB 6
+      Year      DW 1996
+   Date         ENDS
+
+   Date_I_Passed_Physics   Date <>   ; I hope!
+
+
+At this point in time, Date_I_Passed_Physics has all three of its fields
+assigned.  Day is set to 19, Month to 6 and Year to 1996.  Now, what are
+those brackets, "<>", doing after date you ask?
+
+The brackets present us with yet another chance to alter the contents of the
+variable's fields.  If I had written this:
+
+   Date_I_Passed_Physics   Date <10,10,1900>
+
+
+...then the fields would have been changed to the values in the brackets.
+Alternatively, it would have been possible to do this:
+
+   Date_I_Passed_Physics   Date <,10,>   ;
+
+
+And now only the Month field has been changed.  Note that in this example,
+the second comma was not needed as we did not go on to change further fields.
+It is your choice, (and the compiler's!), whether to leave the second comma
+in.
+
+
+Now all this is very well, but how do you use these values in your code? It
+is simply a matter of saying:
+
+   MOV   AX, [Date_I_Passed_Physics.Month]    ; or something like
+
+   MOV   [Date_I_Passed_Physics.Day], 5       ; or maybe even
+
+   CMP   [Date_I_Passed_Physics.Year], 1996
+
+
+Simple, huh?
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³              CREATING ARRAYS IN ASSEMBLER                ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Okay, arrays are pretty easy to implement.  As an example, let's say you had
+the following array structure in Pascal:
+
+   Var
+      MyArray : Array[0..19] Of Word;
+
+
+To create a similar array in Assembler, you must use the DUP operator.  DUP,
+or DUPlicate Variable, has the following syntax:
+
+   ş <label>    <directive> <count>  DUP  (expression)
+
+   Where (expression) is an optional value to initialize the array to.
+
+
+Basically, that Pascal array would look like this:
+
+   MyArray    DW 20 DUP (?)
+
+
+Or, if you wanted to initialize each value to zero, then you could say this:
+
+   MyArray    DW 20 DUP (0)
+
+
+And, as another example of just how flexible Assembler is, you could say
+something along the lines of:
+
+   MyArray    DB  0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+
+..to create a 10 byte array with all ten elements initialized to 1, 2, 3...
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³              INDEXING ARRAYS IN ASSEMBLER                ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Well, now you've seen how to create arrays, I guess you are going to want to
+know how to reference individual elements.  Well, let's say you had the
+following array:
+
+   AnotherArray   DB  50 DUP (?)
+
+
+If you wanted to move element 24 into, say, BL, then you could do this:
+
+   MOV   BL, [AnotherArray + 23]   ; Or, it would be possible to say:
+
+   MOV   AX, 23
+   MOV   BL, [AnotherArray + AX]
+
+
+NOTE:  Do not forget that all arrays start at element ZERO.  High-level
+languages like C and Pascal make you forget this due to the way they let
+you reference arrays.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Now that was easy, but what if AnotherArray was 50 WORDS, not BYTES?
+
+   AnotherArray   DW  50 DUP (?)   ; like this.
+
+
+Well, to access element 24, you would have multiply the index value by two,
+and then add that to AnotherArray to get the desired element.
+
+   MOV   AX, 23                    ; Access element 24
+   SHL   AX, 1                     ; Multiply AX by two
+   MOV   BX, [AnotherArray + AX]   ; Get element 24 in BX
+
+
+Not all that hard, no?  However, this method gets a little tricky when you
+don't have nice neat little calculations to do when the index is not a power
+of two.
+
+Let's say that you had an array that had an element size of 5 bytes.
+If we wanted to check the seventh element, we'd have to do something like
+this:
+
+   MOV   AX, 6                        ; Get the seventh element
+   MOV   BX, 5                        ; Each element is five bytes big
+   MUL   BX                           ; AX = 6 x 5
+   MOV   DX, [YetAnotherArray + AX]   ; Get element 7 in DX
+
+
+However, as I have stressed before, MUL is not a very efficient way of coding,
+so replacing the MUL with a SHL 2 and an ADD would be the order of the day.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Just before we press on with something else, I guess I'd better take the time
+to mention floating point numbers.  Now, floating point numbers can get
+awkward to manipulate in Assembler, so don't go and write that spreadsheet
+program you've always wanted in machine code!  However, when working with
+texture mapping, circles and other more complicated functions, it is
+inevitable that you'll need something to declare floating point numbers.
+
+Let's say we wanted to store Pi.  To declare Pi, we need to use the DT
+directive.  You could declare Pi like this:
+
+Pi   DT 3.14
+
+
+DT actually reserves ten bytes of memory, so it would be possible to declare
+Pi to a greater number of decimal places.
+
+I'm not going to go into the specifics of floating point numbers in this
+tutorial.  When we need them later on, I'll cover them.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Okay, in the last tutorial I said I'd give some sort of summary of what we've
+covered over the last four months.  (Hey - that's roughly a tutorial every
+two weeks, so maybe they haven't been so wildly erratic after all!)
+
+Anyway, as it happens I'm going to go over getting and setting individual
+bits in a register, because this is an important topic that I should have
+covered a long time ago.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³                    LOGICAL OPERATORS                     ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Okay, way back in Tutorial Five, I gave the three truth tables for AND, OR
+and XOR.
+
+(By the way, in one edition of Tutorial Five, I messed up the table for XOR,
+kindly pointed out by Keith Weatherby, so if you don't have the most
+up-to-date version, (currently V 1.3), then get it now.  Please, although I
+try my best to weed out any mistakes from the Tutorials, some do get through,
+so if you spot any, please let me know.
+
+Make sure you have the most recent editions of the tutorials before you do
+this though!)
+
+Okay, enough of my mistakes.  Those tables looked like these:
+
+
+                      AND             OR             XOR
+
+                  0 AND 0 = 0     0 OR 0 = 0     0 XOR 0 = 0
+                  0 AND 1 = 0     0 OR 1 = 1     0 XOR 1 = 1
+                  1 AND 0 = 0     1 OR 0 = 1     1 XOR 0 = 1
+                  1 AND 1 = 1     1 OR 1 = 1     1 XOR 1 = 0
+
+
+This is all very well, but what use can these be to us?  Well, first of all,
+lets have a look at what AND can do.  We can use AND to mask bits in a
+register or variable, and thus set and reset individual bits.
+
+As an example, we will use AND to test a value of a single bit.  Look at the
+following examples, and see how you can use AND for your own ends.  A good
+use for AND would be to check if a character read from the keyboard is either
+a capital letter or not.  (You can do this, because the only difference
+between a capital letter and a lowercase letter is one bit.
+
+
+   EG:  'A' =  65   = 01000001
+        'a' =  97   = 01100001
+
+        'S' =  83   = 01010011
+        's' =  115  = 01110011)
+
+So, in the same way that you can AND the following binary numbers together,
+you could use a similar approach to write a routine that checks whether a
+character is upper or lower case.
+
+
+   EG:         0101 0011                             0111 0011
+           AND 0010 0000                         AND 0010 0000
+
+             = 0000 0000                           = 0010 0000
+
+      ^^^ This is upper case ^^^            ^^^ This is lower case ^^^
+
+
+Now, what about OR?  OR is most often used after an AND, but does not have
+to be.  You can use OR to change individual bits in a register or variable
+without changing any of the other bits.  You could use OR to write a routine
+to make a character uppercase if it is not already, or perhaps lower case if
+it was previously upper.
+
+
+   EG:                             0101 0011
+                                OR 0010 0000
+
+                                =  0111 0011
+
+            ^^^ Capital S has now been changed to lower case s ^^^
+
+
+The AND/OR combination is one of the most often used tricks of the trade of
+Assembler, so make sure you have a good grip on the concept.  You will often
+see me using them, taking advantage of the speed of the instructions.
+
+Finally, what about XOR?  Well, eXclusive OR can be very useful at times. XOR
+can be useful in toggling individual bits on and off without having to know
+what the contents of each bit was beforehand.  Remember, as with OR, a zero
+mask allows the original bit to pass through.
+
+   EG:                            1010 0010
+                              XOR 1110 1011
+
+                                = 0100 1001
+
+
+Make some attempt to learn these binary operators, and what they do.  They
+are an invaluable tool when working with binary numbers.
+
+NOTE:   For simplicity, Turbo Assembler allows you to use binary numbers in
+        your code.  EG, it would be possible to say, AND AX, 0001000b instead
+        of AND AX, 8h to test bit 3 of AX.  This can possibly make things
+        easier for you when coding.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                          ³
+          ³                    THE DEMO PROGRAM                      ³
+          ³                                                          ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+Okay, enough of the boring stuff - on to the demo program I included!  I
+thought it was time to write another demo - a proper 100% Assembler one this
+time, and had a go at a fire routine.  Fire routines can look pretty
+effective, and are surprisingly easy to make, so why not I thought...
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Now, the principles of a fire routine are quite simple.  You basically do the
+following:
+
+   ş Create a buffer to work with
+
+     This buffer may be almost any size, though the smaller you make it, the
+     faster your program will be, and the larger you make it, the more well
+     defined the fire will be.  You need to strike a balance between clarity
+     and speed.
+
+     My routine is a little slow, and this is partly due to the clarity of
+     the fire.  I chose 320 x 104 as my buffer size, so I made a compromise.
+     The horizontal resolution is good - 1 pixel per array element, but the
+     vertical resolution is a little low - 2 pixels per array element.
+
+     However, I've seen routines where an 80 x 50 buffer is used, meaning
+     there is both 4 pixels per element for the horizontal and vertical
+     axis.  It's fast, but grainy.
+
+
+   ş Make a nice palette
+
+     It would be good idea to have color 0 as black, (0, 0, 0) and color 255
+     as white - (63, 63, 63).  Everything in between should be a
+     reddish-yellow flamey mix.  I guess you could have green flames if you
+     wanted, but we'll stick to the flames we know for now.  :)
+
+
+Now the main loop begins.  In the loop you must:
+
+   ş Create a random bottom line, or two bottom lines
+
+     Basically, you have a loop like:
+
+     For X := 1 To Xmax Do
+      Begin
+         Temp := Random(256);
+         Buffer[X, Ymax - 1] := Temp;
+         Buffer[X, Ymax]     := Temp;
+      End;
+
+      Code that in the language of your choice, and you're in business.
+
+
+   ş Soften the array
+
+     Now this is the only tricky bit.  What you have to do, is as follows:
+
+       * Start from the second row down of the buffer.
+       * Move down, and for each pixel:
+
+         * Add up the values of four pixels that surround the pixel.
+         * Divide the total by four to get an average.
+         * Take one from the average.
+         * Put the average - 1 back into the array DIRECTLY ABOVE where the
+           old pixel used to be.  (You can alter this, and say, put it above
+           and to the right, and then it will look like the flame is being
+           blown by the wind.)
+
+       * Do this till you get to the last row.
+
+
+   ş Copy the array to the screen
+
+     If your array is 320 x 200, then you can copy element-for-pixel.  If it
+     isn't, then things are harder.  What I had to do was copy an array row
+     to the screen, move down a screen row, copy the same array row to the
+     screen, and then go onto a different row in the array and screen.
+
+     This way, I spread the fire out a bit.
+
+     You will of course, wonder exactly why my array is 320 x 104 and not
+     320 x 100.  Well, the reason for this is fairly simple.  If I had used
+     320 x 100 as my array dimensions, and then copied that to the screen,
+     the last four or so rows would have looked pretty weird.  They would
+     not have been softened properly, and the end result would not be at all
+     flamey.  So, I just copied up to row 100 to the screen, and left the
+     rest.
+
+     As an experiment, try changing the third line below in the DrawScreen
+     procedure to   MOV  BX, BufferY   and changing the dimensions to
+     320x100 and see what happens.
+
+     MOV   SI, OFFSET Buffer          ; Point SI to the start of the buffer
+     XOR   DI, DI                     ; Start drawing at 0, 0
+     MOV   BX, BufferY - 4            ; Miss the last four lines from the
+                                      ; buffer.  These lines will not look
+                                      ; fire-like at all
+
+   ş Loop back to the top.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+Well, no matter how well I explained all that, it's very hard to actually
+see what's going on without looking at some code.  So now we'll step through
+the program, following what's going on.
+
+Well, first of all, you have the header.
+
+
+   .MODEL SMALL   ; Data segment < 64K, code segment < 64K
+   .STACK 200H    ; Set up 512 bytes of stack space
+   .386
+
+
+Here, I have said that the program will have a code segment and data segment
+total of less than 128K.  I go onto to give the program a 512 byte stack, and
+then allow 386 instructions.
+
+
+  .DATA
+
+CR        EQU 13
+LF        EQU 10
+
+
+The data segment begins, and I give CR and LF the carriage return and line
+feed values.
+
+
+BufferX   EQU 320                       ; Width of screen buffer
+BufferY   EQU 104                       ; Height of screen buffer
+
+AllDone   DB CR, LF, "That was:"
+          DB CR, LF
+          DB CR, LF, "         FFFFFFFFF    IIIIIII     RRRRRRRRR    ..."
+          DB CR, LF, "          FFF           III        RRR   RRR   ..."
+          DB CR, LF, "          FFF           III        RRR   RRR   ..."
+          DB CR, LF, "          FFF           III        RRRRRRRR    ..."
+          DB CR, LF, "          FFFFFFF       III        RRRRRRRR    ..."
+          DB CR, LF, "          FFF           III        RRR  RRR    ..."
+          DB CR, LF, "          FFF           III        RRR   RRR   ..."
+          DB CR, LF, "          FFF           III        RRR    RRR  ..."
+          DB CR, LF, "         FFFFF        IIIIIII     RRRR    RRRR ..."
+          DB CR, LF
+          DB CR, LF
+          DB CR, LF, "   The demo program from Assembler Tutorial 8. ..."
+          DB CR, LF, "   author, Adam Hyde, at: ", CR, LF
+          DB CR, LF, "     ş blackcat@faroc.com.au"
+          DB CR, LF, "     ş http://www.faroc.com.au/~blackcat", CR, LF, "$"
+
+Buffer    DB BufferX * BufferY DUP (?) ; The screen buffer
+
+Seed      DW 3749h                     ; The seed value, and half of my
+                                       ; phone number - not in hex though. :)
+
+INCLUDE PALETTE.DAT                    ; The palette, generated with
+                                       ; Autodesk Animator, and a simple
+                                       ; Pascal program.
+
+
+Now, at the end, I declare the array and declare a SEED VALUE for the Random
+procedure that follows.  The seed is just a number that is necessary to start
+the Random procedure off, and can be anything you want it to.
+
+I have also saved some space and put the data for the palette into an external
+file which is included during assembly.  Have a look inside the file.  Being
+able to use INCLUDE can save a lot of space and confusion.
+
+
+I've skipped through some procedures that are fairly self-explanatory, and
+moved onto the DrawScreen procedure.
+
+
+DrawScreen PROC
+   MOV   SI, OFFSET Buffer             ; Point SI to the start of the buffer
+   XOR   DI, DI                        ; Start drawing at 0, 0
+   MOV   BX, BufferY - 4               ; Miss the last four lines from the
+                                       ; buffer.  These lines will not look
+                                       ; fire-like at all
+Row:
+   MOV   CX, BufferX SHR 1             ; 160 WORDS
+   REP   MOVSW                         ; Move them
+   SUB   SI, 320                       ; Go back to the start of the array row
+   MOV   CX, BufferX SHR 1             ; 160 WORDS
+   REP   MOVSW                         ; Move them
+   DEC   BX                            ; Decrease the number of VGA rows left
+   JNZ   Row                           ; Are we finished?
+   RET
+DrawScreen ENDP
+
+
+This is also easy to follow, and takes advantage of MOVSW, using it to move
+data between DS:SI and ES:DI.
+
+
+AveragePixels PROC
+   MOV   CX, BufferX * BufferY - BufferX * 2  ; Alter all of the buffer,
+                                              ; except for the first row and
+                                              ; last row
+   MOV   SI, OFFSET Buffer + 320              ; Start from the second row
+
+Alter:
+   XOR   AX, AX                        ; Zero out AX
+   MOV   AL, DS:[SI]                   ; Get the value of the current pixel
+   ADD   AL, DS:[SI+1]                 ; Get the value of pixel to the right
+   ADC   AH, 0
+   ADD   AL, DS:[SI-1]                 ; Get the value of pixel to the left
+   ADC   AH, 0
+   ADD   AL, DS:[SI+BufferX]           ; Get the value of the pixel underneath
+   ADC   AH, 0
+   SHR   AX, 2                         ; Divide the total by four
+
+   JZ    NextPixel                     ; Is the result zero?
+   DEC   AX                            ; No, so decrement it by one
+
+
+
+NOTE:  ONE is the decay value.  If you were to change the line above to, say
+       SUB AX, 2  you would find that the fire would not reach so high.
+       Experiment...be creative!  :)
+
+
+NextPixel:
+   MOV   DS:[SI-BufferX], AL           ; Put the new value into the array
+   INC   SI                            ; Next pixel
+   DEC   CX                            ; One less to do
+   JNZ   Alter                         ; Have we done them all?
+   RET
+AveragePixels ENDP
+
+
+Now we've seen the procedure that does all the softening.  Basically, we just
+have a loop that adds up the color values of the pixels around it, carrying
+the values of the pixels before.  When it has the lot, the total - held in AX,
+is divided by four to get an average.  The average is then plotted directly
+above the current pixel.
+
+For more information regarding the ADC instruction, look it up in Tutorial 5,
+and look at the programs below:
+
+   Var                                     Var
+      W : Word;                               W : Word;
+
+   Begin                                   Begin
+      Asm                                     Asm
+         MOV  AL, 255                            MOV   AL, 255
+         ADD  AL, 1                              ADD   AL, 1
+         MOV  AH, 0                              MOV   W, AX
+         ADC  AH, 0                           End;
+         MOV  W, AX
+      End;                                    Write(W);
+                                           End;
+      Write(W);
+   End;
+
+ ^^^ This program returns 256             ^^^ This program returns 0
+
+
+Remember that ADC is used to make sure that when a register or variable is
+not big enough to hold a result, the result is not lost.
+
+
+Okay, after skipping a few more irrelevant procedures, we come to the main
+body, which goes something like this:
+
+
+Start:
+   MOV   AX, @DATA
+   MOV   DS, AX                        ; DS now points to the data segment.
+
+
+We firstly point DS to the data segment, so we can access all our variables.
+
+
+   CALL  InitializeMCGA
+   CALL  SetUpPalette
+
+MainLoop:
+   CALL  AveragePixels
+
+   MOV   SI, OFFSET Buffer + BufferX * BufferY - BufferX SHL 1
+   ; SI now points to the start of the second last row
+   MOV   CX, BufferX SHL 1             ; Prepare to get BufferX x 2 random #s
+
+BottomLine:
+   CALL   Random                       ; Get a random number
+   MOV    DS:[SI], DL                  ; Use only the low byte of DX - ie,
+   INC    SI                           ; the number will be 0 --> 255
+   DEC    CX                           ; One less pixel to do
+   JNZ    BottomLine                   ; Are we done yet?
+
+
+Here, a new bottom line is calculated.  The random procedure - many thanks to
+it's unknown USENET author - returns a very high value in DX:AX.  However,
+we only require a number from 0 to 255, so by using only DL, we have such a
+number.
+
+
+   CALL  DrawScreen                    ; Copy the buffer to the VGA
+
+   MOV   AH, 01H                       ; Check for keypress
+   INT   16H                           ; Is a key waiting in the buffer?
+   JZ    MainLoop                      ; No, keep on going
+
+   MOV   AH, 00H                       ; Yes, so get the key
+   INT   16H
+
+   CALL  TextMode
+   MOV   AH, 4CH
+   MOV   AL, 00H
+   INT   21H                           ; Return to DOS
+END Start
+
+
+And I think the end part is also pretty easy to understand.  I've tried to
+comment the source as much as I can, perhaps a little too heavily in some
+parts, but I hope by now everyone has an idea of how a fire routine works.
+
+Anyway, the goal was not to teach you how to make a fire routine, but how to
+use arrays, so if you got the fire routine stuff too, then that's an added
+bonus.  I referred to my arrays slightly differently to how I explained in
+this tutorial, but the theory is still the same, and it shows you other ways
+of doing things.  If you didn't get how to use arrays from that, then maybe
+you never will, at least not with my tutorials anyway.  Hey, go buy a $50
+book!  :)
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Next week's tutorial will include:
+
+   ş File I/O
+   ş Using Assembler with C/C++
+   ş Lookup tables?
+   ş Macros.
+
+If you wish to see a topic discussed in a future tutorial, then mail me, and
+I'll see what I can do.
+
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Don't miss out!!!  Download next week's tutorial from my homepage at:
+
+  ş http://www.faroc.com.au/~blackcat
+
+
+See you next week!
+
+- Adam.
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                Yet another joke I grabbed off a local BBS:
+
+ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+
+If God Was A Computer Programmer:
+
+Some important theological questions can best be answered by thinking of
+God as a computer programmer.
+
+Q: Did God really create the world in seven days?
+A: He did it in six days and nights while living on cola and candy bars.
+   On the seventh day he went home and found out his girlfriend had left him.
+
+Q: What causes God to intervene in earthly affairs?
+A: If a critical error occurs, the system pages him automatically and he logs
+   on from home to try to bring it up. Otherwise, things can wait until
+   tomorrow.
+
+Q: How come the Age of Miracles ended?
+A: That was the development phase of the project.
+   Now we're in the maintenance phase.
+
+Q: Who is Satan?
+A: Satan is an MIS director who takes credit for more powers than he actually
+   possesses, so nonprogrammers become scared of him.  God thinks he's
+   irritating but irrelevant.
+
+Q: Why does God allow evil to happen?
+A: God thought he eliminated evil in one of the earlier revs.
+
+Q: How can I protect myself from evil?
+A: Change your password every month and don't make it a name, a common word,
+   or a date like your birthday.
+
+Q: If I pray to God, will he listen?
+A: You can waste his time telling him what to do, or you can just get off his
+   back and let him program.
+
+Q: Some people claim they hear the voice of God. Is this true?
+A: They are much more likely to receive email.
