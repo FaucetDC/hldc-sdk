@@ -23,4 +23,4 @@ OldSourceCode - Source code tree for client.dll and game.dll. Completed, will co
 
 SourceCode - Latest source code tree (for HLSDK 2.1), this still has errors and is not completed
 
-En4CEr - Windows CE API Interceptor/DLL Injector for Windows CE. Only 3 linker errors. Needs to be adapted for the specific task of injecting client.dll
+En4CEr - Windows CE API Interceptor/DLL Injector for Windows CE. Only 3 linker errors. Needs to be adapted for the specific task of injecting client.dll. Requires "211INC" to be the highest priority include directory
